@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./parts/head.ejs %>
+</head>
+<body>
+    <body>
+        <div class="container-fluid">
+                
+            <div class="chatMainWrap">
+            <div class="col-md-2 menuSection">
+                
+                <div class="TopSpace"></div>
+                
+                <h3 class="menuHeading">Main Navigation</h3>
+                
+                <ul class="mainMenuUL">
+                    <li><a href="javascript:;"><i class="fad fa-chart-bar"></i> Home Dashboard</a></li>
+                    <li><a href="javascript:;"><i class="far fa-repeat"></i> Visitors</a>
+                        <ul class="subMenuUL">
+                        <li><a href="javascript:;">Served (4)</a></li>
+                        <li><a href="javascript:;">Active</a></li>
+                        </ul>
+                        <!-- #subMenuUL -->
+                    </li>
+                </ul>
+                <!-- #mainMenuUL -->
+                
+                <h3 class="menuHeading">Analytics &amp; Reports</h3>
+                <ul class="mainMenuUL">
+                    <li><a href="javascript:;"><i class="far fa-alarm-clock"></i> History</a></li>
+                    <li><a href="javascript:;"><i class="fas fa-chart-pie-alt"></i> Analytics &amp; Reports</a></li>
+                    <li><a href="javascript:;"><i class="far fa-tv"></i> Monitor</a></li>
+                    <li><a href="javascript:;"><i class="fal fa-cog"></i> Settings</a></li>
+                        
+                </ul>
+                 <!-- #mainMenuUL -->
+                
+                    
+                </div>
+                <!-- #col-md-3 -->
+            
+                
+                <div class="col-md-10 mainBody">
+                    
+                    
+                    <div class="row">
+                        
+                        <div class="col-md-8">
+                                 
+                    <div class="topMainLeftBody">
+                    <a href="javascript:;" class="backLink"><i class="fal fa-arrow-left"></i></a>
+                        
+                    <a href="javascript:;" class="colorMode"><i class="far fa-moon-stars"></i></a>    
+                        
+                    <div class="topSmallMenu">
+                        <ul>
+                        <li><a href="javscript:;">Projects <i class="far fa-chevron-down"></i></a></li>
+                        <li><a href="javscript:;">Uptown Motions (um)</a></li>
+                        <li><a href="javscript:;">Uptown Logo (ut)</a></li>
+                        </ul>
+                    </div>
+                        <!-- #topSmallMenu -->
+                        
+                       <a href="javascript:;" class="addMore"><i class="fal fa-plus"></i></i></a>    
+                        
+                    </div>
+                    <!-- topMainBody -->
+                        
+                    </div>
+                    <!-- col-md-8 -->
+                    
+                    <div class="col-md-4">
+                        <div class="topMainRightBody">
+                            <div class="notificationWrap">
+                        <a href="javascript:;" class="notificationBell"><i class="fal fa-bell"></i> <span class="notificationType"></span></a>
+                            </div>
+                            <!-- #notificationWrap -->
+                            
+                            <div class="userSettingMenu">
+                                <a href="javascript:;" class="UserProfile">
+                                    <span class="UserPic"><img src="/pics/chatUser.jpg" alt="-" /> <span class="UserStatus"></span></span>
+                                    <span class="UserTxt">Hi, Vernon Klein</span>
+                                    
+                                </a>
+                            </div>
+                            <!-- #userSettingMenu -->
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                        </div>
+                        <!-- #topMainLeftBody -->
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    </div>
+                    <!-- row topMenu -->
+                
+                
+                <div class="row">
+                    <div class="headingFilter">
+                        
+                    <div class="col-md-8">
+                        <h3>Total Client’s <span class="clientCount">(24)</span> </h3>
+                        </div>
+                        <!-- col-md-6 -->
+                        
+                    <div class="col-md-4">
+                        <div class="bothSelect">
+                        <span class="SelectFilter">
+                             
+                        <select class="form-control ">
+                            <option>Group by Activity</option>
+                            <option>Group by Activity</option>
+                            <option>Group by Activity</option>
+                            <option>Group by Activity</option>
+                            <option>Group by Activity</option>
+                            <option>Group by Activity</option>
+                            <option>Group by Activity</option>
+                        </select>
+                        
+                        </span>
+                        <!-- #SelectFilter -->
+                        
+                        
+                        <span class="SelectFilter">
+                             
+                        <select class="form-control ">
+                            <option>List view</option>
+                            <option>List view</option>
+                            <option>List view</option>
+                            <option>List view</option>
+                            <option>List view</option>
+                            <option>List view</option>
+                            <option>List view</option>
+                        </select>
+                        
+                        </span>
+                        <!-- #SelectFilter -->
+                            
+                        </div>
+                        <!-- #bothSelect -->
+                        
+                        </div>
+                        <!-- col-md-6 -->
+                        
+                    </div>
+                    <!-- #headingFilter -->
+                </div>
+                <!-- row -->
+                
+                
+                
+                
+                
+                <div class="ChatListing">
+                    <div class="row">
+                        <div class="AccordianChat active">
+                            <div class="AccordianHead">
+                                <div class="col-md-8">
+                                    <span class="ChatCount">7</span>
+                                    <span class="ChatHeading">Currently served Client’s</span>
+                                    <span class="ChatEdit"><a href="javascript:;">Edit</a></span>
+                                    <span class="ChatEdit"><a href="javascript:;">UnPin</a></span>
+                                    
+                                </div>
+                                <!-- #col-md-8-->
+                                <div class="col-md-4"><a href="javascript:;" class="AccordianToggle"><i class="far fa-chevron-up"></i></a></div>
+                                <!-- #col-md-4 -->
+                            </div>
+                            <!-- #AccordianHead -->
+                            
+                            
+                            <div class="AccordianBody">
+                                            
+                                <div class="ChatTable">
+                                    
+                                     <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">&nbsp;</th>
+                                          <th scope="col">Username</th>
+                                          <th scope="col">Continent / Platform</th>
+                                          <th scope="col">Online</th>
+                                            <th scope="col">Agent</th>
+                                            <th scope="col">Viewing</th>
+                                            <th scope="col">Referrer</th>
+                                            <th scope="col">Visits</th>
+                                            <th scope="col">Chats</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+          
+                                       
+                                      </tbody>
+                                    </table>
+                                    
+                                    <div class="loadMoreLinks">
+                                        <a href="javascript:;">Load more</a>
+                                        <a href="javascript:;">Show Served</a>
+                                    </div>
+                                    
+                                </div>
+                                <!-- #ChatTable -->
+                                
+                            </div>
+                            <!-- #AccordianBody -->
+                            
+                            
+                        </div>
+                        <!-- #AccordianChat -->
+
+                        <div class="col-sm-12">
+                            <div class="chatpanel">
+                                <div class="panel-heading">
+                                  <h4 id="frndName">Chat Room</h4>
+                                </div>
+                                <div class="panel-body" id="scrl2">
+                                  <p id="loading">Loading..... Please Wait.</p>
+                                  <p id="noChat">No More Chats To Display.....</p>
+                                  <ul id="messages"></ul>
+                                </div>
+                                <div class="chat-footer">
+                                    <form id="chatForm" action=""  enctype="multipart/form-data" method="POST">
+                                      <input type="hidden" id="agent" value="<%= user.agent_name %>"/>
+                                      <input type="hidden" id="agent_id" value="<%= user.agent_id %>"/>
+                                      <input type="hidden" id="toVisitor">
+                                      <input type="file" name="file" id="photos-input" /><br>
+                                      <input id="myMsg" name="myMsg" class="input-box-send" autocomplete="off" placeholder="Write Message Here.." />
+                                      <div class="text-right">
+                                      <button id="sendBtn" class="btn  btn-lg"><span class="glyphicon glyphicon-send"></span> <b>Send</b></button>
+                                      </div>
+                                    </form>
+                                  </div>
+                              </div>
+                        
+                        </div>
+                        
+                        
+                        
+                        
+                         <div class="AccordianChat ">
+                            <div class="AccordianHead">
+                                <div class="col-md-8">
+                                    <span class="ChatCount">7</span>
+                                    <span class="ChatHeading">Currently served Client’s</span>
+                                    <span class="ChatEdit"><a href="javascript:;">Edit</a></span>
+                                    <span class="ChatEdit"><a href="javascript:;">Pin</a></span>
+                                    
+                                </div>
+                                <!-- #col-md-8-->
+                                <div class="col-md-4"><a href="javascript:;" class="AccordianToggle"><i class="far fa-chevron-up"></i></a></div>
+                                <!-- #col-md-4 -->
+                            </div>
+                            <!-- #AccordianHead -->
+                            
+                            
+                            <div class="AccordianBody">
+                                            
+                                <div class="ChatTable">
+                                    
+                                     <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">&nbsp;</th>
+                                          <th scope="col">Username</th>
+                                          <th scope="col">Continent / Platform</th>
+                                          <th scope="col">Online</th>
+                                            <th scope="col">Agent</th>
+                                            <th scope="col">Viewing</th>
+                                            <th scope="col">Referrer</th>
+                                            <th scope="col">Visits</th>
+                                            <th scope="col">Chats</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                       
+                                      </tbody>
+                                    </table>
+                                    
+                                    <div class="loadMoreLinks">
+                                        <a href="javascript:;">Load more</a>
+                                        <a href="javascript:;">Show Served</a>
+                                    </div>
+                                    
+                                </div>
+                                <!-- #ChatTable -->
+                                
+                            </div>
+                            <!-- #AccordianBody -->
+                            
+                            
+                        </div>
+                        <!-- #AccordianChat -->
+                        
+                        
+                         
+                         <div class="AccordianChat ">
+                            <div class="AccordianHead">
+                                <div class="col-md-8">
+                                    <span class="ChatCount">12</span>
+                                    <span class="ChatHeading">Currently served Client’s</span>
+                                    <span class="ChatEdit"><a href="javascript:;">Edit</a></span>
+                                    <span class="ChatEdit"><a href="javascript:;">Pin</a></span>
+                                    
+                                </div>
+                                <!-- #col-md-8-->
+                                <div class="col-md-4">
+                                    <a href="javascript:;" class="AccordianToggle"><i class="far fa-chevron-up"></i></a>
+                                </div>
+                                <!-- #col-md-4 -->
+                            </div>
+                            <!-- #AccordianHead -->
+                            
+                            
+                            <div class="AccordianBody">
+                                            
+                                <div class="ChatTable">
+                                    
+                                     <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">&nbsp;</th>
+                                          <th scope="col">Username</th>
+                                          <th scope="col">Continent / Platform</th>
+                                          <th scope="col">Online</th>
+                                            <th scope="col">Agent</th>
+                                            <th scope="col">Viewing</th>
+                                            <th scope="col">Referrer</th>
+                                            <th scope="col">Visits</th>
+                                            <th scope="col">Chats</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                       
+                                      </tbody>
+                                    </table>
+                                    
+                                    <div class="loadMoreLinks">
+                                        <a href="javascript:;">Load more</a>
+                                        <a href="javascript:;">Show Served</a>
+                                    </div>
+                                    
+                                </div>
+                                <!-- #ChatTable -->
+                                
+                            </div>
+                            <!-- #AccordianBody -->
+                            
+                            
+                        </div>
+                        <!-- #AccordianChat -->
+                        
+                        
+                         
+                         <div class="AccordianChat ">
+                            <div class="AccordianHead">
+                                <div class="col-md-8">
+                                    <span class="ChatCount">39</span>
+                                    <span class="ChatHeading">Currently served Client’s</span>
+                                    <span class="ChatEdit"><a href="javascript:;">Edit</a></span>
+                                    <span class="ChatEdit"><a href="javascript:;">Pin</a></span>
+                                    
+                                </div>
+                                <!-- #col-md-8-->
+                                <div class="col-md-4"><a href="javascript:;" class="AccordianToggle"><i class="far fa-chevron-up"></i></a></div>
+                                <!-- #col-md-4 -->
+                            </div>
+                            <!-- #AccordianHead -->
+                            
+                            
+                            <div class="AccordianBody">
+                                            
+                                <div class="ChatTable">
+                                    
+                                     <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">&nbsp;</th>
+                                          <th scope="col">Username</th>
+                                          <th scope="col">Continent / Platform</th>
+                                          <th scope="col">Online</th>
+                                            <th scope="col">Agent</th>
+                                            <th scope="col">Viewing</th>
+                                            <th scope="col">Referrer</th>
+                                            <th scope="col">Visits</th>
+                                            <th scope="col">Chats</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                          <tr>
+                                            <td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td>
+                                            <td><span class="userNameIntable">Chad Watts</span></td>
+                                            <td><img src="/pics/statsintable.jpg" alt="-" /></td>
+                                            <td>1hr 3 mins</td>
+                                            <td>Scott Perez</td>
+                                            <td>Uptown Logo Design | Client Area..</td>
+                                            <td><img src="/pics/gicon.png" alt="-" />  google.com</td>
+                                            <td>99</td>
+                                            <td>1</td>
+                                        </tr>
+                                       
+                                      </tbody>
+                                    </table>
+                                    
+                                    <div class="loadMoreLinks">
+                                        <a href="javascript:;">Load more</a>
+                                        <a href="javascript:;">Show Served</a>
+                                    </div>
+                                    
+                                </div>
+                                <!-- #ChatTable -->
+                                
+                            </div>
+                            <!-- #AccordianBody -->
+                            
+                            
+                        </div>
+                        <!-- #AccordianChat -->
+                        
+                    </div>
+                    <!-- row -->
+                                     
+                    
+                </div>
+                <!-- #ChatListing -->
+                
+                
+                
+                </div>
+                <!-- #col-md-10 -->
+                
+            </div>
+            <!-- #chatMainWrap -->
+            
+            
+            
+           
+            </div>
+            <!-- container-fluid -->
+        
+        </body>
+
+  <% include ./parts/footer.ejs %>
+
+  <script src="/js/agentscriptForChat.js"></script>
+
+
+</body>
+</html>

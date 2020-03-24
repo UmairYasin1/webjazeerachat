@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./parts/head.ejs %>
+</head>
+<body>
+  <main class="visit-signup">
+    <div class="login-box signup-box">
+      <div class="panel-heading text-center">
+          <h4 id="frndName">Sign Up</h4>
+        </div>
+      <form class="signup-form" action="/visitor/api/v1/signup" method="post">
+        <p id="error1"></p>
+        <div class="input-block">
+          <p>Username:</p>
+          <input id="visitor_name" class="input-box" type="text" name="visitor_name" placeholder="Username" autofocus autocomplete="off" required/>
+
+        </div>
+        <div class="input-block">
+          <p>Email:</p>
+          <input id="visitor_email" class="input-box" type="email" name="visitor_email" placeholder="Email" autocomplete="off" required/>
+
+        </div>
+        <div class="input-block">
+          <p>Phone Number:</p>
+          <input id="phone_number" class="input-box" type="text" name="phone_number" placeholder="Phone Number" required/>
+    
+        </div>
+        <div class="input-block">
+          <p>Company Name:</p>
+          <input id="company_name" class="input-box" type="text" name="company_name" placeholder="Company Name" required/>
+
+        </div>
+        <div class="input-block">
+          <p>Number Of Employees:</p>
+          <input id="number_of_employees" class="input-box" type="text" name="number_of_employees" placeholder="Number Of Employees" required/>
+  
+        </div>
+        <br>
+        <button class="btn btn-primary btn-block btn-lg" type="submit" name="submit">Signup</button><br>
+       
+      </form>
+    </div>
+  </main>
+
+  <% include ./parts/footer.ejs %>
+
+  <script src="/js/visitorscript.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+body {background: #283136;font-family: 'Source Sans Pro';}
+.container-fluid {padding: 0;}
+.TopSpace {margin: 100px 0 0 0;}
+
+.chatMainWrap {position: relative;}
+.chatMainWrap > .col-md-2.menuSection{
+background: #283136; /* Old browsers */
+background: -moz-linear-gradient(left,  #283136 0%, #212a2e 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #283136 0%,#212a2e 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #283136 0%,#212a2e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#283136', endColorstr='#212a2e',GradientType=1 );
+position: relative;height: 100vh; padding: 0;}
+
+.chatMainWrap > .col-md-2.menuSection {position: fixed; overflow: hidden; }
+/*
+.chatMainWrap > .col-md-2.menuSection {overflow: hidden; }
+.chatMainWrap > .col-md-2.menuSection:hover {overflow-y: scroll;}
+*/
+
+
+/* Scroll Bar Side Menu  */
+.chatMainWrap > .col-md-2.menuSection::-webkit-scrollbar-track{-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);background-color: #F5F5F5;}
+.chatMainWrap > .col-md-2.menuSection::-webkit-scrollbar{width: 3px;background-color: #F5F5F5;}
+.chatMainWrap > .col-md-2.menuSection::-webkit-scrollbar-thumb{background-color: #000000;border: 2px solid #555555;}
+
+
+
+
+
+.chatMainWrap h3.menuHeading{font-family: SFProDisplay;font-size: 13px;font-weight: 500; color: #8096a1;
+background: #303c42; /* Old browsers */
+background: -moz-linear-gradient(left,  #303c42 1%, #212a2e 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #303c42 1%,#212a2e 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #303c42 1%,#212a2e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#303c42', endColorstr='#212a2e',GradientType=1 ); /* IE6-9 */
+padding: 10px 20px;font-family: 'Source Sans Pro', sans-serif; font-size: 13px; margin: 20px 0; }
+
+.mainMenuUL {list-style: none;padding: 0 0 0 20px;}
+.mainMenuUL > li {margin: 0px 0 0px 0;}
+.mainMenuUL > li > a{font-size: 14px;color: #fff;text-decoration: none;display: block;padding: 10px 5px;border-top-left-radius: 20px;border-bottom-left-radius: 20px;}
+.mainMenuUL > li > a:hover, .mainMenuUL > li.active > a {background: #1e6af4; /* Old browsers */
+background: -moz-linear-gradient(left,  #1e6af4 1%, #1f3148 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  #1e6af4 1%,#1f3148 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  #1e6af4 1%,#1f3148 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e6af4', endColorstr='#1f3148',GradientType=1 ); /* IE6-9 */}
+.mainMenuUL > li > a > i {font-size: 19px;color: #fff;margin: 0 10px 0 10px;text-shadow: 0px 1px 1px #000;}
+
+
+.mainMenuUL li .subMenuUL {display: none; width: 100%; overflow: hidden;}
+.mainMenuUL li .subMenuUL > li {margin: 10px 0 10px 0;}
+.mainMenuUL li .subMenuUL > li > a{font-size: 14px; color: #7e8386; text-decoration: none;}
+.mainMenuUL li .subMenuUL > li > a > i  {font-size: 19px;color: #fff;margin: 0 10px 0 0;}
+
+
+.mainBody {background: #fff;border-top-left-radius: 50px;border-bottom-left-radius: 50px;min-height: 100vh;margin-left: 16.66666667%;box-sizing: border-box;}
+
+.topMainLeftBody {padding: 10px 20px 30px 10px;box-sizing: border-box;}
+.topMainLeftBody .backLink {color: #0e40ec;font-size: 15px;display: inline-block;margin: 0 20px 0 0;}
+.topMainLeftBody .colorMode {  font-size: 17px; color: #667a85; border-radius: 22.5px; box-shadow: 8px 8px 14px 0 rgba(40, 49, 54, 0.15), -7px -7px 18px 0 #ffffff;  background-image: linear-gradient(294deg, #f6f8fa 88%, #eaeff2 7%); display: inline-block; padding: 11px 16px; margin: 0 0 0 10px;  }
+
+.topMainLeftBody .topSmallMenu {width: 100%;border-radius: 22.5px;box-shadow: inset 0 3px 5px 0 rgba(242, 245, 247, 0.44), inset -5px -5px 10px 0 #f2f5f7;background-color: #ffffff;display: inline-block;margin: 0 0 0 20px;padding: 0px 0px;max-width: 492px;position: relative;top: 17px;}
+
+
+.topMainLeftBody .topSmallMenu ul {list-style: none;padding: 0;width: 100%;display: table;margin: 0;}
+.topMainLeftBody .topSmallMenu ul li{list-style: none;padding: 0;display: table-cell;text-align: center;}
+.topMainLeftBody .topSmallMenu  ul li a {font-size: 15px;color: #667a85;border-radius: 22.5px;padding: 11px 20px;display: inline-block;text-decoration: none;}
+.topMainLeftBody .topSmallMenu  ul li a:hover { box-shadow: 8px 8px 14px 0 rgba(40, 49, 54, 0.15), -7px -7px 18px 0 #ffffff;  background-image: linear-gradient(278deg, #f6f8fa 98%, #eaeff2 3%);}
+.topMainLeftBody .topSmallMenu  ul li a i {font-size: 14px; margin:  0 0 0 5px;}
+
+.topMainLeftBody .addMore {  font-size: 17px; color: #fff; border-radius: 22.5px; box-shadow: 7px 7px 18px 0 rgba(40, 49, 54, 0.2), -7px -7px 18px 0 #ffffff;
+  background-image: linear-gradient(294deg, #f0932b 88%, #ffa643 7%); padding: 11px 16px; margin: 0 0 0 10px;  }
+
+.topMainRightBody {padding: 37px 20px 0px 0px;box-sizing: border-box;text-align: right;} 
+.topMainRightBody .notificationWrap {display: inline-block;vertical-align: middle;margin: 10px 0 0 0;}
+.topMainRightBody .notificationBell {position: relative; display: inline-block; font-size: 17px;color: #667a85; position: relative;}
+.topMainRightBody .notificationBell .notificationType {  display: inline-block;  width: 13px; height: 13px; border: solid 2px #ffffff;  background-color: #ff5e57; position: absolute;top: -2px; right: -5px;  border-radius: 10px;  }
+
+
+.userSettingMenu { display: inline-block;  max-width: 200px;  margin: 0px 0 0 30px;    vertical-align: middle;}
+.userSettingMenu .UserProfile{ display: inline-block;  vertical-align: middle;    margin: 0px 0 0 0px;}
+.userSettingMenu .UserProfile .UserPic {width: 38px;height: 38px;background: #fff;border-radius: 50px;text-align: center;display: inline-block;vertical-align: middle;position: relative;box-shadow: 8px 8px 14px 0 rgba(40, 49, 54, 0.15), -7px -7px 18px 0 #ffffff;}
+.userSettingMenu .UserProfile .UserPic img{display: block;margin: 6px auto 0 auto;width: 60%;text-align: center;}
+.userSettingMenu .UserProfile .UserPic .UserStatus {width: 15px; height: 14px;  border: solid 3px #dfe6e9;  background-color: #44bd32; position: absolute;  border-radius: 50px;  top: 0;  right: 1px;}
+.userSettingMenu .UserProfile .UserTxt {color: #667a85;display: inline-block;margin: 0 0 0 10px;}
+
+.headingFilter {padding: 0 13px;}
+.headingFilter h3{color: #8395a3;font-size: 19px;  font-weight: 500;}
+.headingFilter h3 .clientCount{color: #5c6e76;}
+
+.headingFilter .bothSelect {text-align: right;}
+.headingFilter .bothSelect .SelectFilter {display: inline-block; max-width: 183px; width: 100%;}
+.headingFilter .bothSelect .SelectFilter {display: inline-block;max-width: 154px;width: 100%;margin: 0 0 0 10px;}
+.headingFilter .bothSelect .SelectFilter  select{border-radius: 22.5px;box-shadow: inset 0 3px 5px 0 rgba(242, 245, 247, 0.44), inset -5px -5px 10px 0 #f2f5f7;background-color: #ffffff;height: 44px;color: #768892;border: 0;}
+
+
+
+
+.ChatListing {margin: 0px 0 20px 0;}
+.ChatListing .AccordianChat { padding: 20px 0 20px 0;  overflow: hidden;}
+.ChatListing .AccordianChat .AccordianHead{
+    margin: 0 0 70px 0;
+}
+.ChatListing .AccordianChat .AccordianHead .ChatCount{ border-radius: 22.5px;box-shadow: 8px 8px 14px 0 rgba(40, 49, 54, 0.15), -7px -7px 18px 0 #ffffff;
+  background-image: linear-gradient(294deg, #f6f8fa 88%, #eaeff2 7%);width: 45px;height: 45px;overflow: hidden;display: inline-block;vertical-align: middle;line-height: 42px;text-align: center;margin: 0 10px 0 0;}
+
+.ChatListing .AccordianChat.active .AccordianHead .ChatCount{box-shadow: 2px 2px 10px 0 rgba(40, 49, 54, 0.08), -3px -3px 10px 0 #ffffff;background-image: linear-gradient(294deg, #0f47eb 88%, #2275f5 7%);color: #fff;}
+.ChatListing .AccordianChat .AccordianHead .ChatHeading{font-size: 17px;font-weight: 500;color: #5c6e76;display: inline-block;vertical-align: middle;margin: 0 10px 0 0;}
+.ChatListing .AccordianChat .AccordianHead .ChatEdit{font-size: 14px;  color: #8096a1; display:  inline-block;vertical-align: middle;margin: 0 10px 0 0;}
+.ChatListing .AccordianChat .AccordianHead .PinUnPin{font-size: 14px;  color: #8096a1; display:  inline-block;vertical-align: middle;margin: 0 10px 0 0;}
+.ChatListing .AccordianChat .AccordianHead .ChatEdit a, .ChatListing .AccordianChat .AccordianHead .PinUnPin a{color: #8096a1; text-decoration: none;}
+
+
+.ChatListing .AccordianChat .AccordianHead .AccordianToggle{border-radius: 22.5px;box-shadow: 8px 8px 14px 0 rgba(40, 49, 54, 0.15), -7px -7px 18px 0 #ffffff; background-image: linear-gradient(294deg, #f6f8fa 88%, #eaeff2 7%);  display: inline-block; padding: 10px 15px;  float: right;  }
+
+
+
+
+
+
+.ChatListing .AccordianChat .AccordianBody {padding: 0 26px;display: none;width: 100%;}
+.ChatListing .AccordianChat.active .AccordianBody {display:block; }
+.ChatListing .AccordianChat .AccordianBody .ChatTable{/* margin: 60px 0 0 0; */display: block;}
+
+.ChatListing .AccordianChat .AccordianBody .ChatTable .table {border-collapse: collapse;  border: 1px solid #ccc;overflow: hidden;box-shadow: 0 0 0 1px #dddddd;  border-radius: 10px;  }
+.ChatListing .AccordianChat .AccordianBody .ChatTable .table thead{}
+.ChatListing .AccordianChat .AccordianBody .ChatTable .table thead tr{}
+.ChatListing .AccordianChat .AccordianBody .ChatTable .table thead tr th{color: #8395a3; font-size: 13px; font-weight: 300; border-bottom: 0;}
+.ChatListing .AccordianChat .AccordianBody .ChatTable .table tbody {}
+.ChatListing .AccordianChat .AccordianBody .ChatTable .table tbody tr{}
+.ChatListing .AccordianChat .AccordianBody .ChatTable .table tbody tr td{}
+
+.ChatListing .AccordianChat .AccordianBody .ChatTable .table tbody tr td {font-size: 14px;  color: #283136;}
+
+.ChatListing .AccordianChat .AccordianBody .ChatTable .table tbody tr td span a {text-decoration: none; font-size: 14px;  color: #283136;}
+
+.ChatListing .AccordianChat .AccordianBody .loadMoreLinks {}
+.ChatListing .AccordianChat .AccordianBody .loadMoreLinks a{font-size: 14px;color: #8096a1;display: inline-block;margin: 0 10px 0 0;}
+
+
+
+
+
+
+
+
+
+
+
+
