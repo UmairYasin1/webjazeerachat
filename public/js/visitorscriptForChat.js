@@ -107,7 +107,8 @@ $ (function(){
 
     $.ajax({
       type: "POST",
-      url: "http://192.168.1.110:5000/upload/file",
+      // url: "http://192.168.1.110:5000/upload/file",
+      url: "https://mighty-lake-28894.herokuapp.com/upload/file",
       data: formData,
       processData: false,
       contentType: false,
