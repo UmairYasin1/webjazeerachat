@@ -21,8 +21,7 @@ const visitorModel = mongoose.model("visitor");
 module.exports.controller = function(app) {
   //route for signup
   router.get("/visitorsignup", auth.loggedIn, function(req, res) {
-   // router.get("/visitorsignup", function(req, res) {
-    
+     
     privateIpValue = getClientPrivateIp(req);
     var promiseResolve = Promise.resolve(getClientPublicIp);
     promiseResolve.then(function(value) {
