@@ -107,17 +107,16 @@ $ (function(){
 
     $.ajax({
       type: "POST",
-      // url: "http://192.168.1.110:5000/upload/file",
-      url: "https://umairyasin1-dinochat.glitch.me/upload/file",
+      //url: "http://localhost:5000/upload/file",
+      //url: "https://umairyasin1-dinochat.glitch.me/upload/file",
+      url: "https://mighty-lake-28894.herokuapp.com/upload/file",
       data: formData,
       processData: false,
       contentType: false,
       success: function(result){
         if(result.file == ""){
-          console.log("1");
           socket.emit('chat-msg',{msg:result.message,msgTo:"",date:Date.now(),type:"visitor",file:""});
         }else{
-          console.log("2");
           socket.emit('chat-msg',{msg:result.message,msgTo:"",date:Date.now(),type:"visitor",file:result.file});
         }
       },
