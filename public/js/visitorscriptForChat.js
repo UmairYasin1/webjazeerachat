@@ -64,19 +64,43 @@ $ (function(){
         $('#noChat').hide(); //hiding no more chats message.
         for (var i = 0;i < data.result.length;i++) {
           //styling of chat message.
-          var chatDate = moment(data.result[i].createdOn).format("MMMM Do YYYY, hh:mm:ss a");
-          var txt1 = $('<span></span>').text(data.result[i].msgFrom+" : ");
-          var txt2 = $('<span></span>').text(chatDate);
-          var txt3 = $('<p></p>').append(txt1,txt2);
-          var txt4 = $('<p></p>').text(data.result[i].msg);
+        
+          socket.emit('get_reply_msg', data.result[i].msgId   , function (response) {
 
-          if(data.result[i].file != ''){
-          var txt5 = $("<img>").attr("src" , "/uploads/" + data.result[i].file);
-          }else{
-            var txt5 = "";
-          }
-          //showing chat in chat box.
-          $('#messages').prepend($('<li>').append(txt3,txt4,txt5));
+            //styling of chat message.
+            var chatDate = moment(response.createdOn).format("MMMM Do YYYY, hh:mm:ss a");
+            var txt1 = $('<span></span>').text(response.msgFrom+" : ");
+            var txt2 = $('<span></span>').text(chatDate);
+            var txt3 = $('<p></p>').append(txt1,txt2);
+            var txt4 = $('<p></p>').text(response.msg);
+            if(response.file != ''){
+              var txt5 = $("<img>").attr("src" , "/uploads/" + response.file);
+              }else{
+                var txt5 = "";
+              }
+            //showing chat in chat box.
+
+           var reschatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
+            var restxt1 = $('<span></span>').text(response.repmsgFrom+" : ");
+            var restxt2 = $('<span></span>').text(reschatDate);
+            var restxt3 = $('<p></p>').append(restxt1,restxt2);
+            var restxt4 = $('<p></p>').text(response.repmsg);
+            if(response.repfile != ''){
+              var restxt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
+              }else{
+                var restxt5 = "";
+              }
+
+              if(response.msgFrom == ""){
+               $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId));
+            
+              }else{
+               $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5).attr("rel" , response.msgId))));
+            
+              }
+            
+            
+       })
           msgCount++;
 
         }//end of for.
@@ -107,18 +131,20 @@ $ (function(){
 
     $.ajax({
       type: "POST",
-      //url: "http://localhost:5000/upload/file",
-      //url: "https://umairyasin1-dinochat.glitch.me/upload/file",
-      url: "https://mighty-lake-28894.herokuapp.com/upload/file",
+      url: "http://localhost:5000/upload/file",
       data: formData,
       processData: false,
       contentType: false,
       success: function(result){
         if(result.file == ""){
-          socket.emit('chat-msg',{msg:result.message,msgTo:"",date:Date.now(),type:"visitor",file:""});
+          socket.emit('chat-msg',{msg:result.message,msgTo:"",date:Date.now(),type:"visitor",file:"",repMsgId:result.replymsgId});
         }else{
-          socket.emit('chat-msg',{msg:result.message,msgTo:"",date:Date.now(),type:"visitor",file:result.file});
+          socket.emit('chat-msg',{msg:result.message,msgTo:"",date:Date.now(),type:"visitor",file:result.file,repMsgId:result.replymsgId});
         }
+
+        $("#repMsgId").val("");
+        $("#replyMsg").empty();
+
       },
       error: function (e) {
           console.log("some error", e);
@@ -129,6 +155,29 @@ $ (function(){
      $('#myMsg').val("");
     return false;
   }); //end of sending message.
+
+  $(document).on("click","#messages li",function(){
+    $('#replyMsg').empty();
+    var msgId = $(this).attr("rel");
+
+    //console.log(msgId);
+    socket.emit('get_reply_msg',msgId , function (response) {
+        //styling of chat message.
+        var chatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
+        var txt1 = $('<span></span>').text(response.repmsgFrom+" : ");
+        var txt2 = $('<span></span>').text(chatDate);
+        var txt3 = $('<p></p>').append(txt1,txt2);
+        var txt4 = $('<p></p>').text(response.repmsg);
+        if(response.repfile != ''){
+          var txt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
+          }else{
+            var txt5 = "";
+          }
+        //showing chat in chat box.
+        $('#replyMsg').prepend($('<li>').append(txt3,txt4,txt5).attr("rel" , response.msgId ));
+        $("#repMsgId").val(response.msgId);
+    })
+  })
 
   //receiving messages.
   socket.on('chat-msg',function(data){
@@ -145,7 +194,28 @@ $ (function(){
       var txt5 = "";
     }
     //showing chat in chat box.
-    $('#messages').append($('<li>').append(txt3,txt4,txt5));
+
+    if(data.repMsg != ""){
+
+      var replychatDate = moment(data.repDate).format("MMMM Do YYYY, hh:mm:ss a");
+      var replytxt1 = $('<span></span>').text(data.repFrom+" : ");
+      var replytxt2 = $('<span></span>').text(replychatDate);
+      var replytxt3 = $('<p></p>').append(replytxt1,replytxt2);
+      var replytxt4 = $('<p></p>').text(data.repMsg);
+      if(data.repfile != ""){
+        var replytxt5 = $("<img>").attr("src" , "/uploads/" + data.repfile);
+        }else{
+          var replytxt5 = "";
+        }
+
+      $('#messages').append($('<li>').append(replytxt3,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
+
+    }else{
+
+      $('#messages').append($('<li>').append(txt3,txt4,txt5).attr("rel" , data.id));
+    }
+
+    //$('#messages').append($('<li>').append(txt3,txt4,txt5));
       msgCount++;
       console.log(msgCount);
       $('#typing').text("");

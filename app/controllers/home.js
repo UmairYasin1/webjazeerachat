@@ -8,7 +8,7 @@ const userModel = mongoose.model("User");
 module.exports.controller = function(app) {
   //router for home.
   router.get("/", function(req, res) {
-    res.redirect("/agent/agentsignup");
+    res.redirect("/agent/agentlogin");
   });
 
   app.use(router);

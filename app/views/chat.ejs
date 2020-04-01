@@ -61,7 +61,11 @@
             <% if(user.visitor_name != null){ %>
 
               <div class="panel-footer">
+                  <div class="replyDiv">
+                      <ul id="replyMsg"></ul>
+                    </div>
                   <form id="visitorchatForm" action="" enctype="multipart/form-data" method="POST">
+                    <input type="hidden" id="repMsgId" name="repMsgId" >
                     <input type="file" name="file" id="photos-input" /><br>
                     <input id="myMsg"  name="myMsg" class="input-box-send" autocomplete="off" placeholder="Write Message Here.." />
                     <div class="text-right">

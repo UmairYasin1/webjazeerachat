@@ -21,6 +21,8 @@ module.exports.controller = function(app) {
   //route for signup
   router.post('/file' , (req, res) => {
 
+    console.log(req.body.repMsgId);
+
     upload(req,res,function(err) {
       if(err) {
           return res.end("Error uploading file.");
@@ -29,6 +31,7 @@ module.exports.controller = function(app) {
         if(req.file != null){
             var result = {
                 message : req.body.myMsg,
+                replymsgId : req.body.repMsgId,
                 file : req.file.filename,
               }
 
@@ -36,6 +39,7 @@ module.exports.controller = function(app) {
         }else{
             var result = {
                 message : req.body.myMsg,
+                replymsgId : req.body.repMsgId,
                 file : "",
               }
 

@@ -13,6 +13,14 @@ const agentModel = mongoose.model("agent");
 
 module.exports.controller = function(app) {
   //route for signup
+  router.get("/agentlogin", function(req, res) {
+    res.render("agentlogin", {
+      title: "Agent Login",
+      user: req.session.user,
+      chat: req.session.chat
+    });
+  });
+
   router.get("/agentsignup", function(req, res) {
     res.render("agentsignup", {
       title: "Agent Signup",
@@ -27,6 +35,32 @@ module.exports.controller = function(app) {
       user: req.session.user,
       chat: req.session.chat
     });
+  });
+
+  //route for login
+  router.post("/api/v1/login",  function(req, res) {
+    const epass = encrypt.encryptPassword(req.body.password);
+
+    agentModel.findOne(
+      { $and: [{ agent_email: req.body.email }, { agent_password: epass }] },
+      function(err, result) {
+        if (err) {
+
+          res.json("1");
+
+        } else if (result == null || result == undefined || result == "") {
+
+        res.json("2");
+
+        } else {
+           req.user = result;
+           delete req.user.password;
+           req.session.user = result;
+           delete req.session.user.password;
+           res.json("3");
+        }
+      }
+    );
   });
 
   //api to create new user

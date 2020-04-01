@@ -2,6 +2,7 @@ const socketio = require("socket.io");
 const mongoose = require("mongoose");
 const events = require("events");
 const _ = require("lodash");
+const shortid = require("shortid");
 const eventEmitter = new events.EventEmitter();
 
 //adding db models
@@ -64,22 +65,6 @@ module.exports.sockets = function(http) {
       }; //end of sendUserStack function.
     }); //end of set-user-data event.
 
-    // ioChat.emit("get_visitor_id" , function(visit_name){
-    //   visitorModel.findOne(
-    //     { $and: [{ visitor_name: visit_name }] },
-    //     function(err, result) {
-    //       result
-    //       //ioChat.emit("visit_id" , result);
-    //     }
-    //   );
-      
-    // });
-
-  //   socket.on('set', function (status, callback) {
-  //     console.log(status);
-  //     callback('ok');
-  // });
-
   socket.on("get_visitor_id", function(visit_name, callback) {
     visitorModel.findOne(
            { $and: [{ visitor_name: visit_name }] },
@@ -127,18 +112,97 @@ module.exports.sockets = function(http) {
                 }
               )
 
-              //callback(response);
-
-             }
-
-          //  var response = { visitor_id: visitId , visitor_name : visit_name }
-
-           
-
-             //ioChat.emit("visit_id" , result);
+              }
           
            }
          );
+  });
+
+  socket.on("get_reply_msg", function( msgId , callback) {
+
+     // console.log(msgId);
+
+    //if(repId != ""){
+     
+
+      chatModel.findOne(
+        { $and: [{ msgId : msgId}] },
+        function(err, dat){
+
+        //  console.log(dat.msgId + ' - ' + repId);
+
+          var msg = dat.msg;
+          var msgId = dat.msgId;
+          var msgFrom = dat.msgFrom;
+          var msgTo = dat.msgTo;
+          var file = dat.file;
+          var createdOn = dat.createdOn;
+
+          if(dat.repMsgId == ""){
+
+            response = {  repId: dat.repMsgId, 
+              msgId: msgId , 
+              msgFrom : ""  , 
+              msgTo : "",
+              msg : "", 
+              file : "", 
+              createdOn : "",
+              repmsgFrom :msgFrom  , 
+              repmsgTo : msgTo,
+              repmsg : msg, 
+              repfile : file, 
+              repcreatedOn : createdOn
+            }
+
+            callback(response);
+
+          }else{
+
+          chatModel.findOne(
+            {$and: [{ msgId : dat.repMsgId}]},function(err, res){
+
+              response = {  repId: dat.repMsgId, 
+                msgId: msgId , 
+                msgFrom : msgFrom  , 
+                msgTo : msgTo,
+                msg : msg, 
+                file : file, 
+                createdOn : createdOn,
+                repmsgFrom : res.msgFrom  , 
+                repmsgTo : res.msgTo,
+                repmsg : res.msg, 
+                repfile : res.file, 
+                repcreatedOn : res.createdOn
+              }
+
+              callback(response);
+   
+
+            }
+          )
+
+          }
+
+        }
+      )
+
+    // }else{
+    //   console.log("2");
+    //   chatModel.findOne(
+    //     { $and: [{ msgId : msgId}] },
+    //     function(err, res){
+ 
+    //         response = {  repId: "", msgId: msgId ,  msgFrom : res.msgFrom  , msgTo : res.msgTo, msg : res.msg, file : res.file, room : res.room, createdOn : res.createdOn}
+ 
+    //           callback(response);
+    //     }
+    //   )
+
+    // }
+
+
+
+    
   });
 
 
@@ -214,6 +278,7 @@ module.exports.sockets = function(http) {
     //for showing chats.
     socket.on("chat-msg", function(data) {
 
+      const id = shortid.generate();
       //emits event to save chat to database.
       eventEmitter.emit("save-chat", {
         msgFrom: socket.username,
@@ -222,16 +287,44 @@ module.exports.sockets = function(http) {
         file : data.file,
         room: socket.room,
         type: data.type,
+        id: id,
+        repMsgId: data.repMsgId,
         date: data.date
       });
-      //console.log(socket.username);
+      
       //emits event to send chat msg to all clients.
-       ioChat.to(socket.room).emit("chat-msg", {
-         msgFrom: socket.username,
-         file: data.file,
-         msg: data.msg,
-         date: data.date
-       });
+
+       if(data.repMsgId != ""){
+        chatModel.findOne(
+          { $and: [{ msgId : data.repMsgId}] },
+          function(err, res){
+
+            ioChat.to(socket.room).emit("chat-msg", {
+              msgFrom: socket.username,
+              file: data.file,
+              msg: data.msg,
+              id: id,
+              date: data.date,
+              repFrom : res.msgFrom,
+              repTo : res.msgTo,
+              repMsg : res.msg,
+              repfile: res.file,
+              repDate: res.createdOn,
+            });
+            
+          }
+        )
+       }else{
+         ioChat.to(socket.room).emit("chat-msg", {
+           msgFrom: socket.username,
+           file: data.file,
+           msg: data.msg,
+           id: id,
+           date: data.date,
+           repMsg : ""
+         });
+       }
+       
     });
 
     //for popping disconnection message.
@@ -262,7 +355,9 @@ module.exports.sockets = function(http) {
        msgTo: data.msgTo,
        msg: data.msg,
        file: data.file,
+       repMsgId : data.repMsgId,
        room: data.room,
+       msgId:data.id,
        createdOn: data.date
      });
 
@@ -287,7 +382,9 @@ module.exports.sockets = function(http) {
             msgFrom: data.msgFrom,
             msgTo: data.msgTo,
             msg: data.msg,
+            repMsgId : data.repMsgId,
             file: data.file,
+            msgId:data.id,
             room: data.room,
             createdOn: data.date
           });
@@ -310,7 +407,9 @@ module.exports.sockets = function(http) {
             var newChat = new chatModel({
               msgFrom: data.msgFrom,
               msgTo: res.agent_name,
+              msgId:data.id,
               msg: data.msg,
+              repMsgId : data.repMsgId,
               file: data.file,
               room: data.room,
               createdOn: data.date
@@ -340,16 +439,6 @@ module.exports.sockets = function(http) {
 
     }
 
-
-
-    //  var newChat = new chatModel({
-    //    msgFrom: data.msgFrom,
-    //    msgTo: data.msgTo,
-    //    msg: data.msg,
-    //    room: data.room,
-    //    createdOn: data.date
-    //  });
-
    
   }); //end of saving chat.
 
@@ -362,7 +451,7 @@ module.exports.sockets = function(http) {
       .sort("-createdOn")
       .skip(data.msgCount)
       .lean()
-      .limit(5)
+     // .limit(5)
       .exec(function(err, result) {
         if (err) {
           console.log("Error : " + err);
@@ -373,24 +462,6 @@ module.exports.sockets = function(http) {
       });
   }); //end of reading chat from database.
 
-  //listening for get-all-users event. creating list of all users.
-  // eventEmitter.on("get-all-users", function() {
-  //   userModel
-  //     .find({})
-  //     .select("username")
-  //     .exec(function(err, result) {
-  //       if (err) {
-  //         console.log("Error : " + err);
-  //       } else {
-  //         //console.log(result);
-  //         for (var i = 0; i < result.length; i++) {
-  //           userStack[result[i].username] = "Offline";
-  //         }
-  //         //console.log("stack "+Object.keys(userStack));
-  //         sendUserStack();
-  //       }
-  //     });
-  // }); //end of get-all-users event.
 
     //listening for get-all-users event. creating list of all users.
     eventEmitter.on("get-all-visitors", function() {

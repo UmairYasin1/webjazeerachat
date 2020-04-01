@@ -230,7 +230,11 @@
                                   <ul id="messages"></ul>
                                 </div>
                                 <div class="chat-footer">
+                                    <div class="replyDiv">
+                                        <ul id="replyMsg"></ul>
+                                      </div>
                                     <form id="chatForm" action=""  enctype="multipart/form-data" method="POST">
+                                      <input type="hidden" id="repMsgId" name="repMsgId" >
                                       <input type="hidden" id="agent" value="<%= user.agent_name %>"/>
                                       <input type="hidden" id="agent_id" value="<%= user.agent_id %>"/>
                                       <input type="hidden" id="toVisitor">

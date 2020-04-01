@@ -42,8 +42,6 @@ $ (function(){
          // var txt1 = $('<button class="boxF disabled"> </button>').text(visitor_name).css({"font-size":"18px"});
         }
         else{
-          
-          console.log(visitor_name);
 
           socket.emit('get_visitor_id',visitor_name, function (response) {
 
@@ -58,7 +56,7 @@ $ (function(){
       
             }
             else{
-              var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+'</a></span></td><td><img src="/pics/statsintable.jpg" alt="-" /></td><td>1hr 3 mins</td><td>'+response.agent_name+'</td><td>Uptown Logo Design | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
+              var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+' offline</a></span></td><td><img src="/pics/statsintable.jpg" alt="-" /></td><td>1hr 3 mins</td><td>'+response.agent_name+'</td><td>Uptown Logo Design | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
               
             //  var txt2 = $('<span class="badge"></span>').text(stack[response.visitor_name]).css({"float":"right","color":"#a6a6a6","font-size":"18px"});
             }
@@ -72,14 +70,6 @@ $ (function(){
 
         });
 
-        //   socket.emit('set', 'is_it_ok', function (response) {
-        //     console.log(response);
-        // });
-  
-
-
-          
-         
         }
         //setting txt2. shows online status.
       
@@ -107,43 +97,6 @@ $ (function(){
 
 
     })
-    //on button click function.
-    // $(document).on("click","#ubtn",function(){
-  
-    //   //empty messages.
-    //   $('#messages').empty();
-    //   $('#typing').text("");
-    //   msgCount = 0;
-    //   noChat = 0;
-    //   oldInitDone = 0;
-  
-    //   //assigning friends name to whom messages will send,(in case of group its value is Group).
-    //   toUser = $(this).text();
-    //   visitor_id = $(this).attr("rel");
-
-    //   $("#toVisitor").val(toUser);
-  
-    //   //showing and hiding relevant information.
-    //   $('#frndName').text(toUser);
-    //   $('#initMsg').hide();
-    //   $('#chatForm').show(); //showing chat form.
-  
-    //   //assigning two names for room. which helps in one-to-one and also group chat.
-    //   if(toUser == "Group"){
-    //     var currentRoom = "Group-Group";
-    //     var reverseRoom = "Group-Group";
-    //   }
-    //   else{
-    //     var currentRoom = username+"-"+toUser;
-    //     var reverseRoom = toUser+"-"+username;
-    //   }
-    //   //console.log(agent_id);
-    //   socket.emit('update-room',{ visitor_id : visitor_id , agent_id : agent_id , agent : username});
-  
-    //   //event to set room and join.
-    //   //socket.emit('set-room',{name1:currentRoom,name2:reverseRoom});
-  
-    // }); //end of on button click event.
   
     //event for setting roomId.
     socket.on('update-room',function(room){
@@ -161,36 +114,65 @@ $ (function(){
     }); //end of set-room event.
   
     //on scroll load more old-chats.
-    $('#scrl2').scroll(function(){
+    // $('#scrl2').scroll(function(){
   
-      if($('#scrl2').scrollTop() == 0 && noChat == 0 && oldInitDone == 1){
-        $('#loading').show();
-        socket.emit('old-chats',{room:roomId,username:username,msgCount:msgCount});
-      }
+    //   if($('#scrl2').scrollTop() == 0 && noChat == 0 && oldInitDone == 1){
+    //     $('#loading').show();
+    //     socket.emit('old-chats',{room:roomId,username:username,msgCount:msgCount});
+    //   }
   
-    }); // end of scroll event.
+    // }); // end of scroll event.
   
     //listening old-chats event.
     socket.on('old-chats',function(data){
-  
+      $(".replymsg").empty();
       if(data.room == roomId){
         oldInitDone = 1; //setting value to implies that old-chats first event is done.
         if(data.result.length != 0){
           $('#noChat').hide(); //hiding no more chats message.
           for (var i = 0;i < data.result.length;i++) {
-            //styling of chat message.
-            var chatDate = moment(data.result[i].createdOn).format("MMMM Do YYYY, hh:mm:ss a");
-            var txt1 = $('<span></span>').text(data.result[i].msgFrom+" : ");
-            var txt2 = $('<span></span>').text(chatDate);
-            var txt3 = $('<p></p>').append(txt1,txt2);
-            var txt4 = $('<p></p>').text(data.result[i].msg);
-            if(data.result[i].file != ''){
-              var txt5 = $("<img>").attr("src" , "/uploads/" + data.result[i].file);
-              }else{
-                var txt5 = "";
-              }
+
+                 socket.emit('get_reply_msg', data.result[i].msgId   , function (response) {
+
+                   //styling of chat message.
+                   var chatDate = moment(response.createdOn).format("MMMM Do YYYY, hh:mm:ss a");
+                   var txt1 = $('<span></span>').text(response.msgFrom+" : ");
+                   var txt2 = $('<span></span>').text(chatDate);
+                   var txt3 = $('<p></p>').append(txt1,txt2);
+                   var txt4 = $('<p></p>').text(response.msg);
+                   if(response.file != ''){
+                     var txt5 = $("<img>").attr("src" , "/uploads/" + response.file);
+                     }else{
+                       var txt5 = "";
+                     }
+                   //showing chat in chat box.
+
+                  var reschatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
+                   var restxt1 = $('<span></span>').text(response.repmsgFrom+" : ");
+                   var restxt2 = $('<span></span>').text(reschatDate);
+                   var restxt3 = $('<p></p>').append(restxt1,restxt2);
+                   var restxt4 = $('<p></p>').text(response.repmsg);
+                   if(response.repfile != ''){
+                     var restxt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
+                     }else{
+                       var restxt5 = "";
+                     }
+
+                     if(response.msgFrom == ""){
+                      $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId));
+                   
+                     }else{
+                      $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5).attr("rel" , response.msgId))));
+                   
+                     }
+                   
+                   
+              })
+
+            
+              //}
             //showing chat in chat box.
-            $('#messages').prepend($('<li>').append(txt3,txt4,txt5));
+          
             msgCount++;
   
           }//end of for.
@@ -231,20 +213,22 @@ $ (function(){
 
         $.ajax({
           type: "POST",
-          //url: "http://localhost:5000/upload/file",
-          //url: "https://umairyasin1-dinochat.glitch.me/upload/file",
-          url: "https://mighty-lake-28894.herokuapp.com/upload/file",
+          url: "http://localhost:5000/upload/file",
           data: formData,
           processData: false,
           contentType: false,
           success: function(result){
             if(result.file == ""){
               toVisit = $("#toVisitor").val();
-              socket.emit('chat-msg',{msg:result.message,msgTo:toVisit,date:Date.now(),type:"agent",file:""});
+              socket.emit('chat-msg',{msg:result.message,msgTo:toVisit,date:Date.now(),type:"agent",file:"",repMsgId:result.replymsgId});
             }else{
               toVisit = $("#toVisitor").val();
-              socket.emit('chat-msg',{msg:result.message,msgTo:toVisit,date:Date.now(),type:"agent",file:result.file});
+              socket.emit('chat-msg',{msg:result.message,msgTo:toVisit,date:Date.now(),type:"agent",file:result.file,repMsgId:result.replymsgId});
             }
+
+            $("#repMsgId").val("");
+            $("#replyMsg").empty();
+
           },
           error: function (e) {
               console.log("some error", e);
@@ -255,6 +239,29 @@ $ (function(){
       $('#myMsg').val("");
       return false;
     }); //end of sending message.
+
+    $(document).on("click","#messages li",function(){
+      $('#replyMsg').empty();
+      var msgId = $(this).attr("rel");
+
+      //console.log(msgId);
+      socket.emit('get_reply_msg',msgId , function (response) {
+          //styling of chat message.
+          var chatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
+          var txt1 = $('<span></span>').text(response.repmsgFrom+" : ");
+          var txt2 = $('<span></span>').text(chatDate);
+          var txt3 = $('<p></p>').append(txt1,txt2);
+          var txt4 = $('<p></p>').text(response.repmsg);
+          if(response.repfile != ''){
+            var txt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
+            }else{
+              var txt5 = "";
+            }
+          //showing chat in chat box.
+          $('#replyMsg').prepend($('<li>').append(txt3,txt4,txt5).attr("rel" , response.msgId ));
+          $("#repMsgId").val(response.msgId);
+      })
+    })
 
     //receiving messages.
     socket.on('chat-msg',function(data){
@@ -269,10 +276,29 @@ $ (function(){
         }else{
           var txt5 = "";
         }
+      
+      if(data.repMsg != ""){
 
+        var replychatDate = moment(data.repDate).format("MMMM Do YYYY, hh:mm:ss a");
+        var replytxt1 = $('<span></span>').text(data.repFrom+" : ");
+        var replytxt2 = $('<span></span>').text(replychatDate);
+        var replytxt3 = $('<p></p>').append(replytxt1,replytxt2);
+        var replytxt4 = $('<p></p>').text(data.repMsg);
+        if(data.repfile != ""){
+          var replytxt5 = $("<img>").attr("src" , "/uploads/" + data.repfile);
+          }else{
+            var replytxt5 = "";
+          }
+
+        $('#messages').append($('<li>').append(replytxt3,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
+
+      }else{
+
+        $('#messages').append($('<li>').append(txt3,txt4,txt5).attr("rel" , data.id));
+      }
  
       //showing chat in chat box.
-      $('#messages').append($('<li>').append(txt3,txt4,txt5));
+      
         msgCount++;
         console.log(msgCount);
         $('#typing').text("");

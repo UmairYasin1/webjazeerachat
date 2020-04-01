@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./parts/head.ejs %>
+</head>
+<body class="login-screen">
+
+  <main class="agent-signup">
+  <div class="login-box">
+      <div  class="panel-heading text-center">
+          <h4>Agent Login</h4>
+      </div>
+    <!-- <form class="login-form" action="/agent/api/v1/login" method="post">-->
+      <form class="login-form"  method="post" id="agentLogin" enctype="multipart/form-data">
+      <div class="input-block">
+        <input class="input-box" type="email" name="email" placeholder="Email" autofocus required/>
+      </div><br>
+      <div class="input-block">
+        <input class="input-box" type="password" name="password" placeholder="Password" required/>
+      </div>
+      <button class="btn btn-success btn-lg btn-block" type="submit" >Login</button><br>
+      <p><b>Don't have an account?</b> </p>
+      <a href="/agent/agentsignup"  class="btn btn-danger btn-lg btn-block"><b>Sign Up Here</b></a><br>
+      <p class="error"></p>
+    </form>
+  </div>
+  </main>
+  <% include ./parts/footer.ejs %>
+  <script src="/js/agentscript.js"></script>
+</body>
+</html>

@@ -3,40 +3,66 @@
 $(function(){
 
     var socket = io('/agent');
+
+    $("#agentLogin").submit(function(e){
+      e.preventDefault();
+     var formData = $("#agentLogin").serialize();
+
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:5000/agent/api/v1/login",
+          data: formData,
+          success: function(result){
+           if(result == '1'){
+              $(".error").text("Some Error Occured During Login.");
+           }
+
+           if(result == "2"){
+            $(".error").text("User Not Found. Please Check Your Username and Password.");
+           }
+
+           if(result == "3"){
+            window.location.href = "http://localhost:5000/agent/dashboard";
+
+           }
+
+          },
+          error: function (e) {
+            alert(e);
+          }
+      });
+    })
+    
   
-    var  eflag = pflag = 1;
+    var  eflag = 0;
+    var  pflag = 1;
   
     //checking for email.
-    // $('#agent_email').keyup(function(){
+     $('#agent_email').keyup(function(){
   
-    //   var email = $('#agent_email').val();
-    //   var atpos = email.indexOf("@");
-    //   var dotpos = email.lastIndexOf(".");
+       var email = $('#agent_email').val();
+       var atpos = email.indexOf("@");
+       var dotpos = email.lastIndexOf(".");
   
-    //   if (atpos < 1 || dotpos < atpos+2 || dotpos+2 >= email.length){
-    //     eflag = 0;
-    //     $('#ik1').hide();
-    //     $('#ir1').show();
-    //     $('#error1').show().text("Please Enter Valid Email.");
-    //   }
-    //   else{
-    //     socket.emit('checkAgentEmail',email);
-    //     socket.on('checkAgentEmail',function(data){
-    //       if(data == 1){
-    //         eflag = 1;
-    //         $('#ik1').show();
-    //         $('#ir1').hide();
-    //         $('#error1').hide();
-    //       }
-    //       else{
-    //         eflag = 0;
-    //         $('#ik1').hide();
-    //         $('#ir1').show();
-    //         $('#error1').show().text("Email Already Exists. Please, Change.");
-    //       }
-    //     });
-    //   }
-    // }); //end of checking for email.
+       if (atpos < 1 || dotpos < atpos+2 || dotpos+2 >= email.length){
+         eflag = 0;
+         $('#error1').show().text("Please Enter Valid Email.");
+    
+       }
+       else{
+         socket.emit('checkAgentEmail',email);
+         socket.on('checkAgentEmail',function(data){
+           if(data == 1){
+             eflag = 1;
+             $('#error1').hide();
+           }
+           else{
+             eflag = 0;
+             $('#error1').show().text("Email Already Exists. Please, Change.");
+           }
+         });
+       }
+     }); //end of checking for email.
   
     // //checking password.
     // $('#password').keyup(function(){
