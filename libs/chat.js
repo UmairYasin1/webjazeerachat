@@ -65,12 +65,27 @@ module.exports.sockets = function(http) {
       }; //end of sendUserStack function.
     }); //end of set-user-data event.
 
+  
+
   socket.on("get_visitor_id", function(visit_name, callback) {
+
     visitorModel.findOne(
            { $and: [{ visitor_name: visit_name }] },
            function(err, result) {
-             visitId = result.visitor_id;
-           
+
+            if(err){
+              visitId =  "";
+              agent_name = "";
+
+              response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name}
+
+              callback(response);
+            }
+
+            if(result!=null){
+             
+            visitId = result.visitor_id;
+
              if(visitId == ""){
               visitId =  "";
               agent_name = "";
@@ -85,6 +100,16 @@ module.exports.sockets = function(http) {
               roomModel.findOne(
                 { $and: [{ name1 : visitId}] },
                 function(err, res){
+
+                  if(err){
+                    visitId = visitId;
+                    agent_name = "";
+                    response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name}
+
+                      callback(response);
+                  }
+
+                  if(res!=null){
 
                   if(res.name2 == ""){
                     visitId = visitId;
@@ -110,9 +135,12 @@ module.exports.sockets = function(http) {
 
                   }
                 }
+                }
               )
 
               }
+            }
+              
           
            }
          );
@@ -226,7 +254,15 @@ module.exports.sockets = function(http) {
       const update = { name2: room.agent_id };
 
       roomModel.findOne({ name1: room.visitor_id }, function(err,obj) { 
-        
+
+        if(err){
+
+          socket.room =  obj._id;
+          socket.join(socket.room);
+          ioChat.to(userSocket[socket.username]).emit("update-room", socket.room);
+
+        }
+        if(obj!=null){
         if(obj.name2 == ""){
           roomModel.findOneAndUpdate(
             filter , update , function(err, result) {
@@ -235,7 +271,6 @@ module.exports.sockets = function(http) {
               socket.room = result._id;
               socket.join(socket.room);
               ioChat.to(userSocket[socket.username]).emit("update-room", socket.room);
-            
           }
         );
         }else{
@@ -243,6 +278,7 @@ module.exports.sockets = function(http) {
             socket.join(socket.room);
             ioChat.to(userSocket[socket.username]).emit("update-room", socket.room);
         }
+      } 
       });
 
 

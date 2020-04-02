@@ -122,6 +122,7 @@ $ (function(){
   }); // end of listening old-chats event.
 
   
+  
 
     //sending message.
   $('#visitorchatForm').submit(function(e){

@@ -42,7 +42,6 @@ $ (function(){
          // var txt1 = $('<button class="boxF disabled"> </button>').text(visitor_name).css({"font-size":"18px"});
         }
         else{
-
           socket.emit('get_visitor_id',visitor_name, function (response) {
 
            // var txt1 = $('<button id="ubtn" class="btn btn-success  btn-md">').text(response.visitor_name).attr("rel" , response.visitor_id).css({"font-size":"18px"});
@@ -57,7 +56,8 @@ $ (function(){
             }
             else{
               var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+' offline</a></span></td><td><img src="/pics/statsintable.jpg" alt="-" /></td><td>1hr 3 mins</td><td>'+response.agent_name+'</td><td>Uptown Logo Design | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
-              
+              totalOnline++;
+      
             //  var txt2 = $('<span class="badge"></span>').text(stack[response.visitor_name]).css({"float":"right","color":"#a6a6a6","font-size":"18px"});
             }
 
