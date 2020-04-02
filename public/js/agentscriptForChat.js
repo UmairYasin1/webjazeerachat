@@ -229,7 +229,7 @@ $ (function(){
 
             $("#repMsgId").val("");
             $("#replyMsg").empty();
-
+            $("#photos-input").val("");
           },
           error: function (e) {
               console.log("some error", e);

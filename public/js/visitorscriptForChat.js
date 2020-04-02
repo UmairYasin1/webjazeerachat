@@ -146,6 +146,8 @@ $ (function(){
 
         $("#repMsgId").val("");
         $("#replyMsg").empty();
+        $("#photos-input").val("");
+        
 
       },
       error: function (e) {
