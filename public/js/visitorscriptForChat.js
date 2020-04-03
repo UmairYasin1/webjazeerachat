@@ -132,8 +132,8 @@ $ (function(){
 
     $.ajax({
       type: "POST",
-      // url: "http://localhost:5000/upload/file",
-      url: "https://umairyasin1-dinochat.glitch.me/upload/file",
+      url: "http://localhost:5000/upload/file",
+      //url: "https://umairyasin1-dinochat.glitch.me/upload/file",
       data: formData,
       processData: false,
       contentType: false,

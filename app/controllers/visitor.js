@@ -7,6 +7,7 @@ const publicIp = require('public-ip');
 var privateIpValue;
 var publicIpValue;
 var geoLocValue;
+var geoLocValuePrivate;
 var browserAndOSValue;
 
 //middlewares
@@ -31,8 +32,11 @@ module.exports.controller = function(app) {
       geoLocValue = geo;
     });
     browserAndOSValue = req.useragent;
+
+    var privateIpbreak = privateIpValue.substring(0, str.indexOf(","));
+    geoLocValuePrivate = geoip.lookup(privateIpbreak);
     
-    
+
     res.render("visitorsignup", {
       title: "Visitor Signup",
       user: req.session.user,
@@ -58,7 +62,8 @@ module.exports.controller = function(app) {
         number_of_employees: req.body.number_of_employees,
         visitor_publicIp: publicIpValue,
         visitor_privateIp: privateIpValue,
-        visitor_region: geoLocValue,
+        visitor_region_publicIp: geoLocValue,
+        visitor_region_privateIp: geoLocValuePrivate,
         visitor_browser_and_os: browserAndOSValue,
         createdOn: today,
         updatedOn: today
