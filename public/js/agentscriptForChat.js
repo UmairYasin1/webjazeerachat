@@ -50,12 +50,12 @@ $ (function(){
             //  var txt2 = $('<span class="badge"></span>').text("*"+stack[response.visitor_name]).css({"float":"right","color":"#009933","font-size":"18px"});
              
 
-              var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+'</a></span></td><td><img src="/pics/statsintable.jpg" alt="-" /></td><td>1hr 3 mins</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
+              var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+'</a><i class="fa fa-check-circle-o" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>1hr 3 mins</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
               totalOnline++;
       
             }
             else{
-              var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+' offline</a></span></td><td><img src="/pics/statsintable.jpg" alt="-" /></td><td>1hr 3 mins</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
+              var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+'</a> <i class="fa fa-ban" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>1hr 3 mins</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
               //totalOnline++;
       
             //  var txt2 = $('<span class="badge"></span>').text(stack[response.visitor_name]).css({"float":"right","color":"#a6a6a6","font-size":"18px"});

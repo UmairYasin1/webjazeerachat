@@ -72,12 +72,36 @@ module.exports.sockets = function(http) {
     visitorModel.findOne(
            { $and: [{ visitor_name: visit_name }] },
            function(err, result) {
+            
+            var countryVal2 = "US";
+            // console.log(result.visitor_region_privateIp);
+            // if(result.visitor_region_privateIp.length != 0)
+            // {
+            //   console.log('1');
+            //   countryVal2 = result.visitor_region_privateIp[0].country;
+            // }
+            // else if(result.visitor_region_publicIp.length != 0)
+            // {
+            //   console.log('2');
+            //   countryVal2 = result.visitor_region_publicIp[0].country;
+            // }
+            
+            var countryVal =  countryVal2;
+            var browserVal = result.visitor_browser_and_os[0].browser;
+            var osVal = result.visitor_browser_and_os[0].os;
+            var platformVal = result.visitor_browser_and_os[0].platform;
+
 
             if(err){
               visitId =  "";
               agent_name = "";
 
-              response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name}
+              response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name,
+                country: countryVal,
+                browser: browserVal,
+                os: osVal,
+                platform: platformVal
+              }
 
               callback(response);
             }
@@ -90,7 +114,12 @@ module.exports.sockets = function(http) {
               visitId =  "";
               agent_name = "";
 
-              response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name}
+              response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name,
+                country: countryVal,
+                browser: browserVal,
+                os: osVal,
+                platform: platformVal
+              }
 
               callback(response);
               
@@ -104,7 +133,12 @@ module.exports.sockets = function(http) {
                   if(err){
                     visitId = visitId;
                     agent_name = "";
-                    response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name}
+                    response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name,
+                      country: countryVal,
+                      browser: browserVal,
+                      os: osVal,
+                      platform: platformVal
+                    }
 
                       callback(response);
                   }
@@ -114,7 +148,12 @@ module.exports.sockets = function(http) {
                   if(res.name2 == ""){
                     visitId = visitId;
                     agent_name = "";
-                    response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name}
+                    response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name,
+                      country: countryVal,
+                      browser: browserVal,
+                      os: osVal,
+                      platform: platformVal
+                    }
 
                       callback(response);
 
@@ -125,7 +164,12 @@ module.exports.sockets = function(http) {
                     { $and: [{ agent_id : res.name2}] },
                     function(err, resp){
   
-                     response = { visitor_id: res.name1 , visitor_name : visit_name , agent_name : resp.agent_name}
+                     response = { visitor_id: res.name1 , visitor_name : visit_name , agent_name : resp.agent_name,
+                      country: countryVal,
+                      browser: browserVal,
+                      os: osVal,
+                      platform: platformVal
+                    }
 
                       callback(response);
 
