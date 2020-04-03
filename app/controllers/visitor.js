@@ -33,8 +33,9 @@ module.exports.controller = function(app) {
     });
     browserAndOSValue = req.useragent;
 
-    var privateIpbreak = privateIpValue.substring(0, privateIpValue.indexOf(","));
-    geoLocValuePrivate = geoip.lookup(privateIpbreak);
+    // var privateIpbreak = privateIpValue.substring(0, privateIpValue.indexOf(","));
+    // geoLocValuePrivate = geoip.lookup(privateIpbreak);
+    geoLocValuePrivate = [];
     
 
     res.render("visitorsignup", {
