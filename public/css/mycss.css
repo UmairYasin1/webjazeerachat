@@ -92,7 +92,7 @@ ul#messages li p {
   main.visit-chat  .input-box-send {     width: 70%; }
   
   main.visit-chat ul#messages li img {
-    width: 100%;
+    width: auto;
     height: auto;
   }
 

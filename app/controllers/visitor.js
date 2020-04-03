@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const shortid = require("shortid");
 var geoip = require('geoip-lite');
 const publicIp = require('public-ip');
+var requestApi = require("request");
 
 var privateIpValue;
 var publicIpValue;
@@ -33,9 +34,17 @@ module.exports.controller = function(app) {
     });
     browserAndOSValue = req.useragent;
 
-    // var privateIpbreak = privateIpValue.substring(0, privateIpValue.indexOf(","));
-    // geoLocValuePrivate = geoip.lookup(privateIpbreak);
-    geoLocValuePrivate = [];
+    var privateIpbreak = privateIpValue.substring(0, privateIpValue.indexOf(","));
+    var aaa = requestApi.get("api.ipgeolocation.io/ipgeo?ip=" + privateIpbreak, (error, response, body) => {
+        if(error) {
+            return console.dir(error);
+        }
+        console.dir(JSON.parse(body));
+    });
+    geoLocValuePrivate = geoip.lookup(aaa);
+    console.log(aaa);
+    console.log(geoLocValuePrivate);
+    //geoLocValuePrivate = [];
     
 
     res.render("visitorsignup", {
@@ -46,6 +55,7 @@ module.exports.controller = function(app) {
 
 
   });
+
 
   //api to create new user
   router.post("/api/v1/signup", function( req, res) {
