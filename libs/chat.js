@@ -125,7 +125,7 @@ module.exports.sockets = function(http) {
                     { $and: [{ agent_id : res.name2}] },
                     function(err, resp){
   
-                     response = { visitor_id: visitId , visitor_name : visit_name , agent_name : resp.agent_name}
+                     response = { visitor_id: res.name1 , visitor_name : visit_name , agent_name : resp.agent_name}
 
                       callback(response);
 
