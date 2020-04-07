@@ -1,3 +1,5 @@
+body{ background: transparent; background-color: transparent;}
+
 .chatpanel {
     width: 100%;
     border: 1px solid #232c30;
@@ -71,7 +73,7 @@ ul#messages li p {
   .signup-box .input-block {     margin-bottom: 4px;} 
   
   .signup-box .input-block p {
-    text-align: center;
+    text-align: left;
     font-weight: 400;
     margin-bottom: 6px;
     font-size: 13px;
@@ -109,7 +111,7 @@ ul#messages li p {
 }
 
 main.visit-signup .login-box.signup-box .panel-heading {
-    background-color: #232c30;
+    background: #08c46d; border-top-left-radius: 10px; border-top-right-radius: 10px
 }
 
 main.visit-signup .login-box.signup-box {
@@ -124,11 +126,11 @@ main.visit-signup form.signup-form {
 }
 main.visit-signup form.signup-form p { color: #000; font-size: 16px;}
 main.visit-signup form.signup-form input { width: 100%; ;}
-main.visit-signup form.signup-form button {     background-color: #232c30;
+main.visit-signup form.signup-form button {     background-color: #08c46d;
     color: #fff;
     border-radius: 0;
     margin-top: 15px;
-    border-color: #232c30;}
+    border-color: #08c46d;}
 
     main.agent-signup {
         width: 40%;
