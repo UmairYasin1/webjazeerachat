@@ -300,7 +300,7 @@ $ (function(){
         $('#messages').append($('<li class='+clas+'>').append(replytxt3,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
 
       }else{
-
+        
         $('#messages').append($('<li class='+clas+'>').append(txt3,txt4,txt5).attr("rel" , data.id));
       }
  

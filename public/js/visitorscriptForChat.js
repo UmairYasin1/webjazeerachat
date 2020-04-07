@@ -93,9 +93,11 @@ $ (function(){
                   }
     
                   if(visitorname == response.repmsgFrom){
-                    var clas = "sent";
-                  }else{
+                    //var clas = "sent";
                     var clas = "replies";
+                  }else{
+                    //var clas = "replies";
+                    var clas = "sent";
                   }
     
                   if(response.msgFrom == ""){
@@ -208,9 +210,11 @@ $ (function(){
     //showing chat in chat box.
 
     if(visitorname == data.msgFrom){
-      var clas = "sent";
-    }else{
+      //var clas = "sent";
       var clas = "replies";
+    }else{
+      //var clas = "replies";
+      var clas = "sent";
     }
 
     if(data.repMsg != ""){
