@@ -37,8 +37,16 @@ $(this).html('<i class="far fa-chevron-up"></i>');
 });
  */
     
+$(document).on("click",".minimizeChat",function(){
+  
+    document.getElementById("chatframe").classList.toggle('active');
     
+    $(".fa-window-minimize").toggleClass("fa-window-restore");
+   
+   
+});    
     
     
 });
 //Document ready
+

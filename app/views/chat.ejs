@@ -11,6 +11,7 @@
     <input type="hidden" id="visitor" value="<%= user.visitor_name %>"/>
     <input type="hidden" id="visitor_id" value="<%= user.visitor_id %>"/>
 
+<div class="chatWidget">
 
   <div id="frame">
     <div class="content">
@@ -20,7 +21,7 @@
                  <span class="AgentName">Harvey Specter</span>
                   <span class="AgentText">Questions? we are here to help</span>
               </p>
-              
+              <a href="javascript:;" class="minimizeChat"><span class="fa fa-window-minimize"></span></a>
       </div>
       <div class="messages">
           <div class="panel-body" id="scrl2">
@@ -42,6 +43,8 @@
       </div>
     </div>
   </div>
+
+</div>
 
   <% include ./parts/footer.ejs %>
     <script src="/js/visitorscriptForChat.js"></script>
