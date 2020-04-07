@@ -71,7 +71,10 @@ $ (function(){
                 // var txt1 = $('<span></span>').text(response.msgFrom+" : ");
                 // var txt2 = $('<span></span>').text(chatDate);
                 // var txt3 = $('<p></p>').append(txt1,txt2);
-                var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+
+                // var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+                var txt6 = $("<img>").attr("src" , "/pics/visitor.jpeg");
+
                 var txt4 = $('<p></p>').text(response.msg);
                 if(response.file != ''){
                   var txt5 = $("<img>").attr("src" , "/uploads/" + response.file);
@@ -84,7 +87,8 @@ $ (function(){
               //   var restxt1 = $('<span></span>').text(response.repmsgFrom+" : ");
               //   var restxt2 = $('<span></span>').text(reschatDate);
               //   var restxt3 = $('<p></p>').append(restxt1,restxt2);
-                var restxt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+                //var restxt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+                var restxt6 = $("<img>").attr("src" , "/pics/agent.png");
                 var restxt4 = $('<p></p>').text(response.repmsg);
                 if(response.repfile != ''){
                   var restxt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
@@ -199,7 +203,8 @@ $ (function(){
     // var txt1 = $('<span></span>').text(data.msgFrom+" : ");
     // var txt2 = $('<span></span>').text(chatDate);
     // var txt3 = $('<p></p>').append(txt1,txt2);
-    var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+    // var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+    var txt6 = $("<img>").attr("src" , "/pics/visitor.jpeg");
     var txt4 = $('<p></p>').text(data.msg);
     console.log(data.file);
     if(data.file != ""){
@@ -223,7 +228,8 @@ $ (function(){
       // var replytxt1 = $('<span></span>').text(data.repFrom+" : ");
       // var replytxt2 = $('<span></span>').text(replychatDate);
       // var replytxt3 = $('<p></p>').append(replytxt1,replytxt2);
-      var replytxt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+      //var replytxt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+      var replytxt6 = $("<img>").attr("src" , "/pics/agent.png");
       var replytxt4 = $('<p></p>').text(data.repMsg);
       if(data.repfile != ""){
         var replytxt5 = $("<img>").attr("src" , "/uploads/" + data.repfile);
