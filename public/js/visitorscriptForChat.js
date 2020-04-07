@@ -55,55 +55,62 @@ $ (function(){
     
       }); // end of scroll event.
     
-        //listening old-chats event.
-  socket.on('old-chats',function(data){
+      socket.on('old-chats',function(data){
 
-    if(data.room == roomId){
-      oldInitDone = 1; //setting value to implies that old-chats first event is done.
-      if(data.result.length != 0){
-        $('#noChat').hide(); //hiding no more chats message.
-        for (var i = 0;i < data.result.length;i++) {
-          //styling of chat message.
-        
-          socket.emit('get_reply_msg', data.result[i].msgId   , function (response) {
-
-            //styling of chat message.
-            var chatDate = moment(response.createdOn).format("MMMM Do YYYY, hh:mm:ss a");
-            var txt1 = $('<span></span>').text(response.msgFrom+" : ");
-            var txt2 = $('<span></span>').text(chatDate);
-            var txt3 = $('<p></p>').append(txt1,txt2);
-            var txt4 = $('<p></p>').text(response.msg);
-            if(response.file != ''){
-              var txt5 = $("<img>").attr("src" , "/uploads/" + response.file);
-              }else{
-                var txt5 = "";
-              }
-            //showing chat in chat box.
-
-           var reschatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
-            var restxt1 = $('<span></span>').text(response.repmsgFrom+" : ");
-            var restxt2 = $('<span></span>').text(reschatDate);
-            var restxt3 = $('<p></p>').append(restxt1,restxt2);
-            var restxt4 = $('<p></p>').text(response.repmsg);
-            if(response.repfile != ''){
-              var restxt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
-              }else{
-                var restxt5 = "";
-              }
-
-              if(response.msgFrom == ""){
-               $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId));
+        if(data.room == roomId){
+          oldInitDone = 1; //setting value to implies that old-chats first event is done.
+          if(data.result.length != 0){
+            $('#noChat').hide(); //hiding no more chats message.
+            for (var i = 0;i < data.result.length;i++) {
+              //styling of chat message.
             
-              }else{
-               $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5).attr("rel" , response.msgId))));
-            
-              }
-            
-            
-       })
-          msgCount++;
-
-        }//end of for.
+              socket.emit('get_reply_msg', data.result[i].msgId   , function (response) {
+    
+                //styling of chat message.
+                // var chatDate = moment(response.createdOn).format("MMMM Do YYYY, hh:mm:ss a");
+                // var txt1 = $('<span></span>').text(response.msgFrom+" : ");
+                // var txt2 = $('<span></span>').text(chatDate);
+                // var txt3 = $('<p></p>').append(txt1,txt2);
+                var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+                var txt4 = $('<p></p>').text(response.msg);
+                if(response.file != ''){
+                  var txt5 = $("<img>").attr("src" , "/uploads/" + response.file);
+                  }else{
+                    var txt5 = "";
+                  }
+                //showing chat in chat box.
+    
+              //  var reschatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
+              //   var restxt1 = $('<span></span>').text(response.repmsgFrom+" : ");
+              //   var restxt2 = $('<span></span>').text(reschatDate);
+              //   var restxt3 = $('<p></p>').append(restxt1,restxt2);
+                var restxt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+                var restxt4 = $('<p></p>').text(response.repmsg);
+                if(response.repfile != ''){
+                  var restxt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
+                  }else{
+                    var restxt5 = "";
+                  }
+    
+                  if(visitorname == response.repmsgFrom){
+                    var clas = "sent";
+                  }else{
+                    var clas = "replies";
+                  }
+    
+                  if(response.msgFrom == ""){
+                   $('#messages').prepend($('<li class='+clas+'>').append(restxt6,restxt4,restxt5).attr("rel" , response.msgId));
+                
+                  }else{
+                   $('#messages').prepend($('<li class='+clas+'>').append(restxt6,restxt4,restxt5).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(txt6,txt4,txt5).attr("rel" , response.msgId))));
+                
+                  }
+                
+                
+           })
+              msgCount++;
+    
+            }//end of for.
         console.log(msgCount);
       }
       else {
@@ -160,36 +167,37 @@ $ (function(){
     return false;
   }); //end of sending message.
 
-  $(document).on("click","#messages li",function(){
-    $('#replyMsg').empty();
-    var msgId = $(this).attr("rel");
+  // $(document).on("click","#messages li",function(){
+  //   $('#replyMsg').empty();
+  //   var msgId = $(this).attr("rel");
 
-    //console.log(msgId);
-    socket.emit('get_reply_msg',msgId , function (response) {
-        //styling of chat message.
-        var chatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
-        var txt1 = $('<span></span>').text(response.repmsgFrom+" : ");
-        var txt2 = $('<span></span>').text(chatDate);
-        var txt3 = $('<p></p>').append(txt1,txt2);
-        var txt4 = $('<p></p>').text(response.repmsg);
-        if(response.repfile != ''){
-          var txt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
-          }else{
-            var txt5 = "";
-          }
-        //showing chat in chat box.
-        $('#replyMsg').prepend($('<li>').append(txt3,txt4,txt5).attr("rel" , response.msgId ));
-        $("#repMsgId").val(response.msgId);
-    })
-  })
+  //   //console.log(msgId);
+  //   socket.emit('get_reply_msg',msgId , function (response) {
+  //       //styling of chat message.
+  //       var chatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
+  //       var txt1 = $('<span></span>').text(response.repmsgFrom+" : ");
+  //       var txt2 = $('<span></span>').text(chatDate);
+  //       var txt3 = $('<p></p>').append(txt1,txt2);
+  //       var txt4 = $('<p></p>').text(response.repmsg);
+  //       if(response.repfile != ''){
+  //         var txt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
+  //         }else{
+  //           var txt5 = "";
+  //         }
+  //       //showing chat in chat box.
+  //       $('#replyMsg').prepend($('<li>').append(txt3,txt4,txt5).attr("rel" , response.msgId ));
+  //       $("#repMsgId").val(response.msgId);
+  //   })
+  // })
 
   //receiving messages.
   socket.on('chat-msg',function(data){
     //styling of chat message.
-    var chatDate = moment(data.date).format("MMMM Do YYYY, hh:mm:ss a");
-    var txt1 = $('<span></span>').text(data.msgFrom+" : ");
-    var txt2 = $('<span></span>').text(chatDate);
-    var txt3 = $('<p></p>').append(txt1,txt2);
+    // var chatDate = moment(data.date).format("MMMM Do YYYY, hh:mm:ss a");
+    // var txt1 = $('<span></span>').text(data.msgFrom+" : ");
+    // var txt2 = $('<span></span>').text(chatDate);
+    // var txt3 = $('<p></p>').append(txt1,txt2);
+    var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
     var txt4 = $('<p></p>').text(data.msg);
     console.log(data.file);
     if(data.file != ""){
@@ -199,12 +207,19 @@ $ (function(){
     }
     //showing chat in chat box.
 
+    if(visitorname == data.msgFrom){
+      var clas = "sent";
+    }else{
+      var clas = "replies";
+    }
+
     if(data.repMsg != ""){
 
-      var replychatDate = moment(data.repDate).format("MMMM Do YYYY, hh:mm:ss a");
-      var replytxt1 = $('<span></span>').text(data.repFrom+" : ");
-      var replytxt2 = $('<span></span>').text(replychatDate);
-      var replytxt3 = $('<p></p>').append(replytxt1,replytxt2);
+      //var replychatDate = moment(data.repDate).format("MMMM Do YYYY, hh:mm:ss a");
+      // var replytxt1 = $('<span></span>').text(data.repFrom+" : ");
+      // var replytxt2 = $('<span></span>').text(replychatDate);
+      // var replytxt3 = $('<p></p>').append(replytxt1,replytxt2);
+      var replytxt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
       var replytxt4 = $('<p></p>').text(data.repMsg);
       if(data.repfile != ""){
         var replytxt5 = $("<img>").attr("src" , "/uploads/" + data.repfile);
@@ -212,11 +227,11 @@ $ (function(){
           var replytxt5 = "";
         }
 
-      $('#messages').append($('<li>').append(replytxt3,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
+      $('#messages').append($('<li  class='+clas+'>').append(replytxt6,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
 
     }else{
 
-      $('#messages').append($('<li>').append(txt3,txt4,txt5).attr("rel" , data.id));
+      $('#messages').append($('<li  class='+clas+'>').append(txt6,txt4,txt5).attr("rel" , data.id));
     }
 
     //$('#messages').append($('<li>').append(txt3,txt4,txt5));

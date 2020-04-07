@@ -241,28 +241,28 @@ $ (function(){
       return false;
     }); //end of sending message.
 
-    $(document).on("click","#messages li",function(){
-      $('#replyMsg').empty();
-      var msgId = $(this).attr("rel");
+    // $(document).on("click","#messages li",function(){
+    //   $('#replyMsg').empty();
+    //   var msgId = $(this).attr("rel");
 
-      //console.log(msgId);
-      socket.emit('get_reply_msg',msgId , function (response) {
-          //styling of chat message.
-          var chatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
-          var txt1 = $('<span></span>').text(response.repmsgFrom+" : ");
-          var txt2 = $('<span></span>').text(chatDate);
-          var txt3 = $('<p></p>').append(txt1,txt2);
-          var txt4 = $('<p></p>').text(response.repmsg);
-          if(response.repfile != ''){
-            var txt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
-            }else{
-              var txt5 = "";
-            }
-          //showing chat in chat box.
-          $('#replyMsg').prepend($('<li>').append(txt3,txt4,txt5).attr("rel" , response.msgId ));
-          $("#repMsgId").val(response.msgId);
-      })
-    })
+    //   //console.log(msgId);
+    //   socket.emit('get_reply_msg',msgId , function (response) {
+    //       //styling of chat message.
+    //       var chatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
+    //       var txt1 = $('<span></span>').text(response.repmsgFrom+" : ");
+    //       var txt2 = $('<span></span>').text(chatDate);
+    //       var txt3 = $('<p></p>').append(txt1,txt2);
+    //       var txt4 = $('<p></p>').text(response.repmsg);
+    //       if(response.repfile != ''){
+    //         var txt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
+    //         }else{
+    //           var txt5 = "";
+    //         }
+    //       //showing chat in chat box.
+    //       $('#replyMsg').prepend($('<li>').append(txt3,txt4,txt5).attr("rel" , response.msgId ));
+    //       $("#repMsgId").val(response.msgId);
+    //   })
+    // })
 
     //receiving messages.
     socket.on('chat-msg',function(data){
@@ -276,6 +276,12 @@ $ (function(){
         var txt5 = $("<img>").attr("src" , "/uploads/" + data.file);
         }else{
           var txt5 = "";
+        }
+
+        if(username == data.msgFrom){
+          var clas = "sent";
+        }else{
+          var clas = "replies";
         }
       
       if(data.repMsg != ""){
@@ -291,11 +297,11 @@ $ (function(){
             var replytxt5 = "";
           }
 
-        $('#messages').append($('<li>').append(replytxt3,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
+        $('#messages').append($('<li class='+clas+'>').append(replytxt3,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
 
       }else{
 
-        $('#messages').append($('<li>').append(txt3,txt4,txt5).attr("rel" , data.id));
+        $('#messages').append($('<li class='+clas+'>').append(txt3,txt4,txt5).attr("rel" , data.id));
       }
  
       //showing chat in chat box.

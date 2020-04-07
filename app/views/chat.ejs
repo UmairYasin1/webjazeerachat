@@ -2,103 +2,49 @@
 <html lang="en">
 <head>
   <% include ./parts/head.ejs %>
+  <% if(user.visitor_name != null){ %>
+    <link rel="stylesheet" href="/css/widget.css"> 
+    <% } %>
 </head>
 <body>
 
-    <% if(user.visitor_name == null){ %>
+    <input type="hidden" id="visitor" value="<%= user.visitor_name %>"/>
+    <input type="hidden" id="visitor_id" value="<%= user.visitor_id %>"/>
 
-  <% include ./parts/header.ejs %>
 
-
-<% } %>
-<% if(user.visitor_name != null){ %>
-  <main class="visit-chat">
-    <% } %>
-    <%  if(user.agent_name != null){ %> 
-      <main>
-          <% } %>
-
-    <div class="container-fluid">
-      <% if(user.visitor_name != null){ %>
-      <input type="hidden" id="visitor" value="<%= user.visitor_name %>"/>
-      <input type="hidden" id="visitor_id" value="<%= user.visitor_id %>"/>
-      <% } if(user.agent_name != null){ %> 
-        <input type="hidden" id="agent" value="<%= user.agent_name %>"/>
-        <input type="hidden" id="agent_id" value="<%= user.agent_id %>"/>
-        <% } %>
-      <div class="row">
-
-          <% if(user.visitor_name == null){ %>
-
-        <div class="col-sm-4">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <h2>Chat Options</h2></div>
-
-            <div class="panel-body" id="scrl1">
-             
-              <ul id="list" ></ul>
-            </div>
-            <div class="panel-footer">
-              <p id="typing"  class="btn btn-danger btn-block btn-lg"></p>
-            </div>
-          </div>
+  <div id="frame">
+    <div class="content">
+      <div class="contact-profile">
+        <img src="pics/userimg.jpg" alt="" />
+        <p>
+                 <span class="AgentName">Harvey Specter</span>
+                  <span class="AgentText">Questions? we are here to help</span>
+              </p>
+              
+      </div>
+      <div class="messages">
+          <div class="panel-body" id="scrl2">
+        <ul id="messages">
+ 
+        </ul>
+      </div>
+      </div>
+      <div class="message-input">
+          <form id="visitorchatForm" action="" enctype="multipart/form-data" method="POST">
+            <input type="hidden" id="repMsgId" name="repMsgId" >
+        <div class="wrap">
+            <input type="file" name="file" id="photos-input" />
+        <input type="text"  id="myMsg"  name="myMsg" placeholder="Write your message..." />
+        <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+        <button id="sendBtn" class="submit">send</button>
         </div>
-        <div class="col-sm-8">
-        <% }else{ %>
-          <div class="col-sm-12">
-        <% } %>
-        
-          <div class="panel panel-primary">
-            <div class="panel-heading text-center">
-              <h4 id="frndName">Chat Room</h4>
-            </div>
-            <div class="panel-body" id="scrl2">
-              <p id="loading">Loading..... Please Wait.</p>
-              <p id="noChat">No More Chats To Display.....</p>
-              <ul id="messages"></ul>
-            </div>
-            <% if(user.visitor_name != null){ %>
-
-              <div class="panel-footer">
-                  <div class="replyDiv">
-                      <ul id="replyMsg"></ul>
-                    </div>
-                  <form id="visitorchatForm" action="" enctype="multipart/form-data" method="POST">
-                    <input type="hidden" id="repMsgId" name="repMsgId" >
-                    <input type="file" name="file" id="photos-input" /><br>
-                    <input id="myMsg"  name="myMsg" class="input-box-send" autocomplete="off" placeholder="Write Message Here.." />
-                    <div class="text-right">
-                    <button id="sendBtn" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-send"></span> <b>Send</b></button>
-                  </div>
-                  </form>
-                </div>
-
-
-              <% }else{ %>
-
-                <div class="panel-footer">
-                    <form id="chatForm" action=""  enctype="multipart/form-data" method="POST">
-                      <input type="hidden" id="toVisitor">
-                      <input type="file" name="file" id="photos-input" /><br>
-                      <input id="myMsg" name="myMsg" class="input-box-send" autocomplete="off" placeholder="Write Message Here.." />
-                      <button id="sendBtn" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-send"></span> <b>Send</b></button>
-                    </form>
-                  </div>
-
-                <% } %>
-          </div>
-        </div>
-
+      </form>
       </div>
     </div>
-  </main>
+  </div>
 
   <% include ./parts/footer.ejs %>
-  <% if(user.visitor_name != null){ %>
     <script src="/js/visitorscriptForChat.js"></script>
-  <% }else{ %>
-    <script src="/js/agentscriptForChat.js"></script>
-    <% } %>
+
 </body>
 </html>

@@ -20,14 +20,14 @@
     padding: 15px;
     border-top:1px solid #232c30;
 }
-.chat-footer input#myMsg , form#visitorchatForm input#myMsg {
+.chat-footer input#myMsg  {
     width: 100%;
     padding: 15px;
     border:1px solid #232c30;
     columns: #000;
 }
 
-.chat-footer button#sendBtn , form#visitorchatForm button#sendBtn {
+.chat-footer button#sendBtn  {
     background-color: #232c30;
     color: #fff;
     border-radius: 0;
