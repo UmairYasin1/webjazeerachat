@@ -149,6 +149,11 @@ p{
   overflow-y: auto;
 }
 
+#scrl3{
+  height: 400px;
+  overflow-y: auto;
+}
+
 #loading,
 #noChat,
 #chatForm{

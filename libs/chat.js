@@ -31,9 +31,12 @@ module.exports.sockets = function(http) {
   const userSocket = {};
   const visitorSocket = {};
 
+  var allClients = [];
+
   //socket.io magic starts here
   ioChat.on("connection", function(socket) {
     console.log("socketio chat connected.");
+    allClients.push(socket);
 
     //function to get user name
     socket.on("set-user-data", function(username) {
@@ -409,6 +412,10 @@ module.exports.sockets = function(http) {
 
     //for popping disconnection message.
     socket.on("disconnect", function() {
+
+      var i = allClients.indexOf(socket);
+      allClients.splice(i, 1);
+      
       console.log(socket.username + "  logged out");
       socket.broadcast.emit("broadcast", {
         description: socket.username + " Logged out"

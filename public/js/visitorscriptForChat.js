@@ -46,9 +46,9 @@ $ (function(){
 
 
     //on scroll load more old-chats.
-    $('#scrl2').scroll(function(){
+    $('#scrl3').scroll(function(){
 
-        if($('#scrl2').scrollTop() == 0 && noChat == 0 && oldInitDone == 1){
+        if($('#scrl3').scrollTop() == 0 && noChat == 0 && oldInitDone == 1){
           $('#loading').show();
           socket.emit('old-chats',{room:roomId,username:visitorname,msgCount:msgCount});
         }
@@ -72,8 +72,9 @@ $ (function(){
                 // var txt2 = $('<span></span>').text(chatDate);
                 // var txt3 = $('<p></p>').append(txt1,txt2);
 
-                // var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
-                var txt6 = $("<img>").attr("src" , "/pics/visitor.jpeg");
+                //var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+                var visitorImg = $("<img>").attr("src" , "/pics/visitor.jpeg");
+                var agentImg = $("<img>").attr("src" , "/pics/agent.png");
 
                 var txt4 = $('<p></p>').text(response.msg);
                 if(response.file != ''){
@@ -88,7 +89,7 @@ $ (function(){
               //   var restxt2 = $('<span></span>').text(reschatDate);
               //   var restxt3 = $('<p></p>').append(restxt1,restxt2);
                 //var restxt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
-                var restxt6 = $("<img>").attr("src" , "/pics/agent.png");
+                
                 var restxt4 = $('<p></p>').text(response.repmsg);
                 if(response.repfile != ''){
                   var restxt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
@@ -99,16 +100,18 @@ $ (function(){
                   if(visitorname == response.repmsgFrom){
                     //var clas = "sent";
                     var clas = "replies";
+                    var usrImg = visitorImg;
                   }else{
                     //var clas = "replies";
                     var clas = "sent";
+                    var usrImg = agentImg;
                   }
     
                   if(response.msgFrom == ""){
-                   $('#messages').prepend($('<li class='+clas+'>').append(restxt6,restxt4,restxt5).attr("rel" , response.msgId));
+                   $('#messages').prepend($('<li class='+clas+'>').append(usrImg,restxt4,restxt5).attr("rel" , response.msgId));
                 
                   }else{
-                   $('#messages').prepend($('<li class='+clas+'>').append(restxt6,restxt4,restxt5).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(txt6,txt4,txt5).attr("rel" , response.msgId))));
+                   $('#messages').prepend($('<li class='+clas+'>').append(usrImg,restxt4,restxt5).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(usrImg,txt4,txt5).attr("rel" , response.msgId))));
                 
                   }
                 
@@ -128,7 +131,8 @@ $ (function(){
 
       //setting scrollbar position while first 5 chats loads.
       if(msgCount <= 5){
-        $('#scrl2').scrollTop($('#scrl2').prop("scrollHeight"));
+        //$('#scrl3').scrollTop($('#scrl3').prop("scrollHeight"));
+        $(".messages").animate({ scrollTop: $('.messages').prop("scrollHeight") }, "fast");
       }
     }//end of outer if.
 
@@ -160,8 +164,6 @@ $ (function(){
         $("#repMsgId").val("");
         $("#replyMsg").empty();
         $("#photos-input").val("");
-        
-
       },
       error: function (e) {
           console.log("some error", e);
@@ -204,7 +206,8 @@ $ (function(){
     // var txt2 = $('<span></span>').text(chatDate);
     // var txt3 = $('<p></p>').append(txt1,txt2);
     // var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
-    var txt6 = $("<img>").attr("src" , "/pics/visitor.jpeg");
+    var visitorImg = $("<img>").attr("src" , "/pics/visitor.jpeg");
+    var agentImg = $("<img>").attr("src" , "/pics/agent.png");
     var txt4 = $('<p></p>').text(data.msg);
     console.log(data.file);
     if(data.file != ""){
@@ -217,9 +220,11 @@ $ (function(){
     if(visitorname == data.msgFrom){
       //var clas = "sent";
       var clas = "replies";
+      var usrImg = visitorImg;
     }else{
       //var clas = "replies";
       var clas = "sent";
+      var usrImg = agentImg;
     }
 
     if(data.repMsg != ""){
@@ -229,7 +234,7 @@ $ (function(){
       // var replytxt2 = $('<span></span>').text(replychatDate);
       // var replytxt3 = $('<p></p>').append(replytxt1,replytxt2);
       //var replytxt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
-      var replytxt6 = $("<img>").attr("src" , "/pics/agent.png");
+      
       var replytxt4 = $('<p></p>').text(data.repMsg);
       if(data.repfile != ""){
         var replytxt5 = $("<img>").attr("src" , "/uploads/" + data.repfile);
@@ -237,18 +242,21 @@ $ (function(){
           var replytxt5 = "";
         }
 
-      $('#messages').append($('<li  class='+clas+'>').append(replytxt6,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
+      $('#messages').append($('<li  class='+clas+'>').append(usrImg,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(usrImg,txt4,txt5))));
 
     }else{
 
-      $('#messages').append($('<li  class='+clas+'>').append(txt6,txt4,txt5).attr("rel" , data.id));
+      $('#messages').append($('<li  class='+clas+'>').append(usrImg,txt4,txt5).attr("rel" , data.id));
+      
     }
 
     //$('#messages').append($('<li>').append(txt3,txt4,txt5));
       msgCount++;
       console.log(msgCount);
       $('#typing').text("");
-      $('#scrl2').scrollTop($('#scrl2').prop("scrollHeight"));
+      // $('#scrl3').scrollTop($('#scrl3').prop("scrollHeight"));
+      $(".messages").animate({ scrollTop: $('.messages').prop("scrollHeight") }, "fast");
+
   }); //end of receiving messages.
 
   //on disconnect event.

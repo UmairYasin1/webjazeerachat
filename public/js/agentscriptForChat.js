@@ -141,7 +141,7 @@ $ (function(){
                    var txt3 = $('<p></p>').append(txt1,txt2);
                    var txt4 = $('<p></p>').text(response.msg);
                    if(response.file != ''){
-                     var txt5 = $("<img>").attr("src" , "/uploads/" + response.file);
+                     var txt5 = $("<img style='height: 100px;width: 100px;'>").attr("src" , "/uploads/" + response.file);
                      }else{
                        var txt5 = "";
                      }
@@ -153,7 +153,7 @@ $ (function(){
                    var restxt3 = $('<p></p>').append(restxt1,restxt2);
                    var restxt4 = $('<p></p>').text(response.repmsg);
                    if(response.repfile != ''){
-                     var restxt5 = $("<img>").attr("src" , "/uploads/" + response.repfile);
+                     var restxt5 = $("<img style='height: 100px;width: 100px;'>").attr("src" , "/uploads/" + response.repfile);
                      }else{
                        var restxt5 = "";
                      }
@@ -273,7 +273,7 @@ $ (function(){
       var txt3 = $('<p></p>').append(txt1,txt2);
       var txt4 = $('<p></p>').text(data.msg);
       if(data.file != ""){
-        var txt5 = $("<img>").attr("src" , "/uploads/" + data.file);
+        var txt5 = $("<img style='height: 100px;width: 100px;'>").attr("src" , "/uploads/" + data.file);
         }else{
           var txt5 = "";
         }
@@ -292,7 +292,7 @@ $ (function(){
         var replytxt3 = $('<p></p>').append(replytxt1,replytxt2);
         var replytxt4 = $('<p></p>').text(data.repMsg);
         if(data.repfile != ""){
-          var replytxt5 = $("<img>").attr("src" , "/uploads/" + data.repfile);
+          var replytxt5 = $("<img style='height: 100px;width: 100px;'>").attr("src" , "/uploads/" + data.repfile);
           }else{
             var replytxt5 = "";
           }
