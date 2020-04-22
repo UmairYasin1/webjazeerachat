@@ -120,7 +120,7 @@ $ (function(){
               msgCount++;
     
             }//end of for.
-        console.log(msgCount);
+        //console.log(msgCount);
       }
       else {
         $('#noChat').show(); //displaying no more chats message.
@@ -150,6 +150,7 @@ $ (function(){
     $.ajax({
       type: "POST",
       //url: "http://localhost:5000/upload/file",
+      //url: "http://192.168.1.108:5000/upload/file",
       url: "https://umairyasin1-dinochat.glitch.me/upload/file",
       data: formData,
       processData: false,
@@ -243,16 +244,16 @@ $ (function(){
         }
 
       $('#messages').append($('<li  class='+clas+'>').append(usrImg,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(usrImg,txt4,txt5))));
-
+   
     }else{
 
       $('#messages').append($('<li  class='+clas+'>').append(usrImg,txt4,txt5).attr("rel" , data.id));
-      
+   
     }
 
     //$('#messages').append($('<li>').append(txt3,txt4,txt5));
       msgCount++;
-      console.log(msgCount);
+      //console.log(msgCount);
       $('#typing').text("");
       // $('#scrl3').scrollTop($('#scrl3').prop("scrollHeight"));
       $(".messages").animate({ scrollTop: $('.messages').prop("scrollHeight") }, "fast");

@@ -75,25 +75,82 @@ module.exports.sockets = function(http) {
     visitorModel.findOne(
            { $and: [{ visitor_name: visit_name }] },
            function(err, result) {
+            //console.log(result.visitor_region_privateIp.length || result.visitor_region_privateIp);
             
-            var countryVal2 = "US";
+            //var countryVal2 = "-";
+            // var browserVal2 = "-";
+            // var osVal2 = "-";
+            // var platformVal2 = "-";
+            // var ipAddress2 = "-";
+
+            var countryVal2 = ( function() {
+              if(result.visitor_region_privateIp.length != 0)
+              {
+                return result.visitor_region_privateIp[0].country;
+              }
+              else if(result.visitor_region_publicIp.length != 0)
+              {
+                return result.visitor_region_publicIp[0].country;
+              }
+              else{
+                return "-";
+              }
+            })();
+
+            var browserVal2 = ( function() {
+              if(result.visitor_browser_and_os.length != 0)
+              {
+                return result.visitor_browser_and_os[0].browser;
+              }
+              else
+              {
+                return "-";
+              }
+            })();
+
+            var osVal2 = ( function() {
+              if(result.visitor_browser_and_os.length != 0)
+              {
+                return result.visitor_browser_and_os[0].os;
+              }
+              else
+              {
+                return "-";
+              }
+            })();
+
+            var platformVal2 = ( function() {
+              if(result.visitor_browser_and_os.length != 0)
+              {
+                return result.visitor_browser_and_os[0].platform;
+              }
+              else
+              {
+                return "-";
+              }
+            })();
+
+            var ipAddressVal2 = ( function() {
+              if(result.visitor_privateIp != null || result.visitor_privateIp != "")
+              {
+                return result.visitor_privateIp;
+              }
+              else if(result.visitor_publicIp != null || result.visitor_publicIp != "")
+              {
+                return result.visitor_publicIp;
+              }
+              else{
+                return "-";
+              }
+            })();
+
             // console.log(result.visitor_region_privateIp);
-            // if(result.visitor_region_privateIp.length != 0)
-            // {
-            //   console.log('1');
-            //   countryVal2 = result.visitor_region_privateIp[0].country;
-            // }
-            // else if(result.visitor_region_publicIp.length != 0)
-            // {
-            //   console.log('2');
-            //   countryVal2 = result.visitor_region_publicIp[0].country;
-            // }
             
             var countryVal =  countryVal2;
-            var browserVal = result.visitor_browser_and_os[0].browser;
-            var osVal = result.visitor_browser_and_os[0].os;
-            var platformVal = result.visitor_browser_and_os[0].platform;
-
+            var browserVal = browserVal2; //result.visitor_browser_and_os[0].browser;
+            var osVal = osVal2; //result.visitor_browser_and_os[0].os;
+            var platformVal = platformVal2; //result.visitor_browser_and_os[0].platform;
+            var ipAddressVal = ipAddressVal2;
 
             if(err){
               visitId =  "";
@@ -103,7 +160,8 @@ module.exports.sockets = function(http) {
                 country: countryVal,
                 browser: browserVal,
                 os: osVal,
-                platform: platformVal
+                platform: platformVal,
+                ipaddress : ipAddressVal
               }
 
               callback(response);
@@ -121,7 +179,8 @@ module.exports.sockets = function(http) {
                 country: countryVal,
                 browser: browserVal,
                 os: osVal,
-                platform: platformVal
+                platform: platformVal,
+                ipaddress : ipAddressVal
               }
 
               callback(response);
@@ -140,7 +199,8 @@ module.exports.sockets = function(http) {
                       country: countryVal,
                       browser: browserVal,
                       os: osVal,
-                      platform: platformVal
+                      platform: platformVal,
+                      ipaddress : ipAddressVal
                     }
 
                       callback(response);
@@ -155,7 +215,8 @@ module.exports.sockets = function(http) {
                       country: countryVal,
                       browser: browserVal,
                       os: osVal,
-                      platform: platformVal
+                      platform: platformVal,
+                      ipaddress : ipAddressVal
                     }
 
                       callback(response);
@@ -171,7 +232,8 @@ module.exports.sockets = function(http) {
                       country: countryVal,
                       browser: browserVal,
                       os: osVal,
-                      platform: platformVal
+                      platform: platformVal,
+                      ipaddress : ipAddressVal
                     }
 
                       callback(response);

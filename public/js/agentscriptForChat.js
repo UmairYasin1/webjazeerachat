@@ -29,6 +29,7 @@ $ (function(){
     //receiving onlineStack.
     socket.on('onlineStack',function(stack){
       $('.ChatTable table tbody').empty();
+      $('#contactsList ul').empty();
      // $('#list').empty();
      // $('#list').append($('<li>').append($('<button id="ubtn" class="btn btn-danger btn-block btn-lg"></button>').text("Group").css({"font-size":"18px"})));
       var totalOnline = 0;
@@ -51,11 +52,13 @@ $ (function(){
              
 
               var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+'</a><i class="fa fa-check-circle-o" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>1hr 3 mins</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
+              var b = '<li class="contact ubtn" dataname='+response.visitor_name+' rel='+response.visitor_id+'><div class="wrap"><div class="img"> MX </div><div class="meta"><p class="name">'+response.visitor_name+'</p><p class="preview">You just got LITT up, Mike.</p></div></div></li>';
               totalOnline++;
       
             }
             else{
               var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+'</a> <i class="fa fa-ban" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>1hr 3 mins</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
+              var b = '<li class="contact ubtn" dataname='+response.visitor_name+' rel='+response.visitor_id+'><div class="wrap"><div class="img"> MX </div><div class="meta"><p class="name">'+response.visitor_name+'</p><p class="preview">You just got LITT up, Mike.</p></div></div></li>';              
               //totalOnline++;
       
             //  var txt2 = $('<span class="badge"></span>').text(stack[response.visitor_name]).css({"float":"right","color":"#a6a6a6","font-size":"18px"});
@@ -65,6 +68,7 @@ $ (function(){
             //$('#list').append($('<li>').append(txt1,txt2));
 
             $('.ChatTable table tbody').append(a);
+            $('#contactsList ul').append(b);
 
             $('#totalOnline').text(totalOnline);
 
@@ -78,6 +82,37 @@ $ (function(){
     }); //end of receiving onlineStack event.
   
   
+    $(document).on("click",".ubtn",function(){
+
+      $('#messages').empty();
+      $('#typing').text("");
+      msgCount = 0;
+      noChat = 0;
+      oldInitDone = 0;
+
+      toUser = $(this).attr("dataname");
+      visitor_id = $(this).attr("rel");
+
+      $(".contact-profile h3").text(toUser);
+      //$("#visitorName").text(toUser);
+
+      $("#toVisitor").val(toUser);
+      $('#frndName').text(toUser);
+      //$('#initMsg').hide();
+
+      socket.emit('update-room',{ visitor_id : visitor_id , agent_id : agent_id , agent : username});
+
+      socket.emit('get_visitor_id',toUser, function (response) {
+         $("#visitorName").text(response.visitor_name);
+         $("#visitorLocation").text(response.country);
+         $("#visitorIpAddress").text(response.ipaddress);
+         $("#visitorOS").text(response.os);
+         $("#visitorBrowser").text(response.browser);
+         $("#visitorPlatform").text(response.platform);
+     });
+
+    });
+
     $(document).on("click","#ubtn",function(){
 
       $('#messages').empty();
@@ -126,6 +161,7 @@ $ (function(){
     //listening old-chats event.
     socket.on('old-chats',function(data){
       $(".replymsg").empty();
+      $(".messages ul").empty();
       if(data.room == roomId){
         oldInitDone = 1; //setting value to implies that old-chats first event is done.
         if(data.result.length != 0){
@@ -134,6 +170,10 @@ $ (function(){
 
                  socket.emit('get_reply_msg', data.result[i].msgId   , function (response) {
 
+                  var visitorImg = $("<img>").attr("src" , "/pics/visitor.jpeg");
+                  var agentImg = $("<img>").attr("src" , "/pics/agent.png");
+
+                  
                    //styling of chat message.
                    var chatDate = moment(response.createdOn).format("MMMM Do YYYY, hh:mm:ss a");
                    var txt1 = $('<span></span>').text(response.msgFrom+" : ");
@@ -149,7 +189,7 @@ $ (function(){
 
                   var reschatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
                    var restxt1 = $('<span></span>').text(response.repmsgFrom+" : ");
-                   var restxt2 = $('<span></span>').text(reschatDate);
+                   var restxt2 = $('<span class="timeStamp"></span>').text(reschatDate);
                    var restxt3 = $('<p></p>').append(restxt1,restxt2);
                    var restxt4 = $('<p></p>').text(response.repmsg);
                    if(response.repfile != ''){
@@ -158,11 +198,23 @@ $ (function(){
                        var restxt5 = "";
                      }
 
+                     if(username == response.repmsgFrom){
+                      //var clas = "sent";
+                      var clas = "replies";
+                      var usrImg = agentImg;
+                    }else{
+                      //var clas = "replies";
+                      var clas = "sent";
+                      var usrImg = visitorImg;
+                    }
+
                      if(response.msgFrom == ""){
                       $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId));
+                      $('.messages ul').prepend($('<li class='+clas+'>').append(usrImg,restxt2,restxt4).attr("rel" , response.msgId));
                    
                      }else{
                       $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5).attr("rel" , response.msgId))));
+                      $('.messages ul').prepend($('<li class='+clas+'>').append(usrImg,restxt2,restxt4).attr("rel" , response.msgId));
                    
                      }
                    
@@ -214,6 +266,7 @@ $ (function(){
         $.ajax({
           type: "POST",
           //url: "http://localhost:5000/upload/file",
+          //url: "http://192.168.1.108:5000/upload/file",
           url: "https://umairyasin1-dinochat.glitch.me/upload/file",
           data: formData,
           processData: false,
@@ -267,9 +320,13 @@ $ (function(){
     //receiving messages.
     socket.on('chat-msg',function(data){
       //styling of chat message.
+
+      var visitorImg = $("<img>").attr("src" , "/pics/visitor.jpeg");
+      var agentImg = $("<img>").attr("src" , "/pics/agent.png");
+      
       var chatDate = moment(data.date).format("MMMM Do YYYY, hh:mm:ss a");
       var txt1 = $('<span></span>').text(data.msgFrom+" : ");
-      var txt2 = $('<span></span>').text(chatDate);
+      var txt2 = $('<span class="timeStamp"></span>').text(chatDate);
       var txt3 = $('<p></p>').append(txt1,txt2);
       var txt4 = $('<p></p>').text(data.msg);
       if(data.file != ""){
@@ -279,16 +336,20 @@ $ (function(){
         }
 
         if(username == data.msgFrom){
-          var clas = "sent";
-        }else{
+          //var clas = "sent";
           var clas = "replies";
+          var usrImg = agentImg;
+        }else{
+          //var clas = "replies";
+          var clas = "sent";
+          var usrImg = visitorImg;
         }
       
       if(data.repMsg != ""){
 
         var replychatDate = moment(data.repDate).format("MMMM Do YYYY, hh:mm:ss a");
         var replytxt1 = $('<span></span>').text(data.repFrom+" : ");
-        var replytxt2 = $('<span></span>').text(replychatDate);
+        var replytxt2 = $('<span  class="timeStamp"></span>').text(replychatDate);
         var replytxt3 = $('<p></p>').append(replytxt1,replytxt2);
         var replytxt4 = $('<p></p>').text(data.repMsg);
         if(data.repfile != ""){
@@ -298,18 +359,22 @@ $ (function(){
           }
 
         $('#messages').append($('<li class='+clas+'>').append(replytxt3,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
-
+        $('.messages ul').append($('<li class='+clas+'>').append(usrImg,replytxt2,replytxt4).attr("rel" , data.id));
+                   
       }else{
         
         $('#messages').append($('<li class='+clas+'>').append(txt3,txt4,txt5).attr("rel" , data.id));
+        $('.messages ul').append($('<li class='+clas+'>').append(usrImg,txt2,txt4).attr("rel" , data.id));
+         
       }
  
       //showing chat in chat box.
       
         msgCount++;
-        console.log(msgCount);
+        //console.log(msgCount);
         $('#typing').text("");
-        $('#scrl2').scrollTop($('#scrl2').prop("scrollHeight"));
+        // $('#scrl2').scrollTop($('#scrl2').prop("scrollHeight"));
+        $(".messages").animate({ scrollTop: $('.messages').prop("scrollHeight") }, "fast");
     }); //end of receiving messages.
   
     //on disconnect event.

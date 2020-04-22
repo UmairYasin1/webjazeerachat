@@ -35,8 +35,29 @@ module.exports.controller = function(app) {
     browserAndOSValue = req.useragent;
 
     var privateIpbreak = privateIpValue.substring(0, privateIpValue.indexOf(","));
-    geoLocValuePrivate = geoip.lookup(privateIpbreak);
-    console.log(privateIpbreak);
+    geoLocValuePrivate = (function() {
+      if(privateIpbreak == ""){
+        //console.log(privateIpValue);
+        //return geoip.lookup(privateIpValue);
+        if(geoip.lookup(privateIpValue) == null){
+          return [];
+        }
+        else{
+          return geoip.lookup(privateIpValue);
+        }
+      }
+      else{
+        // console.log(privateIpbreak);
+        // return geoip.lookup(privateIpbreak);
+        if(geoip.lookup(privateIpbreak) == null){
+          return [];
+        }
+        else{
+          return geoip.lookup(privateIpbreak);
+        }
+      }
+    })();
+    //console.log(privateIpbreak);
     console.log(geoLocValuePrivate);
     //geoLocValuePrivate = [];
     

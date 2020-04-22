@@ -1,5 +1,14 @@
 $(document).ready(function(){
     
+    $(".closeWin").click(function(){
+        $('.userChatPupopWrap').hide();
+        $('.chatoverlay').hide();
+    });
+
+    $(".openchat").click(function(){
+        $('.userChatPupopWrap').show();
+        $('.chatoverlay').show();
+    });
     
     
 $('.mainMenuUL > li').on('click', function() { 

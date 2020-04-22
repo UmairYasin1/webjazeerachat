@@ -97,9 +97,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e6af4', end
 
 .ChatListing {margin: 0px 0 20px 0;}
 .ChatListing .AccordianChat { padding: 20px 0 20px 0;  overflow: hidden;}
-.ChatListing .AccordianChat .AccordianHead{
-    margin: 0 0 70px 0;
-}
+.ChatListing .AccordianChat .AccordianHead{}
 .ChatListing .AccordianChat .AccordianHead .ChatCount{ border-radius: 22.5px;box-shadow: 8px 8px 14px 0 rgba(40, 49, 54, 0.15), -7px -7px 18px 0 #ffffff;
   background-image: linear-gradient(294deg, #f6f8fa 88%, #eaeff2 7%);width: 45px;height: 45px;overflow: hidden;display: inline-block;vertical-align: middle;line-height: 42px;text-align: center;margin: 0 10px 0 0;}
 
@@ -119,7 +117,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e6af4', end
 
 .ChatListing .AccordianChat .AccordianBody {padding: 0 26px;display: none;width: 100%;}
 .ChatListing .AccordianChat.active .AccordianBody {display:block; }
-.ChatListing .AccordianChat .AccordianBody .ChatTable{/* margin: 60px 0 0 0; */display: block;}
+.ChatListing .AccordianChat .AccordianBody .ChatTable{padding: 60px 0 0 0;}
 
 .ChatListing .AccordianChat .AccordianBody .ChatTable .table {border-collapse: collapse;  border: 1px solid #ccc;overflow: hidden;box-shadow: 0 0 0 1px #dddddd;  border-radius: 10px;  }
 .ChatListing .AccordianChat .AccordianBody .ChatTable .table thead{}
@@ -131,15 +129,222 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e6af4', end
 
 .ChatListing .AccordianChat .AccordianBody .ChatTable .table tbody tr td {font-size: 14px;  color: #283136;}
 
-.ChatListing .AccordianChat .AccordianBody .ChatTable .table tbody tr td span a {text-decoration: none; font-size: 14px;  color: #283136;}
-
 .ChatListing .AccordianChat .AccordianBody .loadMoreLinks {}
 .ChatListing .AccordianChat .AccordianBody .loadMoreLinks a{font-size: 14px;color: #8096a1;display: inline-block;margin: 0 10px 0 0;}
 
 
 
 
+.ChatpopBody {  background-color: #ecf0f3;
+}
 
+.userChatPupopWrap {max-width: 1155px;margin: 50px auto;background: #fff;min-height: 400px;border-radius: 30px;overflow: hidden; position: fixed;
+  z-index: 99999;
+  box-shadow: 0px 0px 11px #ccc;
+  left: 50%;
+  margin-left: -577px;
+  display: none;
+  width: 10000px;
+}
+
+.chatoverlay {position:fixed; top:0;bottom:0;left:0;right:0; background:rgba(0,0,0,0.8); z-index:98; display: none;}
+
+.userChatPupop {}
+
+
+
+
+#userChatDashboard{width: 100%;min-width:360px;max-width: 100%;height:92vh;min-height:300px;max-height:720px;background:#E6EAEA;}
+@media screen and (max-width: 360px) {
+#userChatDashboard{width:100%;height:100vh}
+}
+#userChatDashboard #sidepanel{float:left;/* min-width:280px; *//* max-width:340px; */width: 25%;height:100%;background: #283136;color:#f5f5f5;overflow:hidden;position:relative;}
+@media screen and (max-width: 735px) {
+#userChatDashboard #sidepanel{width:58px;min-width:58px}
+}
+#userChatDashboard #sidepanel #search{/* border-top:1px solid #32465a; */border-right: 1px solid #f4f4f5;font-weight:300;min-height: 60px;}
+@media screen and (max-width: 735px) {
+#userChatDashboard #sidepanel #search{display:none}
+}
+#userChatDashboard #sidepanel #search label{position:absolute;margin: 20px 0 0 20px;}
+#userChatDashboard #sidepanel #search input{font-family:"proxima-nova","Source Sans Pro",sans-serif;padding:10px 0 10px 46px;width: calc(100%);border:none;background: #fff;color: #283136;min-height: 60px;}
+#userChatDashboard #sidepanel #search input:focus{outline:none;background:#fff}
+#userChatDashboard #sidepanel #search input::-webkit-input-placeholder{color:#283136}
+#userChatDashboard #sidepanel #search input::-moz-placeholder{color:#283136}
+#userChatDashboard #sidepanel #search input:-ms-input-placeholder{color:#283136}
+#userChatDashboard #sidepanel #search input:-moz-placeholder{color:#283136}
+#userChatDashboard #sidepanel #contactsList{height: 90%;overflow: hidden;}
+#userChatDashboard #sidepanel #contactsList:hover {overflow-y:scroll;overflow-x:hidden}
+#userChatDashboard #sidepanel #contactsList ul {padding: 0; margin: 0; list-style: none;}
+@media screen and (max-width: 735px) {
+#userChatDashboard #sidepanel #contactsList{height:calc(100% - 149px);}
+    #userChatDashboard #sidepanel #contactsList:hover {overflow-y:scroll;overflow-x:hidden}
+#userChatDashboard #sidepanel #contactsList::-webkit-scrollbar{display:none}
+}
+#userChatDashboard #sidepanel #contactsList.expanded{height:calc(100% - 334px)}
+#userChatDashboard #sidepanel #contactsList::-webkit-scrollbar{width:8px;background:#2c3e50}
+#userChatDashboard #sidepanel #contactsList::-webkit-scrollbar-thumb{background-color:#243140}
+#userChatDashboard #sidepanel #contactsList ul li.contact{position:relative;padding:10px 0 15px;font-size:.9em;cursor:pointer;box-shadow: 1px 1.5px 0 0 rgba(0, 0, 0, 0.1);}
+@media screen and (max-width: 735px) {
+#userChatDashboard #sidepanel #contactsList ul li.contact{padding:6px 0 46px 8px}
+}
+#userChatDashboard #sidepanel #contactsList ul li.contact:hover{background:#32465a}
+#userChatDashboard #sidepanel #contactsList ul li.contact.active{background: rgb(34,116,245); background: -moz-linear-gradient(left,  rgba(34,116,245,1) 0%, rgba(17,73,236,1) 100%); background: -webkit-linear-gradient(left,  rgba(34,116,245,1) 0%,rgba(17,73,236,1) 100%); background: linear-gradient(to right,  rgba(34,116,245,1) 0%,rgba(17,73,236,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2274f5', endColorstr='#1149ec',GradientType=1 ); /* IE6-9 */}
+#userChatDashboard #sidepanel #contactsList ul li.contact.active span.contact-status{border:2px solid #32465a!important}
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap{width:88%;margin:0 auto;position:relative;padding: 10px 0;}
+@media screen and (max-width: 735px) {
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap{width:100%}
+}
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap span{position:absolute;left:0;margin:-2px 0 0 -2px;width:10px;height:10px;border-radius:50%;border:2px solid #2c3e50;background:#95a5a6}
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap span.online{background:#2ecc71}
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap span.away{background:#f1c40f}
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap span.busy{background:#e74c3c}
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap .img{width:40px;border-radius:50%;float:left;margin-right:10px;display: block;background: #283136;height: 40px;text-align: center;line-height: 41px;font-weight: 600;box-shadow: 3px 0px 15px #172127;}
+#userChatDashboard #sidepanel #contactsList ul li.contact.active .wrap .img{background: #2275f5;box-shadow: -5px -4px 15px #79abca;}
+@media screen and (max-width: 735px) {
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap img{margin-right:0}
+}
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap .meta{padding:5px 0 0}
+@media screen and (max-width: 735px) {
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap .meta{display:none}
+}
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap .meta .name{font-weight:600;margin: 0 0 0 0;opacity: 0.7;font-size: 14px;}
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap .meta .preview{margin: 0px 0 0;padding:0 0 1px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-moz-transition:1s all ease;-o-transition:1s all ease;-webkit-transition:1s all ease;transition:1s all ease;}
+#userChatDashboard #sidepanel #contactsList ul li.contact .wrap .meta .preview span{position:initial;border-radius:initial;background:none;border:none;padding:0 2px 0 0;margin:0 0 0 1px;opacity:.5}
+
+#userChatDashboard .content{float: left;width: 45%;height:100%;overflow:hidden;position:relative;background: #f8f8f9;border-right: 1px solid #f4f4f5;}
+@media screen and (max-width: 735px) {
+#userChatDashboard .content{width:calc(100% - 58px);min-width:300px!important}
+}
+@media screen and (min-width: 900px) {
+#userChatDashboard .content{/* width:calc(100% - 340px); */}
+}
+#userChatDashboard .content .contact-profile{width:100%;height:60px;line-height:60px;background: #fff;padding: 0 0 0 14px;}
+
+
+
+#userChatDashboard .content .contact-profile h3 {margin: 0;color: #283136;font-size: 17px;font-weight: 600;padding: 12px 0 0 0;}
+#userChatDashboard .content .contact-profile h4 {margin: 0;font-size: 14px;color: #283136;padding: 4px 0 0 0;}
+#userChatDashboard .content .contact-profile h4 .OnlineStatus {width: 9px;height: 9px;background-color: #44bd32;display: inline-block;margin: 0 3px 0 0;border-radius: 10px;}
+
+
+
+#userChatDashboard .content .contact-profile img{width:40px;border-radius:50%;float:left;margin:9px 12px 0 9px}
+#userChatDashboard .content .contact-profile p{float:left}
+#userChatDashboard .content .contact-profile .social-media{float:right}
+#userChatDashboard .content .contact-profile .social-media i{margin-left:14px;cursor:pointer}
+#userChatDashboard .content .contact-profile .social-media i:nth-last-child(1){margin-right:20px}
+#userChatDashboard .content .contact-profile .social-media i:hover{color:#435f7a}
+#userChatDashboard .content .messages{height:auto;min-height:calc(100% - 93px);max-height:calc(100% - 93px);overflow-y:scroll;overflow-x:hidden;width: 100%;}
+#userChatDashboard .content .messages ul {padding: 0px}
+@media screen and (max-width: 735px) {
+#userChatDashboard .content .messages{max-height:calc(100% - 105px)}
+}
+#userChatDashboard .content .messages::-webkit-scrollbar{width:8px;background:transparent}
+#userChatDashboard .content .messages::-webkit-scrollbar-thumb{background-color:rgba(0,0,0,0.3)}
+#userChatDashboard .content .messages ul li{display:inline-block;clear:both;float:left;margin: 5px 15px 5px 5px;width:calc(100% - 25px);font-size:.9em;position: relative;padding: 0 0 0px 0;}
+#userChatDashboard .content .messages ul li:nth-last-child(1){margin-bottom:20px}
+#userChatDashboard .content .messages ul li.sent img{margin:6px 8px 0 0}
+#userChatDashboard .content .messages ul li.sent p{background:#435f7a;color: #283136;box-shadow: 14px 14px 30px 0 rgba(40, 49, 54, 0.1), -10px -10px 20px 0 #ffffff;background-color: #fbfcfb;}
+#userChatDashboard .content .messages ul li.replies img{float:right;margin:6px 0 0 8px}
+#userChatDashboard .content .messages ul li.replies p{float:right;background: rgb(34,116,245);background: -moz-linear-gradient(left,  rgba(34,116,245,1) 0%, rgba(17,73,236,1) 100%);background: -webkit-linear-gradient(left,  rgba(34,116,245,1) 0%,rgba(17,73,236,1) 100%);background: linear-gradient(to right,  rgba(34,116,245,1) 0%,rgba(17,73,236,1) 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2274f5', endColorstr='#1149ec',GradientType=1 ); /* IE6-9 */color: #fff;}
+#userChatDashboard .content .messages ul li img{width: 40px;border-radius:50%;float:left;}
+#userChatDashboard .content .messages ul li p{display:inline-block;padding: 14px 15px;border-radius: 50px;max-width:205px;line-height:130%;}
+#userChatDashboard .content .messages ul li .timeStamp {color: #283136; font-size: 13px;}
+#userChatDashboard .content .messages ul li.sent .timeStamp {
+    position: absolute;
+    left: 5px;
+    top: 54px;
+}
+#userChatDashboard .content .messages ul li.replies .timeStamp{
+    position: absolute;
+    top: 51px;
+    right: 5px;
+}
+@media screen and (min-width: 735px) {
+#userChatDashboard .content .messages ul li p{max-width: 50%;}
+}
+#userChatDashboard .content .message-input{position:absolute;bottom:0;width:100%;z-index:99;background: #fff;padding: 10px 0;}
+#userChatDashboard .content .message-input .wrap{position:relative}
+#userChatDashboard .content .message-input .wrap input{font-family:"proxima-nova","Source Sans Pro",sans-serif;float:left;border:none;width:calc(100% - 90px);padding: 11px 32px 17px 8px;font-size:.8em;color:#32465a;}
+@media screen and (max-width: 735px) {
+#userChatDashboard .content .message-input .wrap input{padding:15px 32px 16px 8px}
+}
+#userChatDashboard .content .message-input .wrap input:focus{outline:none}
+#userChatDashboard .content .message-input .wrap .attachment{position:absolute;right:60px;z-index:4;margin-top:10px;font-size:1.1em;color:#435f7a;opacity:.5;cursor:pointer}
+@media screen and (max-width: 735px) {
+#userChatDashboard .content .message-input .wrap .attachment{margin-top:17px;right:65px}
+}
+#userChatDashboard .content .message-input .wrap .attachment:hover{opacity:1}
+#userChatDashboard .content .message-input .wrap button{float:right;border:none;width: 40px;padding: 10px 0;cursor:pointer;background:#32465a;color:#f5f5f5;background-image: linear-gradient(0deg, #0f47eb 0%, #2275f5 100%);border-radius: 70px;margin: 0 10px 0 0;}
+@media screen and (max-width: 735px) {
+#userChatDashboard .content .message-input .wrap button{padding:16px 0}
+}
+#userChatDashboard .content .message-input .wrap button:hover{background:#435f7a}
+#userChatDashboard .content .message-input .wrap button:focus{outline:none}
+
+
+#userChatDashboard .UserDetailsPanel{float:left;width: 30%;height:100%;background: #fff;color: #283136;overflow:hidden;position:relative;}
+
+
+
+#userChatDashboard  .UserRightSection {height:100%;background: #fff;color: #283136;overflow:hidden;position:relative;}
+#userChatDashboard .UserRightSection:hover {overflow-y:scroll;overflow-x:hidden}
+
+#userChatDashboard  .UserRightSection::-webkit-scrollbar{width:4px;background:transparent}
+#userChatDashboard  .UserRightSection::-webkit-scrollbar-thumb{background-color:rgba(0,0,0,0.3)}
+
+@media screen and (max-width: 735px) {
+    #userChatDashboard .UserDetailsPanel {width: 100%}   
+}
+
+#userChatDashboard .UserDetailsPanel .user-details{width:100%;height:60px;line-height:60px;background: #fff;padding: 0 0 0 14px;border-bottom: 1px solid #f4f4f5;}
+
+#userChatDashboard .UserDetailsPanel .user-details h3 {margin: 0;color: #283136;font-size: 17px;font-weight: 600;padding: 22px 0 0 0;display: inline-block;}
+
+#userChatDashboard .UserDetailsPanel .user-details .btnAction{display:block;width:35px;height:35px;border-radius:22.5px;box-shadow:8px 8px 14px 0 rgba(40,49,54,0.06),-7px -7px 18px 0 #fff;border-style:solid;border-width:1px;border-image-source:linear-gradient(to bottom,rgba(244,244,245,0.6) 2%,rgba(255,255,255,0));border-image-slice:1;background-image:linear-gradient(to bottom,#fff,#fff),linear-gradient(to bottom,rgba(244,244,245,0.6) 2%,rgba(255,255,255,0));background-origin:border-box;background-clip:content-box,border-box;float:right;margin:11px 10px 0 0;line-height:28px;text-align:center}
+#userChatDashboard .UserDetailsPanel .user-details .btnAction.closeWin {    line-height: 36px;}
+#userChatDashboard .UserDetailsPanel .user-details .btnAction i {    color: #283136;}
+
+
+
+
+
+#userChatDashboard .generalInfo {max-width: 263px;min-height: 337px;border-radius:6px;box-shadow:8px 8px 30px 0 rgba(40,49,54,0.06),-8px -8px 30px 0 #fff;border-style:solid;border-width:1px;border-image-source:linear-gradient(to bottom,rgba(244,244,245,0.6) 2%,rgba(255,255,255,0));border-image-slice:1;background-image:linear-gradient(to bottom,#fff,#fff),linear-gradient(to bottom,rgba(244,244,245,0.6) 2%,rgba(255,255,255,0));background-origin:border-box;margin: 30px auto;box-sizing: border-box;}
+
+
+#userChatDashboard .generalInfo h3 {font-size: 15px;font-weight: 600;color: #283136;margin: 0 0 10px 0;padding: 20px 20px 0px 20px;}
+#userChatDashboard .generalInfo ul {padding: 0 20px 20px 20px;list-style: none;border-bottom: 1px solid #f8f8f9;}
+#userChatDashboard .generalInfo ul li.contact .wrap .img{width:40px;border-radius:50%;float:left;margin-right:10px;display: block;background: #fff;height: 40px;text-align: center;line-height: 41px;font-weight: 600;box-shadow: 3px 0px 15px #e6ebef;color: #2275f5;}
+#userChatDashboard #sidepanel #contactsList ul li.contact.active .wrap .img{background: #2275f5;box-shadow: -5px -4px 15px #79abca;}
+@media screen and (max-width: 735px) {
+#userChatDashboard  .generalInfo ul li.contact .wrap img{margin-right:0}
+}
+#userChatDashboard  .generalInfo ul li.contact .wrap .meta{padding:5px 0 0}
+@media screen and (max-width: 735px) {
+#userChatDashboard  .generalInfo ul li.contact .wrap .meta{display:none}
+}
+#userChatDashboard  .generalInfo ul li.contact .wrap .meta .name{font-weight:600;margin: 0 0 0 0;color: #283136;font-size: 15px;}
+#userChatDashboard  .generalInfo ul li.contact .wrap .meta .preview{margin: 0px 0 0;padding:0 0 1px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-moz-transition:1s all ease;-o-transition:1s all ease;-webkit-transition:1s all ease;transition:1s all ease;color: #283136;opacity: 0.7;}
+#userChatDashboard  .generalInfo ul li.contact .wrap .meta .preview span{position:initial;border-radius:initial;background:none;border:none;padding:0 2px 0 0;margin:0 0 0 1px;opacity:.5}
+
+.timeAndLocation { padding: 20px 20px;}
+.timeAndLocation p {color: #283136;font-size: 15px;font-weight: 700;}
+.timeAndLocation p span{display: inline-block;margin: 0 10px 0 0;color: #ccc;width: 12px;text-align: center;font-size: 17px;}
+
+
+#userChatDashboard .generalBox {max-width: 263px;/* min-height: 337px; */border-radius:6px;box-shadow:8px 8px 30px 0 rgba(40,49,54,0.06),-8px -8px 30px 0 #fff;border-style:solid;border-width:1px;border-image-source:linear-gradient(to bottom,rgba(244,244,245,0.6) 2%,rgba(255,255,255,0));border-image-slice:1;background-image:linear-gradient(to bottom,#fff,#fff),linear-gradient(to bottom,rgba(244,244,245,0.6) 2%,rgba(255,255,255,0));background-origin:border-box;margin: 30px auto;box-sizing: border-box;padding-bottom: 20px;}
+
+#userChatDashboard .generalBox.blue {background: #e4e8eb;}
+
+#userChatDashboard .generalBox h3 {font-size: 15px;font-weight: 600;color: #283136;margin: 0 0 10px 0;padding: 20px 20px 0px 20px;}
+#userChatDashboard .generalBox .padding {padding: 20px 20px 0px 20px;}
+
+#userChatDashboard .generalBox .listItemsInfo  {list-style-image: url('../images/chaticonright.png');border-left: 1px dashed #ccc;padding: 0 0 0px 13px;margin: 0 0 0 26px;}
+#userChatDashboard .generalBox .listItemsInfo li{    margin: 0 0 10px 0;}
+#userChatDashboard .generalBox .listItemsInfo li .infoText{ display: block;}
+#userChatDashboard .generalBox .listItemsInfo li .infoDetail{color: #2275f5;}
+#userChatDashboard .generalBox .listItemsInfo li .infoDetail a{color: #2275f5;}
 
 
 
