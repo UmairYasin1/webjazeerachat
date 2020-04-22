@@ -73,7 +73,7 @@ module.exports.controller = function(app) {
    // //create user.
     const newAgent = new agentModel({
         agent_id: id,
-        agent_name: req.body.agent_name,
+        agent_name: req.body.agent_name.replace(/\s/g, ''),
         agent_email: req.body.agent_email,
         agent_phone: req.body.phone_number,
         agent_password: epass,

@@ -81,7 +81,7 @@ module.exports.controller = function(app) {
     // //create user.
      const newVisitor = new visitorModel({
         visitor_id: id,
-        visitor_name: req.body.visitor_name,
+        visitor_name: req.body.visitor_name.replace(/\s/g, ''),
         visitor_email: req.body.visitor_email,
         phone_number: req.body.phone_number,
         company_name: req.body.company_name,

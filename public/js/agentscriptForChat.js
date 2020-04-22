@@ -210,11 +210,11 @@ $ (function(){
 
                      if(response.msgFrom == ""){
                       $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId));
-                      $('.messages ul').prepend($('<li class='+clas+'>').append(usrImg,restxt2,restxt4).attr("rel" , response.msgId));
+                      $('.messages ul').prepend($('<li class='+clas+'>').append(usrImg,restxt2,restxt4,restxt5).attr("rel" , response.msgId));
                    
                      }else{
                       $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5).attr("rel" , response.msgId))));
-                      $('.messages ul').prepend($('<li class='+clas+'>').append(usrImg,restxt2,restxt4).attr("rel" , response.msgId));
+                      $('.messages ul').prepend($('<li class='+clas+'>').append(usrImg,restxt2,restxt4,restxt5).attr("rel" , response.msgId));
                    
                      }
                    
@@ -359,12 +359,12 @@ $ (function(){
           }
 
         $('#messages').append($('<li class='+clas+'>').append(replytxt3,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
-        $('.messages ul').append($('<li class='+clas+'>').append(usrImg,replytxt2,replytxt4).attr("rel" , data.id));
+        $('.messages ul').append($('<li class='+clas+'>').append(usrImg,replytxt2,replytxt4,replytxt5).attr("rel" , data.id));
                    
       }else{
         
         $('#messages').append($('<li class='+clas+'>').append(txt3,txt4,txt5).attr("rel" , data.id));
-        $('.messages ul').append($('<li class='+clas+'>').append(usrImg,txt2,txt4).attr("rel" , data.id));
+        $('.messages ul').append($('<li class='+clas+'>').append(usrImg,txt2,txt4,txt5).attr("rel" , data.id));
          
       }
  
