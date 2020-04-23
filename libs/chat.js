@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const events = require("events");
 const _ = require("lodash");
 const shortid = require("shortid");
+var moment = require('moment');
 const eventEmitter = new events.EventEmitter();
 
 //adding db models
@@ -81,7 +82,63 @@ module.exports.sockets = function(http) {
             // var browserVal2 = "-";
             // var osVal2 = "-";
             // var platformVal2 = "-";
-            // var ipAddress2 = "-";
+            // var ipAddressVal2 = "-";
+            // var totalHoursVal2 = "-";
+            // var totalTimeShortVal2 = "-";
+            // var totalTimeExpVal2 = "-";
+            // var createdDateVal2 = "-";
+
+            var totalHoursVal2 = ( function() {
+              date2 = result.createdOn;
+              var then = moment(date2, "YYYY-MM-DD'T'HH:mm:ss:SSSZ");
+              var now = moment(); 
+              var ms = moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(then,"DD/MM/YYYY HH:mm:ss"));
+              var d = moment.duration(ms);
+              var s = Math.floor(d.asHours()) + moment.utc(ms).format(":mm:ss");
+              return s;
+            })();
+
+            var totalTimeShortVal2 = ( function() {
+              date2 = result.createdOn;
+              var dateVal = moment(date2, "YYYY-MM-DD'T'HH:mm:ss:SSSZ").fromNow();
+              return dateVal;
+            })();
+
+            var totalTimeExpVal2 = ( function() {
+              date2 = result.createdOn;
+
+              var then = moment(date2, "YYYY-MM-DD'T'HH:mm:ss:SSSZ");
+              var now = moment(); 
+              var delta = Math.abs(now - then) / 1000;
+              var days = Math.floor(delta / 86400);
+              delta -= days * 86400;
+              var hours = Math.floor(delta / 3600) % 24;
+              delta -= hours * 3600;
+              var minutes = Math.floor(delta / 60) % 60;
+              delta -= minutes * 60;
+              var seconds = delta % 60;
+              var retVal;
+              if(days != 0){
+                retVal = days + " day, " + hours + " hour, " + minutes + " min, " + seconds.toFixed(0) + " sec ago";
+              }
+              else if (hours != 0){
+                retVal = hours + " hour, " + minutes + " min, " + seconds.toFixed(0) + " sec ago";
+              }
+              else if (minutes != 0){
+                retVal = minutes + " min, " + seconds.toFixed(0) + " sec ago";
+              }
+              else{
+                retVal = seconds.toFixed(0) + " sec ago";
+              }
+              return retVal;
+
+            })();
+
+            var createdDateVal2 = ( function() {
+              date2 = result.createdOn;
+              var comeDate = moment(date2).format('MMMM Do YYYY, h:mm a');
+              return comeDate;
+            })();
 
             var countryVal2 = ( function() {
               if(result.visitor_region_privateIp.length != 0)
@@ -151,6 +208,10 @@ module.exports.sockets = function(http) {
             var osVal = osVal2; //result.visitor_browser_and_os[0].os;
             var platformVal = platformVal2; //result.visitor_browser_and_os[0].platform;
             var ipAddressVal = ipAddressVal2;
+            var totalHoursVal = totalHoursVal2;
+            var totalTimeShortVal = totalTimeShortVal2;
+            var totalTimeExpVal = totalTimeExpVal2;
+            var createdDateVal = createdDateVal2;
 
             if(err){
               visitId =  "";
@@ -161,7 +222,11 @@ module.exports.sockets = function(http) {
                 browser: browserVal,
                 os: osVal,
                 platform: platformVal,
-                ipaddress : ipAddressVal
+                ipaddress : ipAddressVal,
+                totalhournumber : totalHoursVal,
+                totaltimeshort : totalTimeShortVal,
+                totaltimelong : totalTimeExpVal,
+                createdate : createdDateVal
               }
 
               callback(response);
@@ -180,7 +245,11 @@ module.exports.sockets = function(http) {
                 browser: browserVal,
                 os: osVal,
                 platform: platformVal,
-                ipaddress : ipAddressVal
+                ipaddress : ipAddressVal,
+                totalhournumber : totalHoursVal,
+                totaltimeshort : totalTimeShortVal,
+                totaltimelong : totalTimeExpVal,
+                createdate : createdDateVal
               }
 
               callback(response);
@@ -200,7 +269,11 @@ module.exports.sockets = function(http) {
                       browser: browserVal,
                       os: osVal,
                       platform: platformVal,
-                      ipaddress : ipAddressVal
+                      ipaddress : ipAddressVal,
+                      totalhournumber : totalHoursVal,
+                      totaltimeshort : totalTimeShortVal,
+                      totaltimelong : totalTimeExpVal,
+                      createdate : createdDateVal
                     }
 
                       callback(response);
@@ -216,7 +289,11 @@ module.exports.sockets = function(http) {
                       browser: browserVal,
                       os: osVal,
                       platform: platformVal,
-                      ipaddress : ipAddressVal
+                      ipaddress : ipAddressVal,
+                      totalhournumber : totalHoursVal,
+                      totaltimeshort : totalTimeShortVal,
+                      totaltimelong : totalTimeExpVal,
+                      createdate : createdDateVal
                     }
 
                       callback(response);
@@ -233,7 +310,11 @@ module.exports.sockets = function(http) {
                       browser: browserVal,
                       os: osVal,
                       platform: platformVal,
-                      ipaddress : ipAddressVal
+                      ipaddress : ipAddressVal,
+                      totalhournumber : totalHoursVal,
+                      totaltimeshort : totalTimeShortVal,
+                      totaltimelong : totalTimeExpVal,
+                      createdate : createdDateVal
                     }
 
                       callback(response);
@@ -364,35 +445,33 @@ module.exports.sockets = function(http) {
 
       roomModel.findOne({ name1: room.visitor_id }, function(err,obj) { 
 
-        if(err){
-
+        if(err)
+        {
           socket.room =  obj._id;
           socket.join(socket.room);
           ioChat.to(userSocket[socket.username]).emit("update-room", socket.room);
-
         }
-        if(obj!=null){
-        if(obj.name2 == ""){
-          roomModel.findOneAndUpdate(
-            filter , update , function(err, result) {
-            socket.room = result._id;
-            chatModel.updateMany({ room : socket.room } , {$set: { msgTo: room.agent }} , function(err, result) { }  )
+        if(obj != null)
+        {
+          if(obj.name2 == "")
+          {
+            roomModel.findOneAndUpdate(
+              filter , update , function(err, result) {
               socket.room = result._id;
+              chatModel.updateMany({ room : socket.room } , {$set: { msgTo: room.agent }} , function(err, result) { }  )
+                socket.room = result._id;
+                socket.join(socket.room);
+                ioChat.to(userSocket[socket.username]).emit("update-room", socket.room);
+            });
+          }
+          else
+          {
+              socket.room =  obj._id;
               socket.join(socket.room);
               ioChat.to(userSocket[socket.username]).emit("update-room", socket.room);
           }
-        );
-        }else{
-            socket.room =  obj._id;
-            socket.join(socket.room);
-            ioChat.to(userSocket[socket.username]).emit("update-room", socket.room);
-        }
-      } 
+        } 
       });
-
-
-
-
     }); //end of set-room event.
 
     //emits event to read old-chats-init from database.

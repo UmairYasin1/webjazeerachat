@@ -161,7 +161,7 @@
                   <div class="contact-profile">
         
                     <h3></h3>
-                    <h4><span class="OnlineStatus"></span> 29 mins on site..</h4>
+                    <h4><span class="OnlineStatus"></span><label id="visitorTotalTime"></label></h4>
         
                   </div>
                   <div class="messages">
@@ -178,7 +178,7 @@
                           <input type="hidden" id="toVisitor">
                           <input type="file" name="file" id="photos-input" /><br>
                       <input type="text" placeholder="Write your message..." id="myMsg" name="myMsg" />
-                      <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                      <!-- <i class="fa fa-paperclip attachment" aria-hidden="true"></i> -->
                       <button id="sendBtn" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                       </form>
                     </div>
@@ -190,7 +190,7 @@
                   <div class="user-details">
                     <h3>User Details</h3>
                     <a href="javascript:;" class="btnAction closeWin"><i class="fas fa-times"></i></a>
-                    <a href="javascript:;" class="btnAction"><i class="fas fa-window-minimize"></i></a>
+                    <!-- <a href="javascript:;" class="btnAction"><i class="fas fa-window-minimize"></i></a> -->
                   </div>
                   <!-- #user-details -->
         
@@ -205,10 +205,10 @@
                     <ul>
                       <li class="contact">
                         <div class="wrap">
-                          <div class="img"> MX </div>
+                          <div id="visitorNameInitials" class="img"></div>
                           <div class="meta">
                             <p id="visitorName" class="name"></p>
-                            <p class="preview">You just got LITT up, Mike.</p>
+                            <p class="preview"></p>
                           </div>
                         </div>
                       </li>
@@ -217,7 +217,7 @@
         
                     <div class="timeAndLocation">
         
-                     <p id="visitorTime"><span class="far fa-clock"></span> 9:10pm local time</p>
+                     <p><span class="far fa-clock"></span><label id="visitorTime"></label></p>
                      <p><span class="far fa-thumbtack"></span><label id="visitorLocation"></label></p>
                    </div>
                    <!-- #timeAndLocation -->

@@ -51,14 +51,14 @@ $ (function(){
             //  var txt2 = $('<span class="badge"></span>').text("*"+stack[response.visitor_name]).css({"float":"right","color":"#009933","font-size":"18px"});
              
 
-              var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+'</a><i class="fa fa-check-circle-o" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>1hr 3 mins</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
-              var b = '<li class="contact ubtn" dataname='+response.visitor_name+' rel='+response.visitor_id+'><div class="wrap"><div class="img"> MX </div><div class="meta"><p class="name">'+response.visitor_name+'</p><p class="preview">You just got LITT up, Mike.</p></div></div></li>';
+              var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+'</a><i class="fa fa-check-circle-o" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>'+ response.totaltimeshort +'</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
+              var b = '<li class="contact ubtn" dataname='+response.visitor_name+' rel='+response.visitor_id+'><div class="wrap"><div class="img"> '+ response.visitor_name.substr(0, 2).toUpperCase() +' </div><div class="meta"><p class="name">'+response.visitor_name+'</p><p class="preview"></p></div></div></li>';
               totalOnline++;
       
             }
             else{
-              var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+'</a> <i class="fa fa-ban" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>1hr 3 mins</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
-              var b = '<li class="contact ubtn" dataname='+response.visitor_name+' rel='+response.visitor_id+'><div class="wrap"><div class="img"> MX </div><div class="meta"><p class="name">'+response.visitor_name+'</p><p class="preview">You just got LITT up, Mike.</p></div></div></li>';              
+              var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="javascript:;" id="ubtn" rel='+response.visitor_id+'>'+response.visitor_name+'</a> <i class="fa fa-ban" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>'+ response.totaltimeshort +'</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>99</td><td>1</td></tr>';
+              var b = '<li class="contact ubtn" dataname='+response.visitor_name+' rel='+response.visitor_id+'><div class="wrap"><div class="img"> '+ response.visitor_name.substr(0, 2).toUpperCase() +' </div><div class="meta"><p class="name">'+response.visitor_name+'</p><p class="preview"></p></div></div></li>';              
               //totalOnline++;
       
             //  var txt2 = $('<span class="badge"></span>').text(stack[response.visitor_name]).css({"float":"right","color":"#a6a6a6","font-size":"18px"});
@@ -104,11 +104,14 @@ $ (function(){
 
       socket.emit('get_visitor_id',toUser, function (response) {
          $("#visitorName").text(response.visitor_name);
+         $("#visitorNameInitials").text(response.visitor_name.substr(0, 2).toUpperCase());
          $("#visitorLocation").text(response.country);
          $("#visitorIpAddress").text(response.ipaddress);
          $("#visitorOS").text(response.os);
          $("#visitorBrowser").text(response.browser);
          $("#visitorPlatform").text(response.platform);
+         $("#visitorTotalTime").text(response.totaltimeshort);
+         $("#visitorTime").text(response.createdate);
      });
 
     });
@@ -130,8 +133,7 @@ $ (function(){
 
       socket.emit('update-room',{ visitor_id : visitor_id , agent_id : agent_id , agent : username});
 
-
-    })
+    });
   
     //event for setting roomId.
     socket.on('update-room',function(room){
