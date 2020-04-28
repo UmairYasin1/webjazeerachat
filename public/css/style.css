@@ -249,7 +249,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e6af4', end
 #userChatDashboard .content .messages ul li.replies img{float:right;margin:6px 0 0 8px}
 #userChatDashboard .content .messages ul li.replies p{float:right;background: rgb(34,116,245);background: -moz-linear-gradient(left,  rgba(34,116,245,1) 0%, rgba(17,73,236,1) 100%);background: -webkit-linear-gradient(left,  rgba(34,116,245,1) 0%,rgba(17,73,236,1) 100%);background: linear-gradient(to right,  rgba(34,116,245,1) 0%,rgba(17,73,236,1) 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2274f5', endColorstr='#1149ec',GradientType=1 ); /* IE6-9 */color: #fff;}
 #userChatDashboard .content .messages ul li img{width: 40px;border-radius:50%;float:left;}
-#userChatDashboard .content .messages ul li p{display:inline-block;padding: 14px 15px;border-radius: 50px;max-width:205px;line-height:130%;}
+#userChatDashboard .content .messages ul li p{display:inline-block;padding: 14px 15px;border-radius: 50px;max-width:205px;line-height:130%; word-break: break-all;}
 #userChatDashboard .content .messages ul li .timeStamp {color: #283136; font-size: 13px;}
 #userChatDashboard .content .messages ul li.sent .timeStamp {
     position: absolute;
@@ -341,7 +341,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e6af4', end
 #userChatDashboard .generalBox .padding {padding: 20px 20px 0px 20px;}
 
 #userChatDashboard .generalBox .listItemsInfo  {list-style-image: url('../images/chaticonright.png');border-left: 1px dashed #ccc;padding: 0 0 0px 13px;margin: 0 0 0 26px;}
-#userChatDashboard .generalBox .listItemsInfo li{    margin: 0 0 10px 0;}
+#userChatDashboard .generalBox .listItemsInfo li{    margin: 0 0 10px 0; word-break: break-all;}
 #userChatDashboard .generalBox .listItemsInfo li .infoText{ display: block;}
 #userChatDashboard .generalBox .listItemsInfo li .infoDetail{color: #2275f5;}
 #userChatDashboard .generalBox .listItemsInfo li .infoDetail a{color: #2275f5;}

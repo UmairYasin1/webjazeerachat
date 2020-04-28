@@ -1,6 +1,6 @@
 $(document).ready(function(){
     
-    $(".closeWin").click(function(){
+    $(".closeWin, .chatoverlay").click(function(){
         $('.userChatPupopWrap').hide();
         $('.chatoverlay').hide();
     });
@@ -10,6 +10,12 @@ $(document).ready(function(){
         $('.chatoverlay').show();
     });
     
+    $(document).keyup(function(e) {
+        if (e.key === "Escape") { // escape key maps to keycode `27`
+        $('.userChatPupopWrap').hide();
+        $('.chatoverlay').hide();
+       }
+   });
     
 $('.mainMenuUL > li').on('click', function() { 
     if(!$(this).hasClass("active")){

@@ -16,7 +16,7 @@ $ (function(){
       // setTimeout(function() { alert(username+" logged In"); }, 500);
   
       socket.on('broadcast',function(data){
-      document.getElementById("hell0").innerHTML += '<li>'+ data.description +'</li>';
+      //document.getElementById("hell0").innerHTML += '<li>'+ data.description +'</li>';
       // $('#hell0').append($('<li>').append($(data.description).append($('<li>');
       $('#hell0').scrollTop($('#hell0')[0].scrollHeight);
   
