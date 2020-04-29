@@ -236,7 +236,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e6af4', end
 #userChatDashboard .content .contact-profile .social-media i:nth-last-child(1){margin-right:20px}
 #userChatDashboard .content .contact-profile .social-media i:hover{color:#435f7a}
 #userChatDashboard .content .messages{height:auto;min-height:calc(100% - 93px);max-height:calc(100% - 93px);overflow-y:scroll;overflow-x:hidden;width: 100%;padding-bottom: 100px;}
-#userChatDashboard .content .messages ul {padding: 0px}
+#userChatDashboard .content .messages ul {padding: 0px; margin-top: 20px;}
 @media screen and (max-width: 735px) {
 #userChatDashboard .content .messages{max-height:calc(100% - 105px)}
 }
@@ -254,11 +254,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e6af4', end
 #userChatDashboard .content .messages ul li.sent .timeStamp {
     position: absolute;
     left: 5px;
-    top: 54px;
+    top: -20px;
 }
 #userChatDashboard .content .messages ul li.replies .timeStamp{
     position: absolute;
-    top: 51px;
+    top: -20px;
     right: 5px;
 }
 @media screen and (min-width: 735px) {
