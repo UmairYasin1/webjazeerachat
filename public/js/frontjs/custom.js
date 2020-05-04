@@ -16,6 +16,13 @@ $(document).ready(function(){
         $('.chatoverlay').hide();
        }
    });
+
+   $(document).on("click",".minimizeChat2",function(){
+  
+    $("#chatframe2").toggleClass('active');
+    
+    $(".fa-window-minimize").toggleClass("fa-window-restore");
+});
     
 $('.mainMenuUL > li').on('click', function() { 
     if(!$(this).hasClass("active")){
