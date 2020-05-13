@@ -71,10 +71,10 @@ module.exports.sockets = function(http) {
 
   
 
-  socket.on("get_visitor_id", function(visit_name, callback) {
+  socket.on("get_visitor_id", function(visitId, callback) {
 
     visitorModel.findOne(
-           { $and: [{ visitor_name: visit_name }] },
+           { $and: [{ visitor_id: visitId }] },
            function(err, result) {
             //console.log(result.visitor_region_privateIp.length || result.visitor_region_privateIp);
             
@@ -201,20 +201,20 @@ module.exports.sockets = function(http) {
               }
             })();
 
-            // console.log(result.visitor_region_privateIp);
+           // console.log(result.visitor_region_privateIp);
             
-            var countryVal =  countryVal2;
-            var browserVal = browserVal2; //result.visitor_browser_and_os[0].browser;
-            var osVal = osVal2; //result.visitor_browser_and_os[0].os;
-            var platformVal = platformVal2; //result.visitor_browser_and_os[0].platform;
-            var ipAddressVal = ipAddressVal2;
-            var totalHoursVal = totalHoursVal2;
-            var totalTimeShortVal = totalTimeShortVal2;
-            var totalTimeExpVal = totalTimeExpVal2;
-            var createdDateVal = createdDateVal2;
+             var countryVal =  countryVal2;
+             var browserVal = browserVal2; //result.visitor_browser_and_os[0].browser;
+             var osVal = osVal2; //result.visitor_browser_and_os[0].os;
+             var platformVal = platformVal2; //result.visitor_browser_and_os[0].platform;
+             var ipAddressVal = ipAddressVal2;
+             var totalHoursVal = totalHoursVal2;
+             var totalTimeShortVal = totalTimeShortVal2;
+             var totalTimeExpVal = totalTimeExpVal2;
+             var createdDateVal = createdDateVal2;
 
             if(err){
-              visitId =  "";
+              visit_name =  "";
               agent_name = "";
 
               response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name,
@@ -234,10 +234,10 @@ module.exports.sockets = function(http) {
 
             if(result!=null){
              
-            visitId = result.visitor_id;
+            var  visit_name = result.visitor_name;
 
-             if(visitId == ""){
-              visitId =  "";
+             if(visit_name == ""){
+              visit_name =  "";
               agent_name = "";
 
               response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name,
@@ -255,14 +255,14 @@ module.exports.sockets = function(http) {
               callback(response);
               
              }else{
-              visitId =  visitId;
+              visit_name =  visit_name;
 
               roomModel.findOne(
                 { $and: [{ name1 : visitId}] },
                 function(err, res){
 
                   if(err){
-                    visitId = visitId;
+                    visit_name =  visit_name;
                     agent_name = "";
                     response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name,
                       country: countryVal,
@@ -282,7 +282,7 @@ module.exports.sockets = function(http) {
                   if(res!=null){
 
                   if(res.name2 == ""){
-                    visitId = visitId;
+                    visit_name =  visit_name;
                     agent_name = "";
                     response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name,
                       country: countryVal,
@@ -300,7 +300,7 @@ module.exports.sockets = function(http) {
 
                   }else{
 
-                  visitId = visitId;
+                    visit_name =  visit_name;
                   agentModel.findOne(
                     { $and: [{ agent_id : res.name2}] },
                     function(err, resp){
@@ -505,7 +505,7 @@ module.exports.sockets = function(http) {
       const id = shortid.generate();
       //emits event to save chat to database.
       eventEmitter.emit("save-chat", {
-        msgFrom: socket.username,
+        msgFrom: data.msgFrom,
         msgTo: data.msgTo,
         msg: data.msg,
         file : data.file,
@@ -524,7 +524,7 @@ module.exports.sockets = function(http) {
           function(err, res){
 
             ioChat.to(socket.room).emit("chat-msg", {
-              msgFrom: socket.username,
+              msgFrom: data.msgFrom,
               file: data.file,
               msg: data.msg,
               id: id,
@@ -540,7 +540,7 @@ module.exports.sockets = function(http) {
         )
        }else{
          ioChat.to(socket.room).emit("chat-msg", {
-           msgFrom: socket.username,
+           msgFrom: data.msgFrom,
            file: data.file,
            msg: data.msg,
            id: id,
@@ -549,6 +549,16 @@ module.exports.sockets = function(http) {
          });
        }
        
+    });
+
+    //for popping page notification
+    socket.on('new_notification', function(data) {
+      //console.log(data.title,data.message);
+      io.sockets.emit('show_notification', { 
+        title: data.title, 
+        message: data.message, 
+        icon: data.icon, 
+      });
     });
 
     //for popping disconnection message.
@@ -703,7 +713,7 @@ module.exports.sockets = function(http) {
           } else {
             //console.log(result);
             for (var i = 0; i < result.length; i++) {
-              visitorStack[result[i].visitor_name] = "Offline";
+              visitorStack[result[i].visitor_id] = "Offline";
             }
             sendVisitorStack();
           }

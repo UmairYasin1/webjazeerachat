@@ -33,21 +33,24 @@ $ (function(){
      // $('#list').empty();
      // $('#list').append($('<li>').append($('<button id="ubtn" class="btn btn-danger btn-block btn-lg"></button>').text("Group").css({"font-size":"18px"})));
       var totalOnline = 0;
+
+      //console.log(stack);
     
-      for (var visitor_name in stack){
+      for (var visitor_id in stack){
         
        // console.log(visitor_name);
     
         //setting txt1. shows users button.
-        if(visitor_name == username){
+        if(visitor_id == agent_id){
          // var txt1 = $('<button class="boxF disabled"> </button>').text(visitor_name).css({"font-size":"18px"});
         }
         else{
-          socket.emit('get_visitor_id',visitor_name, function (response) {
+          socket.emit('get_visitor_id',visitor_id, function (response) {
 
-           // var txt1 = $('<button id="ubtn" class="btn btn-success  btn-md">').text(response.visitor_name).attr("rel" , response.visitor_id).css({"font-size":"18px"});
+            //console.log(response);
+            //var txt1 = $('<button id="ubtn" class="btn btn-success  btn-md">').text(response.visitor_name).attr("rel" , response.visitor_id).css({"font-size":"18px"});
 
-            if(stack[response.visitor_name] == "Online"){
+            if(stack[response.visitor_id] == "Online"){
             //  var txt2 = $('<span class="badge"></span>').text("*"+stack[response.visitor_name]).css({"float":"right","color":"#009933","font-size":"18px"});
              
 
@@ -90,7 +93,7 @@ $ (function(){
       noChat = 0;
       oldInitDone = 0;
 
-      toUser = $(this).attr("dataname");
+      toUser = $(this).attr("rel");
       visitor_id = $(this).attr("rel");
 
       $(".contact-profile h3").text(toUser);
@@ -124,7 +127,7 @@ $ (function(){
       noChat = 0;
       oldInitDone = 0;
 
-      toUser = $(this).text();
+      toUser = $(this).text("rel");
       visitor_id = $(this).attr("rel");
 
       $("#toVisitor").val(toUser);
@@ -200,7 +203,7 @@ $ (function(){
                        var restxt5 = "";
                      }
 
-                     if(username == response.repmsgFrom){
+                     if(agent_id == response.repmsgFrom){
                       //var clas = "sent";
                       var clas = "replies";
                       var usrImg = agentImg;
@@ -268,7 +271,7 @@ $ (function(){
         $.ajax({
           type: "POST",
           //url: "http://localhost:5000/upload/file",
-          //url: "http://192.168.1.108:5000/upload/file",
+          //url: "http://192.168.1.110:5000/upload/file",
           url: "https://umairyasin1-dinochat.glitch.me/upload/file",
           data: formData,
           processData: false,
@@ -276,10 +279,10 @@ $ (function(){
           success: function(result){
             if(result.file == ""){
               toVisit = $("#toVisitor").val();
-              socket.emit('chat-msg',{msg:result.message,msgTo:toVisit,date:Date.now(),type:"agent",file:"",repMsgId:result.replymsgId});
+              socket.emit('chat-msg',{msg:result.message,msgFrom: agent_id , msgTo:toVisit,date:Date.now(),type:"agent",file:"",repMsgId:result.replymsgId});
             }else{
               toVisit = $("#toVisitor").val();
-              socket.emit('chat-msg',{msg:result.message,msgTo:toVisit,date:Date.now(),type:"agent",file:result.file,repMsgId:result.replymsgId});
+              socket.emit('chat-msg',{msg:result.message,msgFrom: agent_id ,msgTo:toVisit,date:Date.now(),type:"agent",file:result.file,repMsgId:result.replymsgId});
             }
 
             $("#repMsgId").val("");
@@ -337,14 +340,16 @@ $ (function(){
           var txt5 = "";
         }
 
-        if(username == data.msgFrom){
+        if(agent_id == data.msgFrom){
           //var clas = "sent";
           var clas = "replies";
           var usrImg = agentImg;
+          
         }else{
           //var clas = "replies";
           var clas = "sent";
           var usrImg = visitorImg;
+          setNotification();
         }
       
       if(data.repMsg != ""){
@@ -361,13 +366,14 @@ $ (function(){
           }
 
         $('#messages').append($('<li class='+clas+'>').append(replytxt3,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
-        $('.messages ul').append($('<li class='+clas+'>').append(usrImg,replytxt2,replytxt4,replytxt5).attr("rel" , data.id));
-                   
-      }else{
+        $('.messages ul').append($('<li class='+clas+'>').append(usrImg,replytxt2,replytxt4,replytxt5).attr("rel" , data.id));             
+        
+      }
+      else{
         
         $('#messages').append($('<li class='+clas+'>').append(txt3,txt4,txt5).attr("rel" , data.id));
         $('.messages ul').append($('<li class='+clas+'>').append(usrImg,txt2,txt4,txt5).attr("rel" , data.id));
-         
+        
       }
  
       //showing chat in chat box.
@@ -377,8 +383,70 @@ $ (function(){
         $('#typing').text("");
         // $('#scrl2').scrollTop($('#scrl2').prop("scrollHeight"));
         $(".messages").animate({ scrollTop: $('.messages').prop("scrollHeight") }, "fast");
+
+        function setNotification() {
+          showDesktopNotification("Dino Chat", 'New Message!', '/pics/agent.png');
+          sendNodeNotification("Dino Chat", 'New Message!', '/pics/agent.png');
+        }
     }); //end of receiving messages.
   
+    socket.on('show_notification', function (data) {
+      showDesktopNotification(data.title, data.message, data.icon);
+    });
+
+    var Notification = window.Notification || window.mozNotification || window.webkitNotification;
+      Notification.requestPermission(function (permission) {
+    });
+    
+    function requestNotificationPermissions() {
+      if (Notification.permission !== 'denied') {
+          Notification.requestPermission(function (permission) {
+          });
+      }
+    }
+
+
+    function showDesktopNotification(message, body, icon, sound, timeout) {
+      if (!timeout) {
+          timeout = 4000;
+      }
+      requestNotificationPermissions();
+      var instance = new Notification(
+              message, {
+                  body: body,
+                  icon: icon,
+                  sound: sound
+              }
+      );
+      instance.onclick = function () {
+          // Something to do
+      };
+      instance.onerror = function () {
+          // Something to do
+      };
+      instance.onshow = function () {
+          // Something to do
+      };
+      instance.onclose = function () {
+          // Something to do
+      };
+      if (sound)
+      {
+          instance.sound;
+      }
+      setTimeout(instance.close.bind(instance), timeout);
+      return false;
+    }
+
+    function sendNodeNotification(title, message, icon) {
+      socket.emit('new_notification', {
+          message: message,
+          title: title,
+          icon: icon,
+      });
+    }
+
+
     //on disconnect event.
     //passing data on connection.
     socket.on('disconnect',function(){

@@ -97,7 +97,7 @@ $ (function(){
                     var restxt5 = "";
                   }
     
-                  if(visitorname == response.repmsgFrom){
+                  if(visitorId == response.repmsgFrom){
                     //var clas = "sent";
                     var clas = "replies";
                     var usrImg = visitorImg;
@@ -150,16 +150,16 @@ $ (function(){
     $.ajax({
       type: "POST",
       //url: "http://localhost:5000/upload/file",
-      //url: "http://192.168.1.108:5000/upload/file",
+      //url: "http://192.168.1.110:5000/upload/file",
       url: "https://umairyasin1-dinochat.glitch.me/upload/file",
       data: formData,
       processData: false,
       contentType: false,
       success: function(result){
         if(result.file == ""){
-          socket.emit('chat-msg',{msg:result.message,msgTo:"",date:Date.now(),type:"visitor",file:"",repMsgId:result.replymsgId});
+          socket.emit('chat-msg',{msg:result.message,msgFrom : visitorId , msgTo:"",date:Date.now(),type:"visitor",file:"",repMsgId:result.replymsgId});
         }else{
-          socket.emit('chat-msg',{msg:result.message,msgTo:"",date:Date.now(),type:"visitor",file:result.file,repMsgId:result.replymsgId});
+          socket.emit('chat-msg',{msg:result.message,msgFrom : visitorId ,msgTo:"",date:Date.now(),type:"visitor",file:result.file,repMsgId:result.replymsgId});
         }
 
         $("#repMsgId").val("");
@@ -216,9 +216,11 @@ $ (function(){
     }else{
       var txt5 = "";
     }
+
+    //console.log(data);
     //showing chat in chat box.
 
-    if(visitorname == data.msgFrom){
+    if(visitorId == data.msgFrom){
       //var clas = "sent";
       var clas = "replies";
       var usrImg = visitorImg;
