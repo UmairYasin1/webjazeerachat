@@ -28,9 +28,11 @@ module.exports.sockets = function(http) {
   const ioChat = io.of("/chat");
   const userStack = {};
   const visitorStack = {};
-  let oldChats, sendUserStack, setRoom , sendVisitorStack;
+  const agentStack = {};
+  let oldChats, sendUserStack, setRoom , sendVisitorStack, sendAgentStack;
   const userSocket = {};
   const visitorSocket = {};
+  const agentSocket = {};
 
   var allClients = [];
 
@@ -47,6 +49,7 @@ module.exports.sockets = function(http) {
       socket.username = username;
       userSocket[socket.username] = socket.id;
       visitorSocket[socket.username] = socket.id;
+      agentSocket[socket.username] = socket.id;
 
       socket.broadcast.emit("broadcast", {
         description: username + " Logged In"
@@ -65,8 +68,25 @@ module.exports.sockets = function(http) {
           }
         }
         //for popping connection message.
-        ioChat.emit("onlineStack", visitorStack);
+        ioChat.emit("onlineStack", visitorStack);    
       }; //end of sendUserStack function.
+
+      //getting all agents list
+      eventEmitter.emit("get-all-agents");
+
+      //sending all agent list. and setting if online or offline.
+      sendAgentStack = function() {
+        for (i in agentSocket) {
+          for (j in agentStack) {
+            if (j == i) {
+              agentStack[j] = "Online";
+            }
+          }
+        }
+        //for popping connection message.
+        ioChat.emit("agentsList", agentStack);    
+      }; //end of sendUserStack function.
+
     }); //end of set-user-data event.
 
   
@@ -213,7 +233,8 @@ module.exports.sockets = function(http) {
              var totalTimeExpVal = totalTimeExpVal2;
              var createdDateVal = createdDateVal2;
 
-            if(err){
+            if(err)
+            {
               visit_name =  "";
               agent_name = "";
 
@@ -232,11 +253,12 @@ module.exports.sockets = function(http) {
               callback(response);
             }
 
-            if(result!=null){
-             
-            var  visit_name = result.visitor_name;
+            if(result!=null)
+            {
+             var  visit_name = result.visitor_name;
 
-             if(visit_name == ""){
+             if(visit_name == "")
+             {
               visit_name =  "";
               agent_name = "";
 
@@ -252,16 +274,18 @@ module.exports.sockets = function(http) {
                 createdate : createdDateVal
               }
 
-              callback(response);
-              
-             }else{
+              callback(response); 
+             }
+             else 
+             {
               visit_name =  visit_name;
 
               roomModel.findOne(
                 { $and: [{ name1 : visitId}] },
                 function(err, res){
 
-                  if(err){
+                  if(err)
+                  {
                     visit_name =  visit_name;
                     agent_name = "";
                     response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name,
@@ -279,9 +303,11 @@ module.exports.sockets = function(http) {
                       callback(response);
                   }
 
-                  if(res!=null){
-
-                  if(res.name2 == ""){
+                  if(res!=null)
+                  {
+             
+                  if(res.name2 == "")
+                  {
                     visit_name =  visit_name;
                     agent_name = "";
                     response = { visitor_id: visitId , visitor_name : visit_name , agent_name : agent_name,
@@ -298,7 +324,10 @@ module.exports.sockets = function(http) {
 
                       callback(response);
 
-                  }else{
+                  }
+                  else
+                  {
+                    console.log('4 else');
 
                     visit_name =  visit_name;
                   agentModel.findOne(
@@ -318,7 +347,6 @@ module.exports.sockets = function(http) {
                     }
 
                       callback(response);
-
   
                     }
                   )
@@ -327,6 +355,48 @@ module.exports.sockets = function(http) {
                 }
                 }
               )
+
+              }
+            }
+              
+          
+           }
+         );
+  });
+
+
+  socket.on("get_agent_id", function(agentId, callback) {
+
+    agentModel.findOne(
+           { $and: [{ agent_id: agentId }] },
+           function(err, result) {
+           
+            if(err)
+            {
+              agent_name = "";
+
+              response = { agent_id: agentId , agent_name : agent_name }
+
+              callback(response);
+            }
+
+            if(result!=null)
+            {
+             var  agent_name = result.agent_name;
+
+             if(agent_name == "")
+             {
+              agent_name = "";
+
+              response = { agent_id: agentId , agent_name : agent_name }
+
+              callback(response); 
+             }
+             else 
+             {
+              response = { agent_id: result.agent_id , agent_name : result.agent_name }
+
+              callback(response);
 
               }
             }
@@ -458,7 +528,7 @@ module.exports.sockets = function(http) {
             roomModel.findOneAndUpdate(
               filter , update , function(err, result) {
               socket.room = result._id;
-              chatModel.updateMany({ room : socket.room } , {$set: { msgTo: room.agent }} , function(err, result) { }  )
+              chatModel.updateMany({ room : socket.room } , {$set: { msgTo: room.agent_id }} , function(err, result) { }  )
                 socket.room = result._id;
                 socket.join(socket.room);
                 ioChat.to(userSocket[socket.username]).emit("update-room", socket.room);
@@ -501,7 +571,6 @@ module.exports.sockets = function(http) {
 
     //for showing chats.
     socket.on("chat-msg", function(data) {
-
       const id = shortid.generate();
       //emits event to save chat to database.
       eventEmitter.emit("save-chat", {
@@ -605,7 +674,7 @@ module.exports.sockets = function(http) {
       } else if (result == undefined || result == null || result == "") {
         console.log("Chat Is Not Saved.");
       } else {
-        console.log("Chat Saved.");
+        console.log("Chat Saved 1.");
       }
     });
 
@@ -633,7 +702,7 @@ module.exports.sockets = function(http) {
             } else if (result == undefined || result == null || result == "") {
               console.log("Chat Is Not Saved.");
             } else {
-              console.log("Chat Saved.");
+              console.log("Chat Saved 2.");
             }
          
 
@@ -644,7 +713,7 @@ module.exports.sockets = function(http) {
           agentModel.findOne({ agent_id: agent_id } , function(err,res){
             var newChat = new chatModel({
               msgFrom: data.msgFrom,
-              msgTo: res.agent_name,
+              msgTo: res.agent_id,
               msgId:data.id,
               msg: data.msg,
               repMsgId : data.repMsgId,
@@ -659,7 +728,7 @@ module.exports.sockets = function(http) {
               } else if (result == undefined || result == null || result == "") {
                 console.log("Chat Is Not Saved.");
               } else {
-                console.log("Chat Saved.");
+                console.log("Chat Saved 3.");
               }
            
   
@@ -695,6 +764,7 @@ module.exports.sockets = function(http) {
           console.log("Error : " + err);
         } else {
           //calling function which emits event to client to show chats.
+          //console.log(data);
           oldChats(result, data.username, data.room);
         }
       });
@@ -720,6 +790,24 @@ module.exports.sockets = function(http) {
         });
     }); //end of get-all-users event.
 
+    //listening for get-all-agents event. creating list of all users.
+    eventEmitter.on("get-all-agents", function() {
+      agentModel
+        .find({})
+        .select("agent_name")
+        .select("agent_id")
+        .exec(function(err, result) {
+          if (err) {
+            console.log("Error : " + err);
+          } else {
+            for (var i = 0; i < result.length; i++) {
+              agentStack[result[i].agent_id] = "Offline";
+            }
+            sendAgentStack();
+          }
+        });
+    }); //end of get-all-agents event.
+
 
   //listening get-room-data event.
   eventEmitter.on("get-room-data", function(room) {
@@ -731,13 +819,13 @@ module.exports.sockets = function(http) {
           },
           {
             name1: room.name2
-          },
-          {
-            name2: room.name1
-          },
-          {
-            name2: room.name2
-          }
+          }//,
+          // {
+          //   name2: room.name1
+          // },
+          // {
+          //   name2: room.name2
+          // }
         ]
       },
       function(err, result) {

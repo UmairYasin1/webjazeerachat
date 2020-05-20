@@ -6,6 +6,9 @@ const auth = require("../../middlewares/auth.js");
 module.exports.controller = function(app) {
   //route for chat
   app.get("/chat", auth.checkLogin, function(req, res) {
+    if(req.session.user == undefined){
+      res.redirect("visitor/visitorsignup");
+    }
     res.render("chat", {
       title: "Chat Home",
       user: req.session.user,

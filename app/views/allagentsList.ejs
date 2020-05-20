@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <% include ./parts/head.ejs %>
+   </head>
+   <body>
+      <% include ./parts/chatOverLayPopup.ejs %>
+      <div class="container-fluid">
+         <div class="chatMainWrap">
+            <% include ./parts/navigationSidebar.ejs %>
+            <div class="col-md-10 mainBody">
+               <% include ./parts/agentDashboardTopMenu.ejs %>
+
+               <div class="row">
+                     <div class="headingFilter">
+                        <div class="col-md-8">
+                           <h3>Agents</h3>
+                        </div>
+                     </div>
+                     <!-- #headingFilter -->
+               </div>
+
+               <div class="tableListingWrap">
+                  <div class="tableMain agentsList">
+                     <table class="table">
+                        <thead>
+                           <tr>
+                              <th scope="col">&nbsp;</th>
+                              <th scope="col">Sudo Name</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Role</th>
+                              <th scope="col">Enabled</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                     </table>
+                  </div>
+                  <!-- #ChatTable -->
+               </div>
+            </div>
+         </div>
+      </div>
+      <% include ./parts/footer.ejs %>
+      <script src="/js/agentscriptForChat.js"></script>
+   </body>
+</html>

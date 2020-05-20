@@ -12,7 +12,7 @@ $ (function(){
 
       //passing data on connection.
   socket.on('connect',function(){
-    socket.emit('set-user-data',visitorname);
+    socket.emit('set-user-data',visitorId);
     // setTimeout(function() { alert(username+" logged In"); }, 500);
 
     socket.on('broadcast',function(data){
@@ -40,7 +40,7 @@ $ (function(){
     roomId = room;
     console.log("roomId : "+roomId);
     //event to get chat history on button click or as room is set.
-    socket.emit('old-chats-init',{room:roomId,username:visitorname,msgCount:msgCount});
+    socket.emit('old-chats-init',{room:roomId,username:visitorId,msgCount:msgCount});
 
   }); //end of set-room event.
 
@@ -50,7 +50,7 @@ $ (function(){
 
         if($('#scrl3').scrollTop() == 0 && noChat == 0 && oldInitDone == 1){
           $('#loading').show();
-          socket.emit('old-chats',{room:roomId,username:visitorname,msgCount:msgCount});
+          socket.emit('old-chats',{room:roomId,username:visitorId,msgCount:msgCount});
         }
     
       }); // end of scroll event.

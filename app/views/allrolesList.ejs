@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <% include ./parts/head.ejs %>
+   </head>
+   <body>
+      <% include ./parts/chatOverLayPopup.ejs %>
+      <div class="container-fluid">
+         <div class="chatMainWrap">
+            <% include ./parts/navigationSidebar.ejs %>
+            <div class="col-md-10 mainBody">
+               <% include ./parts/agentDashboardTopMenu.ejs %>
+               
+               <div class="row">
+                  <div class="headingFilter">
+                     <div class="col-md-8">
+                        <h3>Roles</h3>
+                     </div>
+                  </div>
+                  <!-- #headingFilter -->
+               </div>
+               <div class="tableListingWrap">
+                  <div class="tableMain">
+                     <table class="table">
+                        <thead>
+                           <tr>
+                              <th scope="col">&nbsp;</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Description</th>
+                              <th scope="col">Role</th>
+                              <th scope="col">Skills</th>
+                              <th scope="col">Enabled</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td><a href="javascript:;"><span class="agentPic"></span></td>
+                              <td><span class="userNameIntable">Eugene Underwood</span></td>
+                              <td>Joshua Pope</td>
+                              <td>
+                                 <select class="form-control noBg">
+                                    <option>- Team Lead - </option>
+                                    <option>- Team Lead - </option>
+                                    <option>- Team Lead - </option>
+                                    <option>- Team Lead - </option>
+                                    <option>- Team Lead - </option>
+                                 </select>
+                              </td>
+                              <td>
+                                 <select class="form-control noBg">
+                                    <option>Sales &amp; Support </option>
+                                    <option>Sales &amp; Support </option>
+                                    <option>Sales &amp; Support </option>
+                                    <option>Sales &amp; Support </option>
+                                    <option>Sales &amp; Support </option>
+                                 </select>
+                              </td>
+                              <td><span class="green far fa-check"></span> Enabled</td>
+                           </tr>
+                           <tr>
+                              <td><a href="javascript:;"><span class="agentPic"></span></td>
+                              <td><span class="userNameIntable">Eugene Underwood</span></td>
+                              <td>Joshua Pope</td>
+                              <td>
+                                 <select class="form-control noBg">
+                                    <option>- Team Lead - </option>
+                                    <option>- Team Lead - </option>
+                                    <option>- Team Lead - </option>
+                                    <option>- Team Lead - </option>
+                                    <option>- Team Lead - </option>
+                                 </select>
+                              </td>
+                              <td>
+                                 <select class="form-control noBg">
+                                    <option>Sales &amp; Support </option>
+                                    <option>Sales &amp; Support </option>
+                                    <option>Sales &amp; Support </option>
+                                    <option>Sales &amp; Support </option>
+                                    <option>Sales &amp; Support </option>
+                                 </select>
+                              </td>
+                              <td><span class="red fal fa-exclamation-circle"></span> Disabled</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <!-- #ChatTable -->
+               </div>
+               <!-- #tableListing -->
+            </div>
+         </div>
+      </div>
+      <% include ./parts/footer.ejs %>
+   </body>
+</html>

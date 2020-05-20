@@ -30,11 +30,16 @@ module.exports.controller = function(app) {
   });
 
   router.get("/dashboard", function(req, res) {
-    res.render("agentDashboard", {
-      title: "Agent Dashboard",
-      user: req.session.user,
-      chat: req.session.chat
-    });
+    if(req.session.user == undefined){
+      res.redirect("agentlogin");
+    }
+    else{
+      res.render("agentDashboard", {
+        title: "Agent Dashboard",
+        user: req.session.user,
+        chat: req.session.chat
+      });
+    }
   });
 
   //route for login
@@ -110,6 +115,22 @@ module.exports.controller = function(app) {
       }
     });
 
+  });
+
+  router.get("/allagents", function(req, res) {
+    res.render("allagentsList", {
+      title: "Agents List",
+      user: req.session.user,
+      chat: req.session.chat
+    });
+  });
+
+  router.get("/allroles", function(req, res) {
+    res.render("allrolesList", {
+      title: "Roles List",
+      user: req.session.user,
+      chat: req.session.chat
+    });
   });
 
   app.use("/agent", router);

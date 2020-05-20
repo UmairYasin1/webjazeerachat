@@ -1,0 +1,139 @@
+<div class="userChatPupopWrap">
+        <div class="userChatPupop">
+           <div id="userChatDashboard">
+  
+              <div id="sidepanel">
+                 <div id="search">
+                    <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+                    <input type="text" placeholder="Search (Press “/“ to focus)" />
+                 </div>
+                 <div id="contactsList">
+                    <ul>
+                       <li class="contact">
+                          <div class="wrap">
+                          
+                            <div class="img"> MX </div>
+                            <div class="meta">
+                              <p class="name">Louis Litt</p>
+                              <p class="preview">You just got LITT up, Mike.</p>
+                            </div>
+                          </div>
+                        </li>
+                    </ul>
+                 </div>
+              </div>
+              <!-- sidepanel -->
+  
+              <div class="content">
+                 <div class="contact-profile">
+                    <h3></h3>
+                    <h4><span class="OnlineStatus"></span><label id="visitorTotalTime"></label></h4>
+                 </div>
+                 <div class="messages">
+                    <ul>
+                    </ul>
+                 </div>
+                 <div class="message-input">
+                    <div class="wrap">
+                       <form id="chatForm" action=""  enctype="multipart/form-data" method="POST" autocomplete="off">
+                          <input type="hidden" id="repMsgId" name="repMsgId" >
+                          <input type="hidden" id="agent" value="<%= user.agent_name %>"/>
+                          <input type="hidden" id="agent_id" value="<%= user.agent_id %>"/>
+                          <input type="hidden" id="toVisitor">
+                          <input type="file" name="file" id="photos-input" /><br>
+                          <input type="text" placeholder="Write your message..." id="myMsg" name="myMsg" />
+                          <!-- <i class="fa fa-paperclip attachment" aria-hidden="true"></i> -->
+                          <button id="sendBtn" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                       </form>
+                    </div>
+                 </div>
+              </div>
+              <!-- #content -->
+  
+              <div class="UserDetailsPanel">
+                 <div class="user-details">
+                    <h3>User Details</h3>
+                    <a href="javascript:;" class="btnAction closeWin"><i class="fas fa-times"></i></a>
+                    <!-- <a href="javascript:;" class="btnAction"><i class="fas fa-window-minimize"></i></a> -->
+                 </div>
+                 <!-- #user-details -->
+                 <div class="UserRightSection">
+                    <div class="generalInfo">
+                       <h3>General Information</h3>
+                       <ul>
+                          <li class="contact">
+                             <div class="wrap">
+                                <div id="visitorNameInitials" class="img"></div>
+                                <div class="meta">
+                                   <p id="visitorName" class="name"></p>
+                                   <p class="preview"></p>
+                                </div>
+                             </div>
+                          </li>
+                       </ul>
+                       <div class="timeAndLocation">
+                          <p><span class="far fa-clock"></span><label id="visitorTime"></label></p>
+                          <p><span class="far fa-thumbtack"></span><label id="visitorLocation"></label></p>
+                       </div>
+                       <!-- #timeAndLocation -->
+                       <img src="/pics/maploc.jpg" alt="-" />                
+                    </div>
+                    <!-- #generalInfo -->    
+                    <div class="generalBox">
+                       <h3>Visitor Path</h3>
+                       <ul class="listItemsInfo">
+                          <li> 
+                             <span class="infoText">Current Page</span>
+                             <span class="infoDetail">
+                             <a href="javascript:;">https://logoviction.com</a></span>
+                          </li>
+                       </ul>
+                    </div>
+                    <!-- #generalBox -->
+                    <div class="generalBox blue">
+                       <h3>Instant Links</h3>
+                       <img src="/pics/projectform.jpg" class="padding" />
+                    </div>
+                    <!-- #generalBox -->
+                    <div class="generalBox">
+                       <h3>Technology</h3>
+                       <ul class="listItemsInfo">
+                          <li> 
+                             <span class="infoText">IP Address:</span>
+                             <span class="infoDetail">
+                             <a id="visitorIpAddress" href="javascript:;"></a></span>
+                          </li>
+                          <li> 
+                             <span class="infoText">Os device:</span>
+                             <span class="infoDetail">
+                             <a id="visitorOS" href="javascript:;"></a></span>
+                          </li>
+                          <li> 
+                             <span class="infoText">Browser:</span>
+                             <span class="infoDetail">
+                             <a id="visitorBrowser" href="javascript:;"></a></span>
+                          </li>
+                          <li> 
+                             <span class="infoText">Platform:</span>
+                             <span class="infoDetail">
+                             <a id="visitorPlatform" href="javascript:;"></a></span>
+                          </li>
+                       </ul>
+                    </div>
+                    <!-- #generalBox -->
+                    <br><br><br><br><br><br><br>
+                 </div>
+                 <!-- #UserRightSection--> 
+              </div>
+              <!-- #UserDetailsPanel -->
+  
+           </div>
+           <!-- #userChatDashboard -->      
+  
+        </div>
+        <!--# userChatPupop-->
+  
+     </div>
+     <!-- #userChatPupop -->
+  
+     <div class="chatoverlay"></div>
