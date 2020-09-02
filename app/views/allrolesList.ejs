@@ -33,54 +33,32 @@
                            </tr>
                         </thead>
                         <tbody>
-                           <tr>
-                              <td><a href="javascript:;"><span class="agentPic"></span></td>
-                              <td><span class="userNameIntable">Eugene Underwood</span></td>
-                              <td>Joshua Pope</td>
-                              <td>
-                                 <select class="form-control noBg">
-                                    <option>- Team Lead - </option>
-                                    <option>- Team Lead - </option>
-                                    <option>- Team Lead - </option>
-                                    <option>- Team Lead - </option>
-                                    <option>- Team Lead - </option>
-                                 </select>
-                              </td>
-                              <td>
-                                 <select class="form-control noBg">
-                                    <option>Sales &amp; Support </option>
-                                    <option>Sales &amp; Support </option>
-                                    <option>Sales &amp; Support </option>
-                                    <option>Sales &amp; Support </option>
-                                    <option>Sales &amp; Support </option>
-                                 </select>
-                              </td>
-                              <td><span class="green far fa-check"></span> Enabled</td>
-                           </tr>
-                           <tr>
-                              <td><a href="javascript:;"><span class="agentPic"></span></td>
-                              <td><span class="userNameIntable">Eugene Underwood</span></td>
-                              <td>Joshua Pope</td>
-                              <td>
-                                 <select class="form-control noBg">
-                                    <option>- Team Lead - </option>
-                                    <option>- Team Lead - </option>
-                                    <option>- Team Lead - </option>
-                                    <option>- Team Lead - </option>
-                                    <option>- Team Lead - </option>
-                                 </select>
-                              </td>
-                              <td>
-                                 <select class="form-control noBg">
-                                    <option>Sales &amp; Support </option>
-                                    <option>Sales &amp; Support </option>
-                                    <option>Sales &amp; Support </option>
-                                    <option>Sales &amp; Support </option>
-                                    <option>Sales &amp; Support </option>
-                                 </select>
-                              </td>
-                              <td><span class="red fal fa-exclamation-circle"></span> Disabled</td>
-                           </tr>
+                              <% rolesList.forEach(function (rolesList) { %>
+                                 <tr>
+                                       <td><a href="javascript:;"><span class="agentPic"></span></td>
+                                       <td><span class="userNameIntable"><%= rolesList.role_name %></span></td>
+                                       <td><%= rolesList.role_name %> </td>
+                                       <td>
+                                          <select class="form-control noBg">
+                                             <option>- Team Lead - </option>
+                                             <option>- Team Lead - </option>
+                                             <option>- Team Lead - </option>
+                                             <option>- Team Lead - </option>
+                                             <option>- Team Lead - </option>
+                                          </select>
+                                       </td>
+                                       <td>
+                                          <select class="form-control noBg">
+                                             <option>Sales &amp; Support </option>
+                                             <option>Sales &amp; Support </option>
+                                             <option>Sales &amp; Support </option>
+                                             <option>Sales &amp; Support </option>
+                                             <option>Sales &amp; Support </option>
+                                          </select>
+                                       </td>
+                                       <td><span class="green far fa-check"></span> Enabled</td>
+                                    </tr>
+                             <% }) %>
                         </tbody>
                      </table>
                   </div>

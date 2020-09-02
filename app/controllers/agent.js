@@ -125,13 +125,5 @@ module.exports.controller = function(app) {
     });
   });
 
-  router.get("/allroles", function(req, res) {
-    res.render("allrolesList", {
-      title: "Roles List",
-      user: req.session.user,
-      chat: req.session.chat
-    });
-  });
-
   app.use("/agent", router);
 }; //signup controller end
