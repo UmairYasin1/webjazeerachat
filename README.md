@@ -52,7 +52,7 @@ MongoDB
   running project:
 ```
   Step 1: Install all dependencies by : npm install and run node app.js
-  Step 2: Project will run on @ http://localhost:5000
+  Step 2: Project will run on @ https://localhost:5000
   Step 3: Now you're good to go.
 
 ```
