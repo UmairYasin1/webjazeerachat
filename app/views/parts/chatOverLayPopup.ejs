@@ -27,7 +27,7 @@
               <div class="content">
                  <div class="contact-profile">
                     <h3></h3>
-                    <h4><span class="OnlineStatus"></span><label id="visitorTotalTime"></label></h4>
+                    <h4><span class="OnlineStatus"></span><label id="visitorTotalTime" style="font-weight: normal;"></label></h4>
                  </div>
                  <div class="messages">
                     <ul>
@@ -40,7 +40,15 @@
                           <input type="hidden" id="agent" value="<%= user.agent_name %>"/>
                           <input type="hidden" id="agent_id" value="<%= user.agent_id %>"/>
                           <input type="hidden" id="toVisitor">
-                          <input type="file" name="file" id="photos-input" /><br>
+                          <!-- <input type="file" name="file" id="photos-input" /> -->
+                          <div class="image-upload">
+                          <label for="photos-input">
+                           <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                         </label>
+                       
+                         <input type="file" name="file" id="photos-input"/>
+                        </div>
+
                           <input type="text" placeholder="Write your message..." id="myMsg" name="myMsg" />
                           <!-- <i class="fa fa-paperclip attachment" aria-hidden="true"></i> -->
                           <button id="sendBtn" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>

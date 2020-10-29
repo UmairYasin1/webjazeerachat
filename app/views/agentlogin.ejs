@@ -1,31 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <% include ./parts/head.ejs %>
-</head>
-<body class="login-screen">
-
-  <main class="agent-signup">
-  <div class="login-box">
-      <div  class="panel-heading text-center">
-          <h4>Agent Login</h4>
+   <head>
+      <title>DinoChat</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="icon" type="image/png" href="/login/images/icons/favicon.ico" />
+      <!-- <link rel="stylesheet" type="text/css" href="/login/vendor/bootstrap/css/bootstrap.min.css"> -->
+      <link rel="stylesheet" type="text/css" href="/login/vendor/animate/animate.css">
+      <link rel="stylesheet" type="text/css" href="/login/vendor/css-hamburgers/hamburgers.min.css">
+      <link rel="stylesheet" type="text/css" href="/login/css/util.css">
+      <link rel="stylesheet" type="text/css" href="/login/css/main.css">
+      <% include ./parts/head.ejs %>
+   </head>
+   <body>
+      <div class="limiter">
+         <div class="container-login100">
+            <div class="wrap-login100">
+               <div class="login100-pic js-tilt" data-tilt>
+                  <img src="/login/images/dinocamp.png" alt="IMG">
+               </div>
+               <form class="login100-form validate-form" method="post" id="agentLogin" enctype="multipart/form-data">
+                  <span class="login100-form-title">
+                  Agent Login
+                  </span>
+                  <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                     <input class="input100" type="text" name="email" placeholder="Email"  autofocus required>
+                     <span class="focus-input100"></span>
+                     <span class="symbol-input100">
+                     <i class="fa fa-envelope" aria-hidden="true"></i>
+                     </span>
+                  </div>
+                  <div class="wrap-input100 validate-input" data-validate="Password is required">
+                     <input class="input100" type="password" name="password" placeholder="Password" required>
+                     <span class="focus-input100"></span>
+                     <span class="symbol-input100">
+                     <i class="fa fa-lock" aria-hidden="true"></i>
+                     </span>
+                  </div>
+                  <div class="container-login100-form-btn">
+                     <button class="login100-form-btn" type="submit">
+                     Login
+                     </button>
+                  </div>
+                  <div class="text-center p-t-12">
+                     <span class="txt1">
+                     Forgot
+                     </span>
+                     <a class="txt2" href="#">
+                     Username / Password?
+                     </a>
+                  </div>
+                  <div class="text-center p-t-136">
+                  </div>
+               </form>
+            </div>
+         </div>
       </div>
-    <!-- <form class="login-form" action="/agent/api/v1/login" method="post">-->
-      <form class="login-form"  method="post" id="agentLogin" enctype="multipart/form-data">
-      <div class="input-block">
-        <input class="input-box" type="email" name="email" placeholder="Email" autofocus required/>
-      </div><br>
-      <div class="input-block">
-        <input class="input-box" type="password" name="password" placeholder="Password" required/>
-      </div>
-      <button class="btn btn-success btn-lg btn-block" type="submit" >Login</button><br>
-      <p><b>Don't have an account?</b> </p>
-      <a href="/agent/agentsignup"  class="btn btn-danger btn-lg btn-block"><b>Sign Up Here</b></a><br>
-      <p class="error"></p>
-    </form>
-  </div>
-  </main>
-  <% include ./parts/footer.ejs %>
-  <script src="/js/agentscript.js"></script>
-</body>
+      <% include ./parts/footer.ejs %>
+      <script src="/login/js/tilt.jquery.min.js"></script>
+      <script src="/js/agentscript.js"></script>
+      <script>
+         $('.js-tilt').tilt({
+         	scale: 1.1
+         })
+      </script>
+   </body>
 </html>

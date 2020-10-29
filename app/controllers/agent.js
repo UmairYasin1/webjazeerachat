@@ -44,8 +44,8 @@ module.exports.controller = function(app) {
 
   //route for login
   router.post("/api/v1/login",  function(req, res) {
+    
     const epass = encrypt.encryptPassword(req.body.password);
-
     agentModel.findOne(
       { $and: [{ agent_email: req.body.email }, { agent_password: epass }] },
       function(err, result) {
@@ -90,7 +90,7 @@ module.exports.controller = function(app) {
 
     newAgent.save(function(err, result) {
       if (err) {
-        console.log(err);
+        console.log("Error " + err);
         res.render("message", {
           title: "Error",
           msg: "Some Error Occured During Creation.",

@@ -21,6 +21,11 @@ module.exports.controller = function(app) {
     });
   });
 
+  router.get("/test", function(req, res) {
+    //res.send("asdasd");
+    res.send('asd');
+  });
+
   //api to create new user
   router.post("/api/v1/signup", auth.loggedIn, validator.emailExist, function(
     req,
@@ -42,7 +47,7 @@ module.exports.controller = function(app) {
 
     newUser.save(function(err, result) {
       if (err) {
-        console.log(err);
+        console.log("Error " + err);
         res.render("message", {
           title: "Error",
           msg: "Some Error Occured During Creation.",

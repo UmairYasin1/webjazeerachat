@@ -1,24 +1,100 @@
-<div class="row">
 
-               <div class="col-md-8">
-                  <div class="topMainLeftBody">
-                     <a href="javascript:;" class="backLink"><i class="fal fa-arrow-left"></i></a>
-                     <a href="javascript:;" class="colorMode"><i class="far fa-moon-stars"></i></a>    
-                     <div class="topSmallMenu">
-                        <ul>
-                           <li><a href="javscript:;">Projects <i class="far fa-chevron-down"></i></a></li>
-                           <li><a href="javscript:;">Uptown Motions (um)</a></li>
-                           <li><a href="javscript:;">Uptown Logo (ut)</a></li>
-                        </ul>
-                     </div>
-                     <!-- #topSmallMenu -->
-                     <a href="javascript:;" class="addMore"><i class="fal fa-plus"></i></i></a>    
-                  </div>
-                  <!-- topMainBody -->
+            <!-- row topMenu -->
+            <div class="TopMenuSticky">
+               <div class="col-md-1 col-sm-1 col-xs-2 min-height">
+                  <div id="switchTheme" class="switchTheme"><div class="tsb-casing" style="height: 2em;"><span class="tsb-ball" data-tbsstate="0" style="top: 0em;"></span><span class="tsb-state" data-tbsstate="0" style="top: 0em;"></span><span class="tsb-state" data-tbsstate="1" style="top: 1em;"></span></div></div>
                </div>
-               <!-- col-md-8 -->
-
-               <div class="col-md-4">
+               <!-- col-md-1 -->
+               <div class="col-md-2 col-sm-3 col-xs-10 min-height">
+                  <div class="dropDownSelectBrand">
+                     <div class="row">
+                        <div class="col-md-2 col-xs-4">
+                           <div class="BrandName AllProjects"></div>
+                           <!-- #BrandName -->
+                        </div>
+                        <!-- #col-md-2-->
+                        <div class="col-md-10 col-xs-8 min-height">
+                           <div class="topSelectingBrand">
+                              <select class="form-control CustomMargin10">
+                                 <option>All Projects</option>
+                                 <option>All Projects</option>
+                                 <option>All Projects</option>
+                                 <option>All Projects</option>
+                                 <option>All Projects</option>
+                                 <option>All Projects</option>
+                              </select>
+                           </div>
+                           <!-- #topSelectingBrand -->
+                        </div>
+                        <!-- #col-md-8-->
+                     </div>
+                     <!-- row -->
+                  </div>
+                  <!-- #dropDownSelectBrand -->
+               </div>
+               <!-- col-md-3 --> 
+               <div class="col-md-3 col-sm-4 col-xs-6 min-height">
+                  <div class="dropDownSelectBrand">
+                     <div class="row">
+                        <div class="col-md-2 col-xs-4">
+                           <div class="BrandName purple">um</div>
+                           <!-- #BrandName -->
+                        </div>
+                        <!-- #col-md-2-->
+                        <div class="col-md-10 col-xs-8 min-height">
+                           <div class="topSelectingBrand">
+                              <span class="smalltxt">General Space</span>
+                              <select class="form-control">
+                                 <option>www.uptownlogodesign.com</option>
+                                 <option>www.uptownlogodesign.com</option>
+                                 <option>www.uptownlogodesign.com</option>
+                                 <option>www.uptownlogodesign.com</option>
+                                 <option>www.uptownlogodesign.com</option>
+                                 <option>www.uptownlogodesign.com</option>
+                              </select>
+                           </div>
+                           <!-- #topSelectingBrand -->
+                        </div>
+                        <!-- #col-md-8-->
+                     </div>
+                     <!-- row -->
+                  </div>
+                  <!-- #dropDownSelectBrand -->
+               </div>
+               <!-- col-md-3 --> 
+               <div class="col-md-3 col-sm-4 col-xs-6 min-height">
+                  <div class="dropDownSelectBrand">
+                     <div class="row">
+                        <div class="col-md-2 col-xs-4">
+                           <div class="BrandName green">um</div>
+                           <!-- #BrandName -->
+                        </div>
+                        <!-- #col-md-2-->
+                        <div class="col-md-10 col-xs-8 min-height">
+                           <div class="topSelectingBrand">
+                              <span class="smalltxt">General Space</span>
+                              <select class="form-control">
+                                 <option>www.uptownlogodesign.com</option>
+                                 <option>www.uptownlogodesign.com</option>
+                                 <option>www.uptownlogodesign.com</option>
+                                 <option>www.uptownlogodesign.com</option>
+                                 <option>www.uptownlogodesign.com</option>
+                                 <option>www.uptownlogodesign.com</option>
+                              </select>
+                           </div>
+                           <!-- #topSelectingBrand -->
+                        </div>
+                        <!-- #col-md-8-->
+                     </div>
+                     <!-- row -->
+                  </div>
+                  <!-- #dropDownSelectBrand -->
+               </div>
+               <!-- col-md-3 -->
+               <div class="col-md-3 col-sm-12  col-xs-12 min-height">
+                  <div class="addButton">
+                     <a href="javascript:;"><span class="far fa-plus"></span></a>
+                  </div>
                   <div class="topMainRightBody">
                      <div class="notificationWrap">
                         <a href="javascript:;" class="notificationBell"><i class="fal fa-bell"></i> <span class="notificationType"></span></a>
@@ -26,14 +102,13 @@
                      <!-- #notificationWrap -->
                      <div class="userSettingMenu">
                         <a href="javascript:;" class="UserProfile">
-                        <span class="UserPic"><img src="/pics/chatUser.jpg" alt="-" /> <span class="UserStatus"></span></span>
-                        <span class="UserTxt">Hi, Vernon Klein</span>
+                        <span class="UserPic"><img src="/images/chatUser.jpg" alt="-"> <span class="UserStatus"></span></span>
+                        <span class="UserTxt">Hi, <%= user.agent_name %></span>
                         </a>
                      </div>
                      <!-- #userSettingMenu -->
                   </div>
                   <!-- #topMainLeftBody -->
                </div>
-
-            </div>
-            <!-- row topMenu -->
+               <!-- col-md-4 -->
+             </div>

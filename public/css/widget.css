@@ -59,3 +59,61 @@ body{background:transparent; margin:0; padding:0; background-color: transparent;
 }
 #frame .content .message-input .wrap button:hover{background:#435f7a}
 #frame .content .message-input .wrap button:focus{outline:none}
+input#photos-input {
+    display: none;
+}
+
+label.photos-input {
+    position: absolute;
+    left: 100%;
+}
+#frame .content .messages ul li.replies div {
+    background: #08c46d;
+    float: right;
+    color: #fff;
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    padding: 10px !important;width: auto;max-width: 80%;
+}
+
+#frame .content .messages ul li.replies div img {
+    width: 48%;
+    border-radius: 0 !important;
+    margin: 0.5% !important;
+    display: inline-block;
+    float: right;
+}
+#frame .content .messages ul li.replies p{
+    display: block;
+    width: 100%;
+    float: right;
+    clear: both;
+    text-align: right;
+    padding: 0 !important;
+    margin: 15px 0;
+}
+#frame .content .messages ul li.sent div {
+    background: #f3f4f7;
+    float: left;
+    color: #fff;
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    padding: 10px !important;
+}
+
+#frame .content .messages ul li.sent div img {
+    width: 48%;
+    border-radius: 0 !important;
+    margin: 0.5% !important;
+    display: inline-block;
+    float: left;
+}
+#frame .content .messages ul li.sent p{
+    display: block;
+    width: 100%;
+    float: left;
+    clear: both;
+    text-align: left;
+    padding: 0 !important;
+    margin: 15px 0;
+}

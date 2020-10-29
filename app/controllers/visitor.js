@@ -33,7 +33,7 @@ module.exports.controller = function(app) {
       geoLocValue = geo;
     });
     browserAndOSValue = req.useragent;
-
+    
     var privateIpbreak = privateIpValue.substring(0, privateIpValue.indexOf(","));
     geoLocValuePrivate = (function() {
       if(privateIpbreak == ""){
@@ -60,7 +60,7 @@ module.exports.controller = function(app) {
     //console.log(privateIpbreak);
     console.log(geoLocValuePrivate);
     //geoLocValuePrivate = [];
-    
+    //console.log(geoLocValue);
 
     res.render("visitorsignup", {
       title: "Visitor Signup",
@@ -97,7 +97,7 @@ module.exports.controller = function(app) {
 
      newVisitor.save(function(err, result) {
        if (err) {
-         console.log(err);
+         console.log("Error " + err);
          res.render("message", {
            title: "Error",
            msg: "Some Error Occured During Creation.",

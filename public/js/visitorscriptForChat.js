@@ -82,6 +82,8 @@ $ (function(){
                   }else{
                     var txt5 = "";
                   }
+                  var finalMsg1 = $('<div></div>').html(txt4);
+                  finalMsg1 = finalMsg1.append(txt5);
                 //showing chat in chat box.
     
               //  var reschatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
@@ -96,7 +98,8 @@ $ (function(){
                   }else{
                     var restxt5 = "";
                   }
-    
+                  var finalMsg = $('<div></div>').html(restxt4);
+                  finalMsg = finalMsg.append(restxt5);
                   if(visitorId == response.repmsgFrom){
                     //var clas = "sent";
                     var clas = "replies";
@@ -108,10 +111,10 @@ $ (function(){
                   }
     
                   if(response.msgFrom == ""){
-                   $('#messages').prepend($('<li class='+clas+'>').append(usrImg,restxt4,restxt5).attr("rel" , response.msgId));
+                   $('#messages').prepend($('<li class='+clas+'>').append(usrImg,finalMsg).attr("rel" , response.msgId));
                 
                   }else{
-                   $('#messages').prepend($('<li class='+clas+'>').append(usrImg,restxt4,restxt5).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(usrImg,txt4,txt5).attr("rel" , response.msgId))));
+                   $('#messages').prepend($('<li class='+clas+'>').append(usrImg,finalMsg).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(usrImg,finalMsg1).attr("rel" , response.msgId))));
                 
                   }
                 
@@ -149,9 +152,9 @@ $ (function(){
 
     $.ajax({
       type: "POST",
-      //url: "http://localhost:5000/upload/file",
+      url: "http://localhost:5000/upload/file",
       //url: "http://192.168.1.110:5000/upload/file",
-      url: "https://umairyasin1-dinochat.glitch.me/upload/file",
+      //url: "https://umairyasin1-dinochat.glitch.me/upload/file",
       data: formData,
       processData: false,
       contentType: false,

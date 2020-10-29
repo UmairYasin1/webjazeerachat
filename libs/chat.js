@@ -584,7 +584,7 @@ module.exports.sockets = function(http) {
         repMsgId: data.repMsgId,
         date: data.date
       });
-      
+
       //emits event to send chat msg to all clients.
 
        if(data.repMsgId != ""){
@@ -655,7 +655,7 @@ module.exports.sockets = function(http) {
   //saving chats to database.
   eventEmitter.on("save-chat", function(data) {
     // var today = Date.now();
-
+    
     if(data.type=="agent"){
      var newChat = new chatModel({
        msgFrom: data.msgFrom,
@@ -667,7 +667,7 @@ module.exports.sockets = function(http) {
        msgId:data.id,
        createdOn: data.date
      });
-
+    
      newChat.save(function(err, result) {
       if (err) {
         console.log("Error : " + err);
@@ -677,8 +677,8 @@ module.exports.sockets = function(http) {
         console.log("Chat Saved 1.");
       }
     });
-
-    }else{
+    
+  }else{
       roomModel.findOne({ _id: data.room }, function(err,obj) { 
         
         agent_id = obj.name2;

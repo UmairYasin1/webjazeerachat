@@ -33,6 +33,7 @@ $ (function(){
    // $('#list').empty();
    // $('#list').append($('<li>').append($('<button id="ubtn" class="btn btn-danger btn-block btn-lg"></button>').text("Group").css({"font-size":"18px"})));
     var totalOnline = 0;
+    var totalVisitors = 0;
 
     //console.log(stack);
   
@@ -51,18 +52,25 @@ $ (function(){
           //var txt1 = $('<button id="ubtn" class="btn btn-success  btn-md">').text(response.visitor_name).attr("rel" , response.visitor_id).css({"font-size":"18px"});
           
           if(stack[response.visitor_id] == "Online"){
+            var countryShortCode = response.country;
+            var countryFlag = countryShortCode.toLowerCase();
           //  var txt2 = $('<span class="badge"></span>').text("*"+stack[response.visitor_name]).css({"float":"right","color":"#009933","font-size":"18px"});
-          
-            var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="#" onclick="javascript:openChatAgent(this.rel)" id="ubtnDirect" rel='+response.visitor_id+'>'+response.visitor_name+'</a><i class="fa fa-check-circle-o" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>'+ response.totaltimeshort +'</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>1</td><td>1</td></tr>';
+            //console.log(flag.selectByTopLevelDomain("uk"));
+            //var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="#" onclick="javascript:openChatAgent(this.rel)" id="ubtnDirect" rel='+response.visitor_id+'>'+response.visitor_name+'</a><i class="fa fa-check-circle-o" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>'+ response.totaltimeshort +'</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>1</td><td>1</td></tr>';
+            var a = '<tr><td><a href="javascript:;"><img src="/images/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="#" onclick="javascript:openChatAgent(this.rel)" id="ubtnDirect" rel='+response.visitor_id+'>'+response.visitor_name+'</a></span></td><td><i class="'+countryFlag+' flag"></i><img src="/images/'+response.browser+'.jpg" alt="-"><img src="/images/system-pc.jpg" alt="-"><img src="/images/system-mac.jpg" alt="-"></td><td>'+ response.totaltimeshort +'</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/images/gicon.png" alt="-" />google.com</td><td>1</td><td>1</td></tr>';
             var b = '<li class="contact ubtn" dataname='+response.visitor_name+' rel='+response.visitor_id+'><div class="wrap"><div class="img"> '+ response.visitor_name.substr(0, 2).toUpperCase() +' </div><div class="meta"><p class="name">'+response.visitor_name+'</p><p class="preview"></p></div></div></li>';
             totalOnline++;
+            totalVisitors++;
 
           }
           else{
-          
-            var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="#" onclick="javascript:openChatAgent(this.rel)" id="ubtnDirect" rel='+response.visitor_id+'>'+response.visitor_name+'</a> <i class="fa fa-ban" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>'+ response.totaltimeshort +'</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>1</td><td>1</td></tr>';
+            var countryShortCode = response.country;
+            var countryFlag = countryShortCode.toLowerCase();
+            //var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="#" onclick="javascript:openChatAgent(this.rel)" id="ubtnDirect" rel='+response.visitor_id+'>'+response.visitor_name+'</a> <i class="fa fa-ban" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>'+ response.totaltimeshort +'</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>1</td><td>1</td></tr>';
+            var a = '<tr><td><a href="javascript:;"><img src="/images/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="#" onclick="javascript:openChatAgent(this.rel)" id="ubtnDirect" rel='+response.visitor_id+'>'+response.visitor_name+'</a> <i class="fa fa-ban" aria-hidden="true"></i></span></td><td><i class="'+countryFlag+' flag"></i><img src="/images/'+response.browser+'.jpg" alt="-"><img src="/images/system-pc.jpg" alt="-"><img src="/images/system-mac.jpg" alt="-"></td><td>'+ response.totaltimeshort +'</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/images/gicon.png" alt="-" />google.com</td><td>1</td><td>1</td></tr>';
             var b = '<li class="contact ubtn" dataname='+response.visitor_name+' rel='+response.visitor_id+'><div class="wrap"><div class="img"> '+ response.visitor_name.substr(0, 2).toUpperCase() +' </div><div class="meta"><p class="name">'+response.visitor_name+'</p><p class="preview"></p></div></div></li>';              
             //totalOnline++;
+            totalVisitors++;
     
           //  var txt2 = $('<span class="badge"></span>').text(stack[response.visitor_name]).css({"float":"right","color":"#a6a6a6","font-size":"18px"});
           }
@@ -73,7 +81,8 @@ $ (function(){
           $('.ChatTable table tbody').append(a);
           $('#contactsList ul').append(b);
 
-          $('#totalOnline').text(totalOnline);
+          $('#totalOnline').text('(' + totalOnline + ')');
+          $('#totalVisitors').text('(' + totalVisitors + ')');
 
       });
 
@@ -216,7 +225,8 @@ $ (function(){
 
                 
                  //styling of chat message.
-                 var chatDate = moment(response.createdOn).format("MMMM Do YYYY, hh:mm:ss a");
+                 //var chatDate = moment(response.createdOn).format("MMMM Do YYYY, hh:mm:ss a");
+                 var chatDate = moment(response.createdOn).format("hh:mm a");
                  var txt1 = $('<span></span>').text(response.msgFrom+" : ");
                  var txt2 = $('<span></span>').text(chatDate);
                  var txt3 = $('<p></p>').append(txt1,txt2);
@@ -227,8 +237,10 @@ $ (function(){
                      var txt5 = "";
                    }
                  //showing chat in chat box.
-
-                var reschatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
+                 var finalMsg1 = $('<div></div>').html(txt4);
+                 finalMsg1 = finalMsg1.append(txt5);
+                //var reschatDate = moment(response.repcreatedOn).format("MMMM Do YYYY, hh:mm:ss a");
+                var reschatDate = moment(response.repcreatedOn).format("hh:mm a");
                  var restxt1 = $('<span></span>').text(response.repmsgFrom+" : ");
                  var restxt2 = $('<span class="timeStamp"></span>').text(reschatDate);
                  var restxt3 = $('<p></p>').append(restxt1,restxt2);
@@ -238,7 +250,8 @@ $ (function(){
                    }else{
                      var restxt5 = "";
                    }
-
+                   var finalMsg = $('<div></div>').html(restxt4);
+                  finalMsg = finalMsg.append(restxt5);
                    if(agent_id == response.repmsgFrom){
                     //var clas = "sent";
                     var clas = "replies";
@@ -250,12 +263,12 @@ $ (function(){
                   }
 
                    if(response.msgFrom == ""){
-                    $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId));
-                    $('.messages ul').prepend($('<li class='+clas+'>').append(usrImg,restxt2,restxt4,restxt5).attr("rel" , response.msgId));
+                    $('#messages').prepend($('<li>').append(restxt3,finalMsg).attr("rel" , response.msgId));
+                    $('.messages ul').prepend($('<li class='+clas+'>').append(usrImg,restxt2,finalMsg).attr("rel" , response.msgId));
                  
                    }else{
-                    $('#messages').prepend($('<li>').append(restxt3,restxt4,restxt5).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5).attr("rel" , response.msgId))));
-                    $('.messages ul').prepend($('<li class='+clas+'>').append(usrImg,restxt2,restxt4,restxt5).attr("rel" , response.msgId));
+                    $('#messages').prepend($('<li>').append(restxt3,finalMsg).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(txt3,finalMsg1).attr("rel" , response.msgId))));
+                    $('.messages ul').prepend($('<li class='+clas+'>').append(usrImg,restxt2,finalMsg).attr("rel" , response.msgId));
                  
                    }
                  
@@ -306,9 +319,9 @@ $ (function(){
 
       $.ajax({
         type: "POST",
-        //url: "http://localhost:5000/upload/file",
+        url: "http://localhost:5000/upload/file",
         //url: "http://192.168.1.110:5000/upload/file",
-        url: "https://umairyasin1-dinochat.glitch.me/upload/file",
+        //url: "https://umairyasin1-dinochat.glitch.me/upload/file",
         data: formData,
         processData: false,
         contentType: false,
@@ -365,7 +378,8 @@ $ (function(){
     var visitorImg = $("<img>").attr("src" , "/pics/visitor.jpeg");
     var agentImg = $("<img>").attr("src" , "/pics/agent.png");
     
-    var chatDate = moment(data.date).format("MMMM Do YYYY, hh:mm:ss a");
+    //var chatDate = moment(data.date).format("MMMM Do YYYY, hh:mm:ss a");
+    var chatDate = moment(data.date).format("hh:mm a");
     var txt1 = $('<span></span>').text(data.msgFrom+" : ");
     var txt2 = $('<span class="timeStamp"></span>').text(chatDate);
     var txt3 = $('<p></p>').append(txt1,txt2);

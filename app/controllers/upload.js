@@ -21,7 +21,9 @@ module.exports.controller = function(app) {
   //route for signup
   router.post('/file' , (req, res) => {
 
-    console.log(req.body.repMsgId);
+    //console.log(req.body.repMsgId);
+
+    console.log(req.body);
 
     upload(req,res,function(err) {
       if(err) {
