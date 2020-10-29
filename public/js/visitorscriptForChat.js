@@ -152,9 +152,10 @@ $ (function(){
 
     $.ajax({
       type: "POST",
-      url: "http://localhost:5000/upload/file",
+      //url: "http://localhost:5000/upload/file",
       //url: "http://192.168.1.110:5000/upload/file",
       //url: "https://umairyasin1-dinochat.glitch.me/upload/file",
+      url: "http://dinochat.glitch.me/upload/file",
       data: formData,
       processData: false,
       contentType: false,
