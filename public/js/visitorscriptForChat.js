@@ -147,12 +147,17 @@ $ (function(){
     //sending message.
   $('#visitorchatForm').submit(function(e){
  
+    if($('#myMsg').val() == null || $('#myMsg').val() == "")
+    {
+      return false;
+    }
+    
     e.preventDefault();
     var formData = new FormData(this);
 
     $.ajax({
       type: "POST",
-      //url: "https://localhost:5000/upload/file",
+      //url: "http://localhost:5000/upload/file",
       //url: "https://192.168.1.110:5000/upload/file",
       //url: "https://umairyasin1-dinochat.glitch.me/upload/file",
       url: "https://dinochat.glitch.me/upload/file",
@@ -220,7 +225,8 @@ $ (function(){
     }else{
       var txt5 = "";
     }
-
+    var finalMsg1 = $('<div></div>').html(txt4);
+    finalMsg1 = finalMsg1.append(txt5);
     //console.log(data);
     //showing chat in chat box.
 
@@ -248,12 +254,13 @@ $ (function(){
         }else{
           var replytxt5 = "";
         }
-
-      $('#messages').append($('<li  class='+clas+'>').append(usrImg,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(usrImg,txt4,txt5))));
+        var finalMsg = $('<div></div>').html(replytxt4);
+    finalMsg = finalMsg.append(replytxt5);
+      $('#messages').append($('<li  class='+clas+'>').append(usrImg,finalMsg).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(usrImg,finalMsg1))));
    
     }else{
 
-      $('#messages').append($('<li  class='+clas+'>').append(usrImg,txt4,txt5).attr("rel" , data.id));
+      $('#messages').append($('<li  class='+clas+'>').append(usrImg,finalMsg1).attr("rel" , data.id));
    
     }
 

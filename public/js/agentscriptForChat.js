@@ -28,11 +28,16 @@ $ (function(){
 
   //receiving onlineStack.
   socket.on('onlineStack',function(stack){
-    $('.ChatTable table tbody').empty();
+    //$('.ChatTable table tbody').empty();
+
+    $('#ChatTableOnline table tbody').empty();
+    $('#ChatTableOffline table tbody').empty();
+    
     $('#contactsList ul').empty();
    // $('#list').empty();
    // $('#list').append($('<li>').append($('<button id="ubtn" class="btn btn-danger btn-block btn-lg"></button>').text("Group").css({"font-size":"18px"})));
     var totalOnline = 0;
+    var totalOffline = 0;
     var totalVisitors = 0;
 
     //console.log(stack);
@@ -67,9 +72,9 @@ $ (function(){
             var countryShortCode = response.country;
             var countryFlag = countryShortCode.toLowerCase();
             //var a = '<tr><td><a href="javascript:;"><img src="/pics/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="#" onclick="javascript:openChatAgent(this.rel)" id="ubtnDirect" rel='+response.visitor_id+'>'+response.visitor_name+'</a> <i class="fa fa-ban" aria-hidden="true"></i></span></td><td><img src="/pics/statsintable.jpg" alt="alternative text" title="Country : '+ response.country +', Browser : '+ response.browser +', OS : '+ response.os +', Platform : '+ response.platform +'" /></td><td>'+ response.totaltimeshort +'</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/pics/gicon.png" alt="-" />  google.com</td><td>1</td><td>1</td></tr>';
-            var a = '<tr><td><a href="javascript:;"><img src="/images/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="#" onclick="javascript:openChatAgent(this.rel)" id="ubtnDirect" rel='+response.visitor_id+'>'+response.visitor_name+'</a> <i class="fa fa-ban" aria-hidden="true"></i></span></td><td><i class="'+countryFlag+' flag"></i><img src="/images/'+response.browser+'.jpg" alt="-"><img src="/images/system-pc.jpg" alt="-"><img src="/images/system-mac.jpg" alt="-"></td><td>'+ response.totaltimeshort +'</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/images/gicon.png" alt="-" />google.com</td><td>1</td><td>1</td></tr>';
+            var c = '<tr><td><a href="javascript:;"><img src="/images/clickicon.png" alt="-" /></a></td><td><span class="userNameIntable"><a href="#" onclick="javascript:openChatAgent(this.rel)" id="ubtnDirect" rel='+response.visitor_id+'>'+response.visitor_name+'</a></span></td><td><i class="'+countryFlag+' flag"></i><img src="/images/'+response.browser+'.jpg" alt="-"><img src="/images/system-pc.jpg" alt="-"><img src="/images/system-mac.jpg" alt="-"></td><td>'+ response.totaltimeshort +'</td><td>'+response.agent_name+'</td><td>Logo Viction | Client Area..</td><td><img src="/images/gicon.png" alt="-" />google.com</td><td>1</td><td>1</td></tr>';
             var b = '<li class="contact ubtn" dataname='+response.visitor_name+' rel='+response.visitor_id+'><div class="wrap"><div class="img"> '+ response.visitor_name.substr(0, 2).toUpperCase() +' </div><div class="meta"><p class="name">'+response.visitor_name+'</p><p class="preview"></p></div></div></li>';              
-            //totalOnline++;
+            totalOffline++;
             totalVisitors++;
     
           //  var txt2 = $('<span class="badge"></span>').text(stack[response.visitor_name]).css({"float":"right","color":"#a6a6a6","font-size":"18px"});
@@ -78,10 +83,14 @@ $ (function(){
           //listing all users.
           //$('#list').append($('<li>').append(txt1,txt2));
 
-          $('.ChatTable table tbody').append(a);
+          //$('.ChatTable table tbody').append(a);
+
+          $('#ChatTableOnline table tbody').append(a);
+          $('#ChatTableOffline table tbody').append(c);
           $('#contactsList ul').append(b);
 
           $('#totalOnline').text('(' + totalOnline + ')');
+          $('#totalOffline').text('(' + totalOffline + ')');
           $('#totalVisitors').text('(' + totalVisitors + ')');
 
       });
@@ -313,13 +322,17 @@ $ (function(){
 
   //sending message.
   $('#chatForm').submit(function(e){
-
+    
+    if($('#myMsg').val() == null || $('#myMsg').val() == "")
+    {
+      return false;
+    }
     e.preventDefault();
       var formData = new FormData(this);
 
       $.ajax({
         type: "POST",
-        //url: "https://localhost:5000/upload/file",
+        //url: "http://localhost:5000/upload/file",
         //url: "https://192.168.1.110:5000/upload/file",
         //url: "https://umairyasin1-dinochat.glitch.me/upload/file",
         url: "https://dinochat.glitch.me/upload/file",
@@ -383,14 +396,15 @@ $ (function(){
     var chatDate = moment(data.date).format("hh:mm a");
     var txt1 = $('<span></span>').text(data.msgFrom+" : ");
     var txt2 = $('<span class="timeStamp"></span>').text(chatDate);
-    var txt3 = $('<p></p>').append(txt1,txt2);
-    var txt4 = $('<p></p>').text(data.msg);
+    var txt3 = $('<p class="abc"></p>').append(txt1,txt2);
+    var txt4 = $('<p class="xyz"></p>').text(data.msg);
     if(data.file != ""){
       var txt5 = $("<img style='height: 100px;width: 100px;'>").attr("src" , "/uploads/" + data.file);
       }else{
         var txt5 = "";
       }
-
+      var finalMsg1 = $('<div></div>').html(txt4);
+      finalMsg1 = finalMsg1.append(txt5);
       if(agent_id == data.msgFrom){
         //var clas = "sent";
         var clas = "replies";
@@ -438,15 +452,16 @@ $ (function(){
         }else{
           var replytxt5 = "";
         }
-
-      $('#messages').append($('<li class='+clas+'>').append(replytxt3,replytxt4,replytxt5).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,txt4,txt5))));
-      $('.messages ul').append($('<li class='+clas+'>').append(usrImg,replytxt2,replytxt4,replytxt5).attr("rel" , data.id));             
+        var finalMsg = $('<div></div>').html(replytxt4);
+      finalMsg = finalMsg.append(replytxt5);
+      $('#messages').append($('<li class='+clas+'>').append(replytxt3,finalMsg).attr("rel" , data.id).append($("<ul class='replymsg'>").append($("<li>").append(txt3,finalMsg1))));
+      $('.messages ul').append($('<li class='+clas+'>').append(usrImg,replytxt2,finalMsg).attr("rel" , data.id));             
       
     }
     else{
       
-      $('#messages').append($('<li class='+clas+'>').append(txt3,txt4,txt5).attr("rel" , data.id));
-      $('.messages ul').append($('<li class='+clas+'>').append(usrImg,txt2,txt4,txt5).attr("rel" , data.id));
+      $('#messages').append($('<li class='+clas+'>').append(txt3,finalMsg1).attr("rel" , data.id));
+      $('.messages ul').append($('<li class='+clas+'>').append(usrImg,txt2,finalMsg1).attr("rel" , data.id));
       
     }
 

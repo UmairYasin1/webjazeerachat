@@ -10,7 +10,7 @@ $(function(){
 
         $.ajax({
           type: "POST",
-          //url: "https://localhost:5000/agent/api/v1/login",
+          //url: "http://localhost:5000/agent/api/v1/login",
           //url: "https://192.168.1.110:5000/agent/api/v1/login",
           //url: "https://umairyasin1-dinochat.glitch.me/agent/api/v1/login",
           url: "https://dinochat.glitch.me/agent/api/v1/login",
@@ -25,7 +25,7 @@ $(function(){
            }
 
            if(result == "3"){
-            //window.location.href = "https://localhost:5000/agent/dashboard";
+            //window.location.href = "http://localhost:5000/agent/dashboard";
             //window.location.href = "https://192.168.1.110:5000/agent/dashboard";
             //window.location.href = "https://umairyasin1-dinochat.glitch.me/agent/dashboard";
             window.location.href = "https://dinochat.glitch.me/agent/dashboard";

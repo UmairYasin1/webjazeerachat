@@ -125,5 +125,11 @@ module.exports.controller = function(app) {
     });
   });
 
+  router.get("/agentlogout", function(req, res) {
+    delete req.session.user;
+    delete req.session.chat;
+    res.redirect("/agent/agentlogin");
+  });
+
   app.use("/agent", router);
 }; //signup controller end

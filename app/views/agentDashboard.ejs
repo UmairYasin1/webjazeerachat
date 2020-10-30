@@ -71,7 +71,7 @@
                      </div>
                      <div class="item-data active" style="display: block;">
                         <div class="AccordianBody">
-                           <div class="ChatTable">
+                           <div id="ChatTableOnline" class="ChatTable">
                               <table class="table">
                                  <thead>
                                     <tr>
@@ -87,21 +87,6 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <tr>
-                                       <td><a href="javascript:;"><img src="/images/clickicon.png" alt="-" /></a></td>
-                                       <td><span class="userNameIntable">Chad Watts</span></td>
-                                       <td><span class="newcountrycode"><span class="fgca"></span></span> 
-                                          <img src="/images/browser-ch.jpg" alt="-" />
-                                          <img src="/images/system-pc.jpg" alt="-" />
-                                          <img src="/images/system-mac.jpg" alt="-" />
-                                       </td>
-                                       <td>1hr 3 mins</td>
-                                       <td>Scott Perez</td>
-                                       <td>Uptown Logo Design | Client Area..</td>
-                                       <td><img src="/images/gicon.png" alt="-" />  google.com</td>
-                                       <td>99</td>
-                                       <td>1</td>
-                                    </tr>
                                  </tbody>
                               </table>
                            </div>
@@ -113,6 +98,50 @@
                   <!-- #AccordianChat -->
                </div>
                <!-- row -->
+               <div>
+                     <div class="AccordianChat">
+                        <div class="item">
+                           <div class="AccordianHead">
+                              <div>
+                                 <a href="javascript:;" class="AccordianToggle1"><i class="far fa-chevron-up"></i></a>
+                                 <span class="ChatHeading">Previously Served <span id="totalOffline" class="countChats"></span>
+                                 <br>
+                                 <span class="subChatHeading">Chats shown in the table below is from live data</span>
+                                 </span>
+                              </div>
+                              <!-- #col-md-8-->
+                           </div>
+                           <!-- #AccordianHead -->
+                        </div>
+                        <div class="item-data active" style="display: block;">
+                           <div class="AccordianBody">
+                              <div id="ChatTableOffline" class="ChatTable">
+                                 <table class="table">
+                                    <thead>
+                                       <tr>
+                                          <th scope="col">&nbsp;</th>
+                                          <th scope="col">Username</th>
+                                          <th scope="col">Continent / Platform</th>
+                                          <th scope="col">Online</th>
+                                          <th scope="col">Agent</th>
+                                          <th scope="col">Viewing</th>
+                                          <th scope="col">Referrer</th>
+                                          <th scope="col">Visits</th>
+                                          <th scope="col">Chats</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                 </table>
+                              </div>
+                              <!-- #ChatTable -->
+                           </div>
+                           <!-- #AccordianBody -->
+                        </div>
+                     </div>
+                     <!-- #AccordianChat -->
+                  </div>
+                  <!-- row -->
             </div>
          </div>
       </div>
