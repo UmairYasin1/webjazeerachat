@@ -142,7 +142,43 @@ $ (function(){
   }); // end of listening old-chats event.
 
   
-  
+  // $('#myMsg').keypress(function(){
+  //   socket.emit("typing");
+  // });
+
+  $('#myMsg').keyup(function(){
+    if($('#myMsg').val()){
+      $('#sendBtn').show(); //showing send button.
+      socket.emit('typing', this.value);
+      // socket.on('typingResponse', function(message) {
+      //   console.log(message);
+      //   $('.typing').text('('+ message +')');
+      // });
+    }
+    else{
+      // $('.typing').text('');
+      socket.emit('typingClear');
+      $('#sendBtn').hide(); //hiding send button to prevent sending empty messages.
+    }
+  }); //end of keyup handler.
+
+  //receiving typing message.
+  // socket.on('typing',function(msg){
+  //   var setTime;
+  //   console.log('test');
+  //   //clearing previous setTimeout function.
+  //   clearTimeout(setTime);
+  //   //showing typing message.
+  //   $('#typing').text(msg);
+  //   //showing typing message only for few seconds.
+  //   setTime = setTimeout(function(){
+  //     $('#typing').text("");
+  //   },3500);
+  // }); //end of typing event.
+  // socket.on("typing", function() {
+  //   console.log('test vvvv');
+  // });
+
 
     //sending message.
   $('#visitorchatForm').submit(function(e){

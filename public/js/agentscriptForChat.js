@@ -20,12 +20,11 @@ $ (function(){
     // $('#hell0').append($('<li>').append($(data.description).append($('<li>');
     //$('#hell0').scrollTop($('#hell0')[0].scrollHeight);
 
-});
+  });
 
   });//end of connect event.
 
-
-
+  
   //receiving onlineStack.
   socket.on('onlineStack',function(stack){
     //$('.ChatTable table tbody').empty();
@@ -307,18 +306,25 @@ $ (function(){
 
   }); // end of listening old-chats event.
 
-  //receiving typing message.
-  socket.on('typing',function(msg){
-    var setTime;
-    //clearing previous setTimeout function.
-    clearTimeout(setTime);
-    //showing typing message.
-    $('#typing').text(msg);
-    //showing typing message only for few seconds.
-    setTime = setTimeout(function(){
-      $('#typing').text("");
-    },3500);
-  }); //end of typing event.
+
+  // keyup handler.
+  $('#myMsg').keyup(function(){
+    if($('#myMsg').val()){
+      $('#sendBtn').show(); //showing send button.
+    }
+    else{
+      $('.typing').text('');
+      $('#sendBtn').hide(); //hiding send button to prevent sending empty messages.
+    }
+  }); //end of keyup handler.
+
+  socket.on('typingResponse', function(message) {
+    $('.typing').text('('+ message +')');
+  });
+
+  socket.on('typingClearResponse', function(message) {
+    $('.typing').text('');
+  });
 
   //sending message.
   $('#chatForm').submit(function(e){

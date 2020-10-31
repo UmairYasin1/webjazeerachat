@@ -563,11 +563,39 @@ module.exports.sockets = function(http) {
     };
 
     //showing msg on typing.
-    socket.on("typing", function() {
-      socket
-        .to(socket.room)
-        .broadcast.emit("typing", socket.username + " : is typing...");
+    socket.on("typing", function(val) {
+      socket.to(socket.room).broadcast.emit('typingResponse', val);
     });
+
+    socket.on("typingClear", function() {
+      socket.to(socket.room).broadcast.emit('typingClearResponse');
+    });
+
+    // socket.on('typing', function(val){ 
+    //   //console.log(val);
+    //   // write Your awesome code here
+    //   //const userId = user[currentDrawer].ioid()
+    //   socket.broadcast.emit('typingResponse', val);
+    //   //socket.broadcast.emit('typingResponse');
+    // });
+
+    // socket.on('typingClear', function(){ 
+    //   socket.broadcast.emit('typingClearResponse');
+    // });
+
+    // socket.on('typing',function(msg){
+    //   var setTime;
+    //   //clearing previous setTimeout function.
+    //   clearTimeout(setTime);
+    //   //showing typing message.
+    //   $('#typing').text(msg);
+    //   //showing typing message only for few seconds.
+    //   setTime = setTimeout(function(){
+    //     $('#typing').text("");
+    //   },3500);
+    // }); //end of typing event.
+
+
 
     //for showing chats.
     socket.on("chat-msg", function(data) {
