@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const path = require("path");
 const fs = require("fs");
 const logger = require("morgan");
+var cors = require('cors');
 
 
 const app = express();
@@ -24,6 +25,9 @@ require("./libs/chat.js").sockets(http);
 app.use(logger("dev"));
 
 app.use(useragent.express());
+
+app.use(cors());
+
 
 //db connection
 //const dbPath = "mongodb://localhost/socketChatDB";
