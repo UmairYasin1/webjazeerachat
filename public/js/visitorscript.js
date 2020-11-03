@@ -3,7 +3,7 @@
 $(function(){
 
     var socket = io('/visitor');
-    console.log(getParentUrl());
+    //console.log(getParentUrl());
   
   });//end of function.
   
