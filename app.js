@@ -39,12 +39,12 @@ mongoose.connection.once("open", function() {
   console.log("Database Connection Established Successfully.");
 });
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   //res.header('Access-Control-Allow-Credentials', 'true');
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 // app.use((req, res, next) => {
 //   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -54,50 +54,13 @@ app.use((req, res, next) => {
 //   next();
 // });
 
-// app.use((req, res, next) => {
-//   //console.log(req.headers.origin);
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Headers', 'Origin, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+  next();
+});
 
-//   //res.header("Access-Control-Allow-Origin", "*");
-//   //res.header('Access-Control-Allow-Methods', '*');
-//   //res.header("Access-Control-Allow-Headers", "*");
-//  res.header('Access-Control-Allow-Credentials', true);
-// res.header('Access-Control-Allow-Origin', 'https://dinochat.glitch.me'); // only_one_url_here');
-// res.header('Access-Control-Allow-Headers', 'Content-Type, POST, GET, OPTIONS, DELETE');
-//   //res.header("Access-Control-Expose-Headers", "https://testwidget.glitch.me/");
-//   //res.header('Access-Control-Allow-Headers', 'Origin, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-//   //res.header('Access-Control-Allow-Credentials', 'true');
-//   next();
-// });
 
-// var allowCrossDomain = function(req, res, next) {
-//   // Added other domains you want the server to give access to
-//   // WARNING - Be careful with what origins you give access to
-//   console.log(req.headers.origin);
-//   var allowedHost = [
-//     'https://dinochat.glitch.me/',
-//     'https://testwidget.glitch.me/',
-//     'http://localhost:5000/',
-//     'http://localhost:5000/visitor/visitorsignup'
-//   ];
-//   // chrome-extension line is the origin header from POSTman chrome extension
-//   // console.log("Headers: ", req.headers, "\n")
-//   console.log("----------------------------")
-//   console.log("Origin: ", req.headers.origin)
-//   console.log("Session: ", req.session)
-  
-//   if(allowedHost.indexOf(req.headers.origin) !== -1) {
-//     res.header('Access-Control-Allow-Credentials', true);
-//     res.header('Access-Control-Allow-Origin', req.headers.origin)
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-//     res.header('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-//     next();
-//   } else {
-//     console.log("Failed the CORS origin test: ")
-//     res.status(401).send({auth: false});
-//   }
-// }
-
-// app.use(allowCrossDomain);
 
 //http method override middleware
 app.use(
@@ -118,7 +81,7 @@ const sessionInit = session({
   httpOnly: true,
   saveUninitialized: true,
   store: new mongoStore({ mongooseConnection: mongoose.connection }),
-  cookie: { maxAge: 80 * 80 * 800, sameSite: 'none', httpOnly: false, secure: true }
+  cookie: { maxAge: 80 * 80 * 800 }
 });
 
 app.use(sessionInit);

@@ -73,9 +73,8 @@ module.exports.controller = function(app) {
 
 
   //api to create new user
-  // router.post("/api/v1/signup", function( req, res) {
-    router.post("/signup", function( req, res) {
-  
+   router.post("/api/v1/signup", function(req, res) {
+
      const today = Date.now();
      const id = shortid.generate();
 

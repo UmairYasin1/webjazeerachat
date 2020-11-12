@@ -29,7 +29,7 @@ $(function(){
             //window.location.href = "http://localhost:5000/agent/dashboard";
             //window.location.href = "https://192.168.1.110:5000/agent/dashboard";
             //window.location.href = "https://umairyasin1-dinochat.glitch.me/agent/dashboard";
-            // window.location.href = "https://dinochat.glitch.me/agent/dashboard";
+            //window.location.href = "https://dinochat.glitch.me/agent/dashboard";
             window.location.href = "https://dinochat.netlify.app/agent/dashboard";
            }
 
