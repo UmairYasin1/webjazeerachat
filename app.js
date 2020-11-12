@@ -81,7 +81,7 @@ const sessionInit = session({
   httpOnly: true,
   saveUninitialized: true,
   store: new mongoStore({ mongooseConnection: mongoose.connection }),
-  cookie: { maxAge: 80 * 80 * 800 }
+  cookie: { maxAge: 80 * 80 * 800, sameSite: 'none', secure: true }
 });
 
 app.use(sessionInit);
