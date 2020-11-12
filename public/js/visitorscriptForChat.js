@@ -16,7 +16,7 @@ $ (function(){
     // setTimeout(function() { alert(username+" logged In"); }, 500);
 
     socket.on('broadcast',function(data){
-    document.getElementById("hell0").innerHTML += '<li>'+ data.description +'</li>';
+    //document.getElementById("hell0").innerHTML += '<li>'+ data.description +'</li>';
     // $('#hell0').append($('<li>').append($(data.description).append($('<li>');
     $('#hell0').scrollTop($('#hell0')[0].scrollHeight);
 
@@ -196,7 +196,8 @@ $ (function(){
       //url: "http://localhost:5000/upload/file",
       //url: "https://192.168.1.110:5000/upload/file",
       //url: "https://umairyasin1-dinochat.glitch.me/upload/file",
-      url: "https://dinochat.glitch.me/upload/file",
+      // url: "https://dinochat.glitch.me/upload/file",
+      url: "https://dinochat.netlify.app/upload/file",
       data: formData,
       processData: false,
       contentType: false,

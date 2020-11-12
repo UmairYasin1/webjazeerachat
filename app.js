@@ -27,7 +27,7 @@ app.use(logger("dev"));
 app.use(useragent.express());
 
 app.use(cors());
-
+app.use(cookieParser());
 
 //db connection
 //const dbPath = "mongodb://localhost/socketChatDB";
@@ -41,9 +41,63 @@ mongoose.connection.once("open", function() {
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Credentials', 'true');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Expose-Headers", "*");
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
+
+// app.use((req, res, next) => {
+//   //console.log(req.headers.origin);
+
+//   //res.header("Access-Control-Allow-Origin", "*");
+//   //res.header('Access-Control-Allow-Methods', '*');
+//   //res.header("Access-Control-Allow-Headers", "*");
+//  res.header('Access-Control-Allow-Credentials', true);
+// res.header('Access-Control-Allow-Origin', 'https://dinochat.glitch.me'); // only_one_url_here');
+// res.header('Access-Control-Allow-Headers', 'Content-Type, POST, GET, OPTIONS, DELETE');
+//   //res.header("Access-Control-Expose-Headers", "https://testwidget.glitch.me/");
+//   //res.header('Access-Control-Allow-Headers', 'Origin, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+//   //res.header('Access-Control-Allow-Credentials', 'true');
+//   next();
+// });
+
+// var allowCrossDomain = function(req, res, next) {
+//   // Added other domains you want the server to give access to
+//   // WARNING - Be careful with what origins you give access to
+//   console.log(req.headers.origin);
+//   var allowedHost = [
+//     'https://dinochat.glitch.me/',
+//     'https://testwidget.glitch.me/',
+//     'http://localhost:5000/',
+//     'http://localhost:5000/visitor/visitorsignup'
+//   ];
+//   // chrome-extension line is the origin header from POSTman chrome extension
+//   // console.log("Headers: ", req.headers, "\n")
+//   console.log("----------------------------")
+//   console.log("Origin: ", req.headers.origin)
+//   console.log("Session: ", req.session)
+  
+//   if(allowedHost.indexOf(req.headers.origin) !== -1) {
+//     res.header('Access-Control-Allow-Credentials', true);
+//     res.header('Access-Control-Allow-Origin', req.headers.origin)
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//     res.header('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+//     next();
+//   } else {
+//     console.log("Failed the CORS origin test: ")
+//     res.status(401).send({auth: false});
+//   }
+// }
+
+// app.use(allowCrossDomain);
 
 //http method override middleware
 app.use(
@@ -59,15 +113,16 @@ app.use(
 //session setup
 const sessionInit = session({
   name: "userCookie",
-  secret: "9743-980-270-india",
+  secret: "9743-980-270",
   resave: true,
   httpOnly: true,
   saveUninitialized: true,
   store: new mongoStore({ mongooseConnection: mongoose.connection }),
-  cookie: { maxAge: 80 * 80 * 800 }
+  cookie: { maxAge: 80 * 80 * 800, sameSite: 'none', httpOnly: false, secure: true }
 });
 
 app.use(sessionInit);
+
 
 //public folder as static
 app.use(express.static(path.resolve(__dirname, "./public")));
@@ -79,7 +134,7 @@ app.set("view engine", "ejs");
 //parsing middlewares
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
-app.use(cookieParser());
+
 
 //including models files.
 fs.readdirSync("./app/models").forEach(function(file) {

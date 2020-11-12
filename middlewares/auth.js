@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 
 module.exports.checkLogin = function(req, res, next) {
   if (!req.user && !req.session.user) {
-    res.redirect("/user/login");
+    console.log(req.user);
+    console.log(req.session.user);
+    res.redirect("/visitor/visitorsignup");
   } else {
     next();
   }

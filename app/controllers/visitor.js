@@ -73,8 +73,9 @@ module.exports.controller = function(app) {
 
 
   //api to create new user
-  router.post("/api/v1/signup", function( req, res) {
-    
+  // router.post("/api/v1/signup", function( req, res) {
+    router.post("/signup", function( req, res) {
+  
      const today = Date.now();
      const id = shortid.generate();
 
@@ -118,6 +119,7 @@ module.exports.controller = function(app) {
        } else {
          req.user = result;
          req.session.user = result;
+         req.session.save();
          res.redirect("/chat");
        }
      });
@@ -129,8 +131,8 @@ module.exports.controller = function(app) {
     res.redirect("/visitor/visitorsignup");
   });
 
-
   app.use("/visitor", router);
+
 }; //signup controller end
 
 
