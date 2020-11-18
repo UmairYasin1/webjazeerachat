@@ -62,8 +62,14 @@ module.exports.controller = function(app) {
     //geoLocValuePrivate = [];
     //console.log(geoLocValue);
 
-    res.render("visitorsignup", {
-      title: "Visitor Signup",
+    // res.render("visitorsignup", {
+    //   title: "Visitor Signup",
+    //   user: req.session.user,
+    //   chat: req.session.chat
+    // });
+
+    res.status(200).json({
+      success: true,
       user: req.session.user,
       chat: req.session.chat
     });
@@ -96,30 +102,28 @@ module.exports.controller = function(app) {
      });
 
      newVisitor.save(function(err, result) {
-       if (err) {
-         console.log("Error " + err);
-         res.render("message", {
-           title: "Error",
-           msg: "Some Error Occured During Creation.",
-           status: 500,
-           error: err,
-           user: req.session.user,
-           chat: req.session.chat
-         });
-       } else if (result == undefined || result == null || result == "") {
-         res.render("message", {
-           title: "Empty",
-           msg: "User Is Not Created. Please Try Again.",
-           status: 404,
-           error: "",
-           user: req.session.user,
-           chat: req.session.chat
-         });
-       } else {
+      if (err) {
+        res.status(500).json({
+          success: false,
+          message: "Some Error Occured During Login"
+        });
+
+      } else if (result == null || result == undefined || result == "") {
+
+        res.status(404).json({
+          success: false,
+          message: "User Not Found. Please Check Your Username and Password."
+        });
+
+      } else {
          req.user = result;
          req.session.user = result;
          req.session.save();
-         res.redirect("/chat");
+        //  res.redirect("/chat");
+        res.status(200).json({
+          success: true,
+          visitor: req.session.user
+        });
        }
      });
   });
