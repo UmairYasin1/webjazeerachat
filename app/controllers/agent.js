@@ -12,18 +12,18 @@ const router = express.Router();
 const agentModel = mongoose.model("agent");
 
 module.exports.controller = function(app) {
-  //route for signup
+
   router.get("/agentlogin", function(req, res) {
-    res.render("agentlogin", {
-      title: "Agent Login",
+    res.status(200).json({
+      success: true,
       user: req.session.user,
       chat: req.session.chat
     });
   });
 
   router.get("/agentsignup", function(req, res) {
-    res.render("agentsignup", {
-      title: "Agent Signup",
+    res.status(200).json({
+      success: true,
       user: req.session.user,
       chat: req.session.chat
     });
@@ -31,11 +31,14 @@ module.exports.controller = function(app) {
 
   router.get("/dashboard", function(req, res) {
     if(req.session.user == undefined){
-      res.redirect("agentlogin");
+      res.status(404).json({
+        success: false,
+        message: "session expired"
+      });
     }
     else{
-      res.render("agentDashboard", {
-        title: "Agent Dashboard",
+      res.status(200).json({
+        success: true,
         user: req.session.user,
         chat: req.session.chat
       });
@@ -46,26 +49,38 @@ module.exports.controller = function(app) {
   router.post("/api/v1/login",  function(req, res) {
     
     const epass = encrypt.encryptPassword(req.body.password);
+    const token = Buffer.from(`${req.body.email}:${req.body.password}`, 'utf8').toString('base64');
     agentModel.findOne(
       { $and: [{ agent_email: req.body.email }, { agent_password: epass }] },
       function(err, result) {
         if (err) {
-
-          res.json("1");
+          res.status(500).json({
+            success: false,
+            message: "Some Error Occured During Login"
+          });
 
         } else if (result == null || result == undefined || result == "") {
 
-        res.json("2");
+          res.status(404).json({
+            success: false,
+            message: "User Not Found. Please Check Your Username and Password."
+          });
 
         } else {
-           req.user = result;
-           delete req.user.password;
-           req.session.user = result;
-           delete req.session.user.password;
-           res.json("3");
+          req.agent = result;
+          delete req.agent.password;
+          req.session.agent = result;
+          delete req.session.agent.password;
+          res.status(200).json({
+            success: true,
+            agent: req.session.agent,
+            email: req.body.email,
+            accessToken : token
+          });
         }
       }
     );
+
   });
 
   //api to create new user
@@ -74,6 +89,7 @@ module.exports.controller = function(app) {
     const today = Date.now();
     const id = shortid.generate();
     const epass = encrypt.encryptPassword(req.body.password);
+    const token = Buffer.from(`${req.body.agent_email}:${req.body.password}`, 'utf8').toString('base64');
 
    // //create user.
     const newAgent = new agentModel({
@@ -90,36 +106,47 @@ module.exports.controller = function(app) {
 
     newAgent.save(function(err, result) {
       if (err) {
-        console.log("Error " + err);
-        res.render("message", {
-          title: "Error",
-          msg: "Some Error Occured During Creation.",
-          status: 500,
-          error: err,
-          user: req.session.user,
-          chat: req.session.chat
+        res.status(500).json({
+          success: false,
+          message: "Some Error Occured During Signup",
+          error: err
         });
-      } else if (result == undefined || result == null || result == "") {
-        res.render("message", {
-          title: "Empty",
-          msg: "User Is Not Created. Please Try Again.",
-          status: 404,
-          error: "",
-          user: req.session.user,
-          chat: req.session.chat
+
+      } else if (result == null || result == undefined || result == "") {
+
+        res.status(404).json({
+          success: false,
+          message: "User Not Found. Please Check Your Username and Password."
         });
+
       } else {
-        req.user = result;
-        req.session.user = result;
-        res.redirect("/agent/dashboard");
+        req.agent = result;
+        delete req.agent.password;
+        req.session.agent = result;
+        delete req.session.agent.password;
+        // res.status(200).send('Agent has been created');
+        res.status(200).json({
+          success: true,
+          agent: req.session.agent,
+          email: req.body.agent_email,
+          accessToken : token
+        });
       }
     });
 
   });
 
   router.get("/allagents", function(req, res) {
-    res.render("allagentsList", {
-      title: "Agents List",
+    res.status(200).json({
+      success: true,
+      user: req.session.user,
+      chat: req.session.chat
+    });
+  });
+
+  router.get("/currentAgentInSession", function(req, res) {
+    res.status(200).json({
+      success: true,
       user: req.session.user,
       chat: req.session.chat
     });
@@ -128,8 +155,12 @@ module.exports.controller = function(app) {
   router.get("/agentlogout", function(req, res) {
     delete req.session.user;
     delete req.session.chat;
-    res.redirect("/agent/agentlogin");
+    res.status(200).json({
+      success: true,
+      message: "session logout"
+    });
   });
+
 
   app.use("/agent", router);
 }; //signup controller end
