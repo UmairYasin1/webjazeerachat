@@ -22,10 +22,11 @@ const visitorModel = mongoose.model("visitor");
 
 //reatime magic begins here
 module.exports.sockets = function(http) {
-  io = socketio.listen(http);
+  ioDirect = socketio.listen(http);
 
   //setting chat route
-  const ioChat = io.of("/chat");
+  const ioChat = ioDirect.of("/chat");
+  //ioChat = socketio.listen(http);
   const userStack = {};
   const visitorStack = {};
   const agentStack = {};
@@ -36,13 +37,27 @@ module.exports.sockets = function(http) {
 
   var allClients = [];
 
+
+  // socket io direct on
+  // ioDirect.on("connection", function(socket) {
+  //   console.log("socketio connected.");
+    
+  //   socket.on("disconnect", function() {
+
+  //   console.log("chat disconnected.");
+    
+  //   }); 
+  // }); 
+
   //socket.io magic starts here
   ioChat.on("connection", function(socket) {
     console.log("socketio chat connected.");
     allClients.push(socket);
-
+    
+    socket.emit('sumair');
     //function to get user name
-    socket.on("set-user-data", function(username) {
+    socket.on("set-user-data", function() {
+      const username = 'l7i1-MlFL';
       console.log(username + "  logged In");
 
       //storing variable.
@@ -651,7 +666,7 @@ module.exports.sockets = function(http) {
     //for popping page notification
     socket.on('new_notification', function(data) {
       //console.log(data.title,data.message);
-      io.sockets.emit('show_notification', { 
+      ioDirect.sockets.emit('show_notification', { 
         title: data.title, 
         message: data.message, 
         icon: data.icon, 
@@ -676,7 +691,7 @@ module.exports.sockets = function(http) {
 
      // ioChat.emit("onlineStack", userStack);
     }); //end of disconnect event.
-  }); //end of io.on(connection).
+  }); //end of ioDirect.on(connection).
   //end of socket.io code for chat feature.
 
   //database operations are kept outside of socket.io code.
@@ -898,7 +913,7 @@ module.exports.sockets = function(http) {
 
   //to verify for unique username and email at signup.
   //socket namespace for signup.
-  const ioSignup = io.of("/signup");
+  const ioSignup = ioDirect.of("/signup");
 
   let checkUname, checkEmail; //declaring variables for function.
 
@@ -941,7 +956,7 @@ module.exports.sockets = function(http) {
     });
   }); //end of ioSignup connection event.
 
-  const ioAgent = io.of("/agent");
+  const ioAgent = ioDirect.of("/agent");
 
   let checkAgentEmail; //declaring variables for function.
 
@@ -1032,5 +1047,5 @@ module.exports.sockets = function(http) {
   //
   //
 
-  return io;
+  return ioDirect;
 };

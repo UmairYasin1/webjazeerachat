@@ -9,17 +9,21 @@ const path = require("path");
 const fs = require("fs");
 const logger = require("morgan");
 var cors = require('cors');
+//const socketio = require("socket.io");
 
 
 const app = express();
 const http = require("http").Server(app);
+//io = socketio.listen(http);
 
 var useragent = require('express-useragent');
 
 //port setup
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 //socket.io
+
+//require("./libs/chatNew.js").sockets(http);
 require("./libs/chat.js").sockets(http);
 
 app.use(logger("dev"));

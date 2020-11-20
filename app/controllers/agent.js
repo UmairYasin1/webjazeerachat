@@ -50,6 +50,8 @@ module.exports.controller = function(app) {
     
     const epass = encrypt.encryptPassword(req.body.password);
     const token = Buffer.from(`${req.body.email}:${req.body.password}`, 'utf8').toString('base64');
+    console.log(req.body.email);
+    console.log(req.body.password);
     agentModel.findOne(
       { $and: [{ agent_email: req.body.email }, { agent_password: epass }] },
       function(err, result) {

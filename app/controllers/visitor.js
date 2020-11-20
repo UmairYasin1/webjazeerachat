@@ -62,17 +62,17 @@ module.exports.controller = function(app) {
     //geoLocValuePrivate = [];
     //console.log(geoLocValue);
 
-    // res.render("visitorsignup", {
-    //   title: "Visitor Signup",
-    //   user: req.session.user,
-    //   chat: req.session.chat
-    // });
-
-    res.status(200).json({
-      success: true,
+    res.render("visitorsignup", {
+      title: "Visitor Signup",
       user: req.session.user,
       chat: req.session.chat
     });
+
+    // res.status(200).json({
+    //   success: true,
+    //   user: req.session.user,
+    //   chat: req.session.chat
+    // });
 
 
   });
@@ -119,11 +119,11 @@ module.exports.controller = function(app) {
          req.user = result;
          req.session.user = result;
          req.session.save();
-        //  res.redirect("/chat");
-        res.status(200).json({
-          success: true,
-          visitor: req.session.user
-        });
+         res.redirect("/chat");
+        // res.status(200).json({
+        //   success: true,
+        //   visitor: req.session.user
+        // });
        }
      });
   });
