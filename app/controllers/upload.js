@@ -20,23 +20,18 @@ var storage = multer.diskStorage({
 module.exports.controller = function(app) {
   //route for signup
   router.post('/file' , (req, res) => {
-
-    //console.log(req.body.repMsgId);
-
-    console.log(req.body);
+    console.log('file upload -->', req.data);
 
     upload(req,res,function(err) {
       if(err) {
           return res.end("Error uploading file.");
       }else{
-
-        if(req.file != null){
-            var result = {
+        if(req.file != null){  
+          var result = {
                 message : req.body.myMsg,
                 replymsgId : req.body.repMsgId,
                 file : req.file.filename,
               }
-
         res.json(result);
         }else{
             var result = {

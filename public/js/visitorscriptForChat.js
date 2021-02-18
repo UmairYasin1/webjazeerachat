@@ -57,15 +57,19 @@ $ (function(){
     
       socket.on('old-chats',function(data){
 
+        //console.log("--- data ----", data.result);
+        console.log("--- data ----", data);
         if(data.room == roomId){
           oldInitDone = 1; //setting value to implies that old-chats first event is done.
           if(data.result.length != 0){
             $('#noChat').hide(); //hiding no more chats message.
+            $('#messages').empty();
             for (var i = 0;i < data.result.length;i++) {
               //styling of chat message.
-            
-              socket.emit('get_reply_msg', data.result[i].msgId   , function (response) {
+              console.log('aa', data.result[i].msgId);
+              socket.emit('get_reply_msg', data.result[i].msgId, function (response) {
     
+                
                 //styling of chat message.
                 // var chatDate = moment(response.createdOn).format("MMMM Do YYYY, hh:mm:ss a");
                 // var txt1 = $('<span></span>').text(response.msgFrom+" : ");
@@ -111,9 +115,11 @@ $ (function(){
                   }
     
                   if(response.msgFrom == ""){
-                   $('#messages').prepend($('<li class='+clas+'>').append(usrImg,finalMsg).attr("rel" , response.msgId));
-                
+                    //console.log('bb', response);
+                    $('#messages').prepend($('<li class='+clas+'>').append(usrImg,finalMsg).attr("rel" , response.msgId));
+                    
                   }else{
+                    console.log('cc', response);
                    $('#messages').prepend($('<li class='+clas+'>').append(usrImg,finalMsg).attr("rel" , response.msgId).append($("<ul class='replymsg'>").append($("<li>").append(usrImg,finalMsg1).attr("rel" , response.msgId))));
                 
                   }
@@ -190,11 +196,11 @@ $ (function(){
     
     e.preventDefault();
     var formData = new FormData(this);
-
+    console.log('formData visitor', formData);
     $.ajax({
       type: "POST",
-      url: "http://localhost:5001/upload/file",
-      //url: "https://192.168.1.110:5000/upload/file",
+      //url: "http://localhost:5002/upload/file",
+      url: "http://10.1.30.146:5001/upload/file",
       //url: "https://umairyasin1-dinochat.glitch.me/upload/file",
       // url: "https://dinochat.glitch.me/upload/file",
       //url: "https://dinochat.netlify.app/upload/file",
@@ -203,6 +209,7 @@ $ (function(){
       processData: false,
       contentType: false,
       success: function(result){
+        console.log('result.file',result.file);
         if(result.file == ""){
           socket.emit('chat-msg',{msg:result.message,msgFrom : visitorId , msgTo:"",date:Date.now(),type:"visitor",file:"",repMsgId:result.replymsgId});
         }else{
@@ -214,7 +221,7 @@ $ (function(){
         $("#photos-input").val("");
       },
       error: function (e) {
-          console.log("some error", e);
+          console.log("some error", e.msg);
       }
   });
 
@@ -248,12 +255,14 @@ $ (function(){
 
   //receiving messages.
   socket.on('chat-msg',function(data){
+    
     //styling of chat message.
     // var chatDate = moment(data.date).format("MMMM Do YYYY, hh:mm:ss a");
     // var txt1 = $('<span></span>').text(data.msgFrom+" : ");
     // var txt2 = $('<span></span>').text(chatDate);
     // var txt3 = $('<p></p>').append(txt1,txt2);
     // var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
+    //$('#messages').empty();
     var visitorImg = $("<img>").attr("src" , "/pics/visitor.jpeg");
     var agentImg = $("<img>").attr("src" , "/pics/agent.png");
     var txt4 = $('<p></p>').text(data.msg);
