@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen" href="/newWidget/assets/css/bootstrap.min.css">
+
+    <link href="/newWidget/assets/css/font-awesome.css" rel="stylesheet">
+
+    <link rel="stylesheet" media="screen" href="/newWidget/assets/css/chatWidget.css">
+
+    <title>Dino Chat Widget</title>
+
+</head>
+
+<body>
+
+    <div class="ChatStartWidgetWrap enterUserData" style="display: none;">
+        <div class="ChatStartWidgetHead">
+
+            <div class="ChatHeaderSettings">
+                <div class="Logo">
+                    <a href="javascript:;" class="logoClass">
+                        <img src="/newWidget/assets/images/chatNewLogo.png" class="img-responsive" />
+                    </a>
+                </div>
+                <!-- #Logo-->
+                <div class="WelcomeMsgTxt">
+                    <h3>HI <img src="/newWidget/assets/images/wavehand.png" alt="-" /></h3>
+                    <p>We help your business grow by connecting you to your customers.</p>
+                </div>
+                <!-- #WelcomeMsgTxt-->
+            </div>
+            <!-- #ChatHeaderSettings -->
+        </div>
+        <!-- #ChatStartWidgetHead -->
+
+        <div class="ChatBodyStart">
+
+          <form class="signup-form" action="/newvisitor/api/v1/signup" method="post">
+            <div class="BoxWhite">
+                <h3>Enter your details</h3>
+                <div class="clearfix"></div>
+
+                <div class="chatInfoForm">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input id="visitor_name" class="form-control" type="text" name="visitor_name" placeholder="Username" autocomplete="off" required/>
+                    </div>
+                    <!-- #form-group -->
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input id="visitor_email" class="form-control" type="email" name="visitor_email" placeholder="Email" autocomplete="off" required/>
+                    </div>
+                    <!-- #form-group -->
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input id="phone_number" class="form-control" type="text" name="phone_number" placeholder="Phone Number" required/>
+                    </div>
+                    <!-- #form-group -->
+
+                </div>
+
+
+                <div class="clearfix"></div>
+
+                <!-- <a href="javascript:;" class="btn  btn-startChat dummyStartChat"><i class="fa fa-comments"></i> Start Chat</a> -->
+                <button class="btn  btn-startChat dummyStartChat" type="submit" name="submit">Chat Now</button><br>
+
+            </div>
+            <!-- #BoxWhite -->
+          </form>
+        </div>
+        <!-- #ChatBodyStart -->
+
+
+
+
+
+
+    </div>
+    <!-- #ChatStartWidget -->
+
+    <div class="ChatStartWidgetWrap startChatScreen">
+        <div class="ChatStartWidgetHead">
+
+            <div class="ChatHeaderSettings">
+                <div class="Logo">
+                    <a href="javascript:;" class="logoClass">
+                        <img src="/newWidget/assets/images/chatNewLogo.png" class="img-responsive" />
+                    </a>
+                </div>
+                <!-- #Logo-->
+                <div class="WelcomeMsgTxt">
+                    <h3>HI <img src="/newWidget/assets/images/wavehand.png" alt="-" /></h3>
+                    <p>We help your business grow by connecting you to your customers.</p>
+                </div>
+                <!-- #WelcomeMsgTxt-->
+            </div>
+            <!-- #ChatHeaderSettings -->
+        </div>
+        <!-- #ChatStartWidgetHead -->
+
+        <div class="ChatBodyStart">
+            <!-- #BoxWhite -->
+            <div class="BoxWhite">
+                <h3>Start a conversation</h3>
+                <div class="clearfix"></div>
+
+                <div class="userHeader">
+                    <div class="media">
+                        <div class="media-left">
+                            <ul>
+                                <li><span class="chatUserImg multi">
+                                        <img src="/newWidget/assets/images/user.jpg" class="media-object">
+                                    </span>
+                                </li>
+                                <li><span class="chatUserImg multi">
+                                        <img src="/newWidget/assets/images/userImg.jpg" class="media-object">
+                                    </span>
+                                </li>
+                                <li><span class="chatUserImg multi">
+                                        <img src="/newWidget/assets/images/uiface.jpg" class="media-object">
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Our usual reply time</h4>
+                            <p class="msg"><i class="fa fa-clock-o"></i> A few minutes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <a href="javascript:;" class="btn  btn-sendMsg dummySendMsg"><i class="fa fa-send"></i> Send us a message</a>
+            </div>
+            <!-- #BoxWhite -->
+
+        </div>
+        <!-- #ChatBodyStart -->
+    </div>
+
+    <script src="/newWidget/assets/js/jquery.min.js"></script>
+    <script src="/newWidget/assets/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".dummySendMsg").click(function () {
+                $(".ChatStartWidgetWrap").hide();
+                $(".enterUserData").show();
+            });
+        });
+    </script>
+    <!-- <script src="/js/visitorscript.js"></script> -->
+</body>
+
+</html>

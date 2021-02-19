@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen" href="/newWidget/assets/css/bootstrap.min.css">
+
+    <link href="/newWidget/assets/css/font-awesome.css" rel="stylesheet">
+
+    <link rel="stylesheet" media="screen" href="/newWidget/assets/css/chatWidget.css">
+
+    <title>Dino Chat Widget</title>
+
+</head>
+
+<body>
+    <input type="hidden" id="visitor" value="<%= user.visitor_name %>"/>
+    <input type="hidden" id="visitor_id" value="<%= user.visitor_id %>"/>
+
+    <div id="chatframe" class="chatWidgetWrap mainChatWindow">
+      <div id="frame">
+        <div class="chatWidgetHead">
+            <div class="col-md-1 col-sm-1 col-xs-1">
+                <a href="javascript:;" class="backBtnClass dummyBackBtn">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            </div>
+            <!-- col-md-3 -->
+            <div class="col-md-9 col-sm-9 col-xs-9">
+                <div class="userHeader">
+                    <div class="media">
+                        <div class="media-left">
+                            <span class="onlineStatus online"></span>
+                            <span class="chatUserImg">
+                                <img src="/newWidget/assets/images/user.jpg" class="media-object">
+                            </span>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Daria Mathew</h4>
+                            <p class="msg">Active</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- #userHeader -->
+            </div>
+            <!-- col-md-6 -->
+        </div>
+        <!-- #chatWidgetHead -->
+
+        <div class="chatWidgetMainChat">
+            <div class="chatComments" id="scrl3">
+                <ul id="messages">
+                    
+                </ul>
+            </div>
+            <!-- #chatComments-->
+
+            <div class="submitComment">
+              <form id="visitorchatForm" action="" enctype="multipart/form-data" method="POST" autocomplete="off">
+                <input type="hidden" id="repMsgId" name="repMsgId" >
+                <input type="file" name="file" id="photos-input" />
+                <!-- <textarea class="form-control" id="myMsg" name="myMsg" placeholder="Write a message..."></textarea> -->
+                <input class="form-control"  type="text"  id="myMsg"  name="myMsg" placeholder="Write your message..." />
+                <label class="btn btn-success btn-submitComment photos-input" for="photos-input">
+                    <i class="fa fa-paperclip" aria-hidden="true"></i>
+                </label>
+                <a href="javascript:;" class="btn btn-success smileFace"><i class="fa fa-smile-o"></i></a>
+                <button id="sendBtn" class="submit">send</button>
+              </form>
+            </div>
+            <!-- #submitComment -->
+
+
+        </div>
+        <!-- #chatWidgetMainChat -->
+      </div>
+    </div>
+  
+    <script src="/newWidget/assets/js/jquery.min.js"></script>
+    <script src="/newWidget/assets/js/bootstrap.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/socket.io-1.7.3.js"></script>
+    <script src="/js/newvisitorscriptForChat.js"></script>
+</body>
+
+</html>

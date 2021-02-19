@@ -4,7 +4,10 @@ module.exports.checkLogin = function(req, res, next) {
   if (!req.user && !req.session.user) {
     // console.log(req.user);
     // console.log(req.session.user);
-    res.redirect("/visitor/visitorsignup");
+
+    // res.redirect("/visitor/visitorsignup");
+    res.redirect("/newvisitor/newvisitorsignup");
+    
     // res.status(404).json({
     //   success: false,
     //   message: "user session expires"
@@ -26,7 +29,8 @@ module.exports.loggedIn = function(req, res, next) {
   if (!req.user && !req.session.user) {
     next();
   } else {
-    res.redirect("/chat");
+    // res.redirect("/chat");
+    res.redirect("/newchat");
     // res.status(200).json({
     //   success: true,
     //   user: req.session.user,
