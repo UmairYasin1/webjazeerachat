@@ -4,6 +4,10 @@ $ (function(){
 
     var visitorname = $('#visitor').val();
     var visitorId = $('#visitor_id').val();
+
+    console.log('check user name', visitorname);
+    console.log('check user id', visitorId);
+
     var noChat = 0; //setting 0 if all chats histroy is not loaded. 1 if all chats loaded.
     var msgCount = 0; //counting total number of messages displayed.
     var oldInitDone = 0; //it is 0 when old-chats-init is not executed and 1 if executed.
@@ -35,6 +39,28 @@ $ (function(){
 
   }); //end of set-room event.
 
+  socket.on('show-payment-form-btn-ui',function(data){
+    console.log('payment ui data',data);
+
+    $('#hdnpmntAgent').val(data.agent_Id);
+    $('#hdnpmntVisitor').val(data.visitor_Id);
+    $('#hdnpmntAmount').val(data.amount);
+    socket.on('payment-form-assignroom',function(data){
+      $('#hdnpmntChatRoom').val(data);
+    });
+    
+    
+
+    $('.open-payment').show();
+
+  });
+
+  socket.on('send-visitor-payment-paid-msg',function(data){
+    console.log('check console visitor payment resp', data);
+    //socket.emit('chat-msg',{msg:result.message, msgFrom : visitorId ,msgTo:"",date:Date.now(),type:"visitor",file:result.file,repMsgId:result.replymsgId});
+    socket.emit('chat-msg',{msg:data.msg, msgFrom: data.msgFrom, msgTo:"", date:Date.now(),type:data.type,file:"",repMsgId: ""});
+  });
+  
 
     //on scroll load more old-chats.
     $('#scrl3').scroll(function(){
@@ -64,8 +90,8 @@ $ (function(){
                 // var txt3 = $('<p></p>').append(txt1,txt2);
 
                 //var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
-                var visitorImg = $("<img>").attr("src" , "https://uifaces.co/our-content/donated/gPZwCbdS.jpg");
-                var agentImg = $("<img>").attr("src" , "https://uifaces.co/our-content/donated/gPZwCbdS.jpg");
+                var visitorImg = $("<img>").attr("src" , "/newWidget/assets/images/avatar2.jpg");
+                var agentImg = $("<img>").attr("src" , "/newWidget/assets/images/dinoavatar.jpg");
 
                 var msg = $('<p></p>').text(response.msg);
                 if(response.file != '')
@@ -110,7 +136,7 @@ $ (function(){
                   if(response.msgFrom == ""){
                     //console.log('bb', response);
                     //$('#messages').prepend($('<li class='+clas+'>').append(usrImg,finalMsg).attr("rel" , response.msgId));
-                    $('#messages').append($('<li  class='+clas+' rel="'+response.msgId+'"><div class="userImgAndChat"><div class="userImg"><img src="/pics/agent.png" class="img-responsive"></div> <div class="userChat"><p>'+response.repmsg+'</p><div class="chatImages">'+bc+'</div></div><div class="dateTime">'+chatDate+'</div></div></li>'));
+                    $('#messages').append($('<li  class='+clas+' rel="'+response.msgId+'"><div class="userImgAndChat"><div class="userImg"><img src="/newWidget/assets/images/avatar2.jpg" class="img-responsive"></div> <div class="userChat"><p>'+response.repmsg+'</p><div class="chatImages">'+bc+'</div></div><div class="dateTime">'+chatDate+'</div></div></li>'));
                     
                   }else{
                     console.log('cc', response);
@@ -145,7 +171,7 @@ $ (function(){
   $('#myMsg').keyup(function(){
     if($('#myMsg').val()){
       $('#sendBtn').show(); //showing send button.
-      socket.emit('typing', this.value);
+      socket.emit('typing', this.value, visitorId);
       // socket.on('typingResponse', function(message) {
       //   console.log(message);
       //   $('.typing').text('('+ message +')');
@@ -153,7 +179,7 @@ $ (function(){
     }
     else{
       // $('.typing').text('');
-      socket.emit('typingClear');
+      socket.emit('typingClear', visitorId);
       $('#sendBtn').hide(); //hiding send button to prevent sending empty messages.
     }
   }); //end of keyup handler.
@@ -161,7 +187,17 @@ $ (function(){
     //sending message.
   $('#visitorchatForm').submit(function(e){
  
-    if($('#myMsg').val() == null || $('#myMsg').val() == "")
+    if($('#photos-input').val() != null || $('#photos-input').val() != ''){
+      
+    }
+    else if($('#myMsg').val() == null || $('#myMsg').val() == "")
+    {
+      return false;
+    }
+    
+
+    console.log('313123213',$('#photos-input').val());
+    if($('#visitor_id').val() == null || $('#visitor_id').val() == "")
     {
       return false;
     }
@@ -182,7 +218,9 @@ $ (function(){
       contentType: false,
       success: function(result){
         console.log('result.file',result.file);
+        console.log('complete result', result);
         if(result.file == ""){
+
           socket.emit('chat-msg',{msg:result.message,msgFrom : visitorId , msgTo:"",date:Date.now(),type:"visitor",file:"",repMsgId:result.replymsgId});
         }else{
           socket.emit('chat-msg',{msg:result.message,msgFrom : visitorId ,msgTo:"",date:Date.now(),type:"visitor",file:result.file,repMsgId:result.replymsgId});
@@ -191,6 +229,7 @@ $ (function(){
         $("#repMsgId").val("");
         $("#replyMsg").empty();
         $("#photos-input").val("");
+        $('.custom-file-upload.uploadname').text('');
       },
       error: function (e) {
           console.log("some error", e.msg);
@@ -214,8 +253,8 @@ $ (function(){
     // var txt3 = $('<p></p>').append(txt1,txt2);
     // var txt6 = $("<img>").attr("src" , "/pics/userimg.jpg");
     //$('#messages').empty();
-    var visitorImg = $("<img>").attr("src" , "/pics/visitor.jpeg");
-    var agentImg = $("<img>").attr("src" , "/pics/agent.png");
+    var visitorImg = $("<img>").attr("src" , "/newWidget/assets/images/avatar2.jpg");
+    var agentImg = $("<img>").attr("src" , "/newWidget/assets/images/dinoavatar.jpg");
     var txt4 = $('<p></p>').text(data.msg);
     console.log(data.file);
     if(data.file != "")
@@ -278,7 +317,7 @@ $ (function(){
     else
     {
       //$('#messages').append($('<li  class='+clas+'>').append(usrImg,finalMsg1).attr("rel" , data.id));
-      $('#messages').append($('<li class='+clas+' rel="'+data.msgId+'"><div class="userImgAndChat"><div class="userImg"><img src="/pics/agent.png" class="img-responsive"></div> <div class="userChat"><p>'+data.msg+'</p><div class="chatImages">'+bc+'</div></div><div class="dateTime">'+chatDate+'</div></div></li>'));
+      $('#messages').append($('<li class='+clas+' rel="'+data.msgId+'"><div class="userImgAndChat"><div class="userImg"><img src="/newWidget/assets/images/avatar2.jpg" class="img-responsive"></div> <div class="userChat"><p>'+data.msg+'</p><div class="chatImages">'+bc+'</div></div><div class="dateTime">'+chatDate+'</div></div></li>'));
     }
 
     //$('#messages').append($('<li>').append(txt3,txt4,txt5));

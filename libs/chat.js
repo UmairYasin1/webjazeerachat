@@ -12,6 +12,9 @@ require("../app/models/chat.js");
 require("../app/models/room.js");
 require("../app/models/agent.js");
 require("../app/models/visitor.js");
+require("../app/models/brand.js");
+require("../app/models/visitorpath.js");
+require("../app/models/package.js");
 
 //using mongoose Schema models
 const userModel = mongoose.model("User");
@@ -19,6 +22,9 @@ const chatModel = mongoose.model("Chat");
 const roomModel = mongoose.model("Room");
 const agentModel = mongoose.model("agent");
 const visitorModel = mongoose.model("visitor");
+const brandModel = mongoose.model("Brand");
+const visitorpathModel = mongoose.model("visitorPath");
+const packageModel = mongoose.model("Package");
 
 //reatime magic begins here
 module.exports.sockets = function(http) {
@@ -250,6 +256,17 @@ module.exports.sockets = function(http) {
               }
             })();
 
+            var timezoneLocationVal2 = ( function() {
+              if(result.visitor_TimezoneLocation != '')
+              {
+                return result.visitor_TimezoneLocation;
+              }
+              else{
+                return "-";
+              }
+            })();
+
+
            // console.log(result.visitor_region_privateIp);
             
              var countryVal =  countryVal2;
@@ -261,6 +278,7 @@ module.exports.sockets = function(http) {
              var totalTimeShortVal = totalTimeShortVal2;
              var totalTimeExpVal = totalTimeExpVal2;
              var createdDateVal = createdDateVal2;
+             var timezoneLocationVal = timezoneLocationVal2;
 
             //#endregion
             
@@ -281,7 +299,13 @@ module.exports.sockets = function(http) {
                 totaltimelong : totalTimeExpVal,
                 createdate : createdDateVal,
                 createdOn : result.createdOn,
-                payment_link : result.payment_link
+                payment_link : result.payment_link,
+                brand_name : result.brand_name,
+                phone_number : result.phone_number,
+                visitor_email : result.visitor_email,
+                timezone_location : timezoneLocationVal,
+                no_of_visits : result.no_of_visits,
+                web_path: result.web_path
               }
 
               callback(response);
@@ -307,7 +331,13 @@ module.exports.sockets = function(http) {
                 totaltimelong : totalTimeExpVal,
                 createdate : createdDateVal,
                 createdOn : result.createdOn,
-                payment_link : result.payment_link
+                payment_link : result.payment_link,
+                brand_name : result.brand_name,
+                phone_number : result.phone_number,
+                visitor_email : result.visitor_email,
+                timezone_location : timezoneLocationVal,
+                no_of_visits : result.no_of_visits,
+                web_path: result.web_path
               }
 
               callback(response); 
@@ -347,7 +377,13 @@ module.exports.sockets = function(http) {
                       totaltimelong : totalTimeExpVal,
                       createdate : createdDateVal,
                       createdOn : result.createdOn,
-                      payment_link : result.payment_link
+                      payment_link : result.payment_link,
+                      brand_name : result.brand_name,
+                      phone_number : result.phone_number,
+                      visitor_email : result.visitor_email,
+                      timezone_location : timezoneLocationVal,
+                      no_of_visits : result.no_of_visits,
+                      web_path: result.web_path
                     }
 
                       callback(response);
@@ -372,7 +408,13 @@ module.exports.sockets = function(http) {
                       totaltimelong : totalTimeExpVal,
                       createdate : createdDateVal,
                       createdOn : result.createdOn,
-                      payment_link : result.payment_link
+                      payment_link : result.payment_link,
+                      brand_name : result.brand_name,
+                      phone_number : result.phone_number,
+                      visitor_email : result.visitor_email,
+                      timezone_location : timezoneLocationVal,
+                      no_of_visits : result.no_of_visits,
+                      web_path: result.web_path
                     }
 
                       callback(response);
@@ -387,7 +429,7 @@ module.exports.sockets = function(http) {
                   agentModel.findOne(
                     { $and: [{ agent_id : res.name2}] },
                     function(err, resp){
-                      response = { visitor_id: res.name1 , visitor_name : visit_name , agent_name : resp.agent_name,
+                      response = { visitor_id: res.name1 , visitor_name : visit_name , agent_name : 'Clyde',//agent_name : resp.agent_name,
                       country: countryVal,
                       browser: browserVal,
                       os: osVal,
@@ -398,7 +440,13 @@ module.exports.sockets = function(http) {
                       totaltimelong : totalTimeExpVal,
                       createdate : createdDateVal,
                       createdOn : result.createdOn,
-                      payment_link : result.payment_link
+                      payment_link : result.payment_link,
+                      brand_name : result.brand_name,
+                      phone_number : result.phone_number,
+                      visitor_email : result.visitor_email,
+                      timezone_location : timezoneLocationVal,
+                      no_of_visits : result.no_of_visits,
+                      web_path: result.web_path
                     }
 
                       callback(response);
@@ -650,12 +698,33 @@ module.exports.sockets = function(http) {
     };
 
     //showing msg on typing.
-    socket.on("typing", function(val) {
-      socket.to(socket.room).broadcast.emit('typingResponse', val);
+    socket.on("typing", function(val, visitorId) {
+      socket.to(socket.room).emit('typingResponse', val, visitorId);
+      var data = {
+          messageVal: val,
+          visitId: visitorId
+      };
+      socket.to(socket.room).emit('typingResponse-saboor', data);
     });
 
-    socket.on("typingClear", function() {
-      socket.to(socket.room).broadcast.emit('typingClearResponse');
+    socket.on("typingClear", function(visitorId) {
+      socket.to(socket.room).emit('typingClearResponse', visitorId);
+    });
+
+
+    socket.on("show-payment-form-btn", function(data) {
+      //console.log(data);
+      //console.log('check socket.room', socket.room);
+      socket.to(socket.room).emit('show-payment-form-btn-ui', data);
+      socket.to(socket.room).emit('payment-form-assignroom', socket.room);
+    });
+
+    socket.on('visitor-payment-response',function(data){
+      // console.log('check console visitor payment resp', data);
+      // console.log('check socket.room', data.room);
+      socket.to(data.room).emit('send-visitor-payment-paid-msg',data);
+      //socket.emit('chat-msg',{msg:result.message, msgFrom : visitorId ,msgTo:"",date:Date.now(),type:"visitor",file:result.file,repMsgId:result.replymsgId});
+      //socket.emit('chat-msg',{msg:data.msg, msgFrom: data.msgFrom, msgTo:"", date:Date.now(),type:data.type,file:"",repMsgId: ""});
     });
 
     // socket.on('typing', function(val){ 
@@ -781,7 +850,7 @@ module.exports.sockets = function(http) {
   //saving chats to database.
   eventEmitter.on("save-chat", function(data) {
     // var today = Date.now();
-    //console.log(data);
+    console.log(data);
     if(data.type=="agent"){
      var newChat = new chatModel({
        msgFrom: data.msgFrom,
@@ -806,7 +875,7 @@ module.exports.sockets = function(http) {
     
   }else{
       roomModel.findOne({ _id: data.room }, function(err,obj) { 
-        
+        console.log('checking payement resp msg ', obj);
         agent_id = obj.name2;
 
         if(agent_id == ""){
@@ -1006,6 +1075,8 @@ module.exports.sockets = function(http) {
   //
   //
 
+  //#region signup 
+
   //to verify for unique username and email at signup.
   //socket namespace for signup.
   const ioSignup = ioDirect.of("/signup");
@@ -1051,6 +1122,11 @@ module.exports.sockets = function(http) {
     });
   }); //end of ioSignup connection event.
 
+  //#endregion
+  
+  
+  //#region agent
+
   const ioAgent = ioDirect.of("/agent");
 
   let checkAgentEmail; //declaring variables for function.
@@ -1071,7 +1147,7 @@ module.exports.sockets = function(http) {
 
     //on disconnection.
     socket.on("disconnect", function() {
-      console.log("signup disconnected.");
+      console.log("agent disconnected.");
     });
   }); //end of ioSignup connection event.
 
@@ -1138,6 +1214,211 @@ module.exports.sockets = function(http) {
         }
       );
     }); //end of findUsername event.
+
+  //#endregion
+
+
+  //#region new visitor
+
+  const ioNewVisitor = ioDirect.of("/newvisitor");
+
+  ioNewVisitor.on("connection", function(socket) {
+    console.log("newvisitor signup connected.");
+
+    socket.on('save-walking-customer',function(data, callback){
+      console.log("data server",data.visitor_uniqueNumVal);
+
+      //#region make user
+
+      visitorModel.findOne(
+        { $and: [{ visitor_uniqueNum: data.visitor_uniqueNumVal }] },
+        function(err, result) {
+          if (result == null || result == undefined || result == "") {
+
+            brandModel.findOne(
+              { brand_url: { $regex: '.*' + data.visitor_host + '.*' } },
+              function(err, result) {
+                if (result != null || result != undefined || result != "") 
+                {
+                    const today = Date.now();
+                    const id = shortid.generate();
+                
+                    console.log([data.visitor_GeoLocValue]);
+                    const newVisitor = new visitorModel({
+                      visitor_id: id,
+                      visitor_name: "WC_" + id,
+                      visitor_email: "walkingcustomer_" + id + "@dc.com",
+                      visitor_uniqueNum: data.visitor_uniqueNumVal,
+                      phone_number: "000",
+                      web_path: data.visitor_web_path,
+                      brand_id : result.brand_id,
+                      brand_name : result.brand_name,
+                      visitor_publicIp: data.visitor_PublicIpValue,
+                      visitor_privateIp: data.visitor_PrivateIpValue,
+                      visitor_region_publicIp: data.visitor_GeoLocValue,
+                      visitor_region_privateIp: data.visitor_GeoLocValuePrivate,
+                      visitor_browser_and_os: data.visitor_BrowserAndOSValue,
+                      visitor_TimezoneLocation: data.visitor_TimezoneLocation,
+                      createdOn: today
+                  });
+
+                  //console.log(newVisitor);
+                
+                  newVisitor.save(function(err, result) {
+                    if (err) {
+                      console.log('error 1');
+                      res.status(500).json({
+                        success: false,
+                        message: "Some Error Occured"
+                      });
+                
+                    } else if (result == null || result == undefined || result == "") {
+                      console.log('error 2');
+                      res.status(404).json({
+                        success: false,
+                        message: "Data Not Found"
+                      });
+                
+                    } 
+                    else 
+                    {
+                      //console.log('solve');
+                      if(data.visitor_web_path != null || data.visitor_web_path != undefined || data.visitor_web_path != "")
+                      {
+                        const pathDate = Date.now();
+                        const pathShortId = shortid.generate();
+                        const newVisitorPath = new visitorpathModel({
+                          path_id: pathShortId,
+                          visitor_id: result.visitor_id,
+                          visitor_name: result.visitor_name,
+                          visitor_email: result.visitor_email,
+                          visitor_uniqueNum: result.visitor_uniqueNum,
+                          completePath: data.visitor_web_path,
+                          createdOn: pathDate
+                        });
+                        newVisitorPath.save();
+                      }
+
+                      // response = {  repId: dat.repMsgId, 
+                      //   msgId: msgId , 
+                      //   msgFrom : ""  , 
+                      //   msgTo : "",
+                      //   msg : "", 
+                      //   file : "", 
+                      //   createdOn : "",
+                      //   repmsgFrom :msgFrom  , 
+                      //   repmsgTo : msgTo,
+                      //   repmsg : msg, 
+                      //   repfile : file, 
+                      //   repcreatedOn : createdOn,
+                      //   reproomId : room,
+                      //   repIsRead : dat.isRead
+                      // }
+                
+                      callback(result.visitor_id);
+                    }
+                  });
+                }
+              });
+            
+          } 
+          else{
+            if(data.visitor_web_path != null || data.visitor_web_path != undefined || data.visitor_web_path != "")
+            {
+              const pathDate = Date.now();
+              const pathShortId = shortid.generate();
+              const newVisitorPath = new visitorpathModel({
+                path_id: pathShortId,
+                visitor_id: result.visitor_id,
+                visitor_name: result.visitor_name,
+                visitor_email: result.visitor_email,
+                visitor_uniqueNum: result.visitor_uniqueNum,
+                completePath: data.visitor_web_path,
+                createdOn: pathDate
+              });
+              newVisitorPath.save();
+            }  
+            callback(result.visitor_id);
+          }
+        }
+      );
+
+      // response = {  repId: dat.repMsgId, 
+      //   msgId: msgId , 
+      //   msgFrom : ""  , 
+      //   msgTo : "",
+      //   msg : "", 
+      //   file : "", 
+      //   createdOn : "",
+      //   repmsgFrom :msgFrom  , 
+      //   repmsgTo : msgTo,
+      //   repmsg : msg, 
+      //   repfile : file, 
+      //   repcreatedOn : createdOn,
+      //   reproomId : room,
+      //   repIsRead : dat.isRead
+      // }
+
+      // callback(response);
+
+      //#endregion
+    });   
+    
+    socket.on("set-user-data", function(username) {
+      // const username = 'rBXxhnFCR';
+      console.log(username + "  logged In");
+
+      //storing variable.
+      socket.username = username;
+      userSocket[socket.username] = socket.id;
+      visitorSocket[socket.username] = socket.id;
+      agentSocket[socket.username] = socket.id;
+
+      socket.broadcast.emit("broadcast", {
+        description: username + " Logged In on signup"
+      });
+
+      //getting all users list
+      eventEmitter.emit("get-all-visitors");
+
+      //sending all users list. and setting if online or offline.
+      sendVisitorStack = function() {
+        for (i in visitorSocket) {
+          for (j in visitorStack) {
+            if (j == i) {
+              visitorStack[j] = "Online";
+            }
+          }
+        }
+        console.log(visitorStack);
+        //for popping connection message.
+        ioChat.emit("onlineStack", visitorStack);
+
+      }; //end of sendUserStack function.
+
+
+      eventEmitter.emit("get-all-agents");
+
+      //sending all agent list. and setting if online or offline.
+      sendAgentStack = function() {
+        for (i in agentSocket) {
+          for (j in agentStack) {
+            if (j == i) {
+              agentStack[j] = "Online";
+            }
+          }
+        }
+        //for popping connection message.
+        ioChat.emit("agentsList", agentStack);    
+      }; //end of sendUserStack function.
+
+    });
+    
+    socket.on("disconnect", function() {
+      console.log("newvisitor signup disconnected.");
+    });
+  });
+  //#endregion
 
   //
   //
